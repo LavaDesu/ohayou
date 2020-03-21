@@ -1,0 +1,48 @@
+{
+  "name": "ohayou",
+  "version": "0.1.0",
+  "description": "A node.js wrapper for the upcoming osu!api v2",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "gulp build",
+    "docs": "typedoc src/index.ts --out docs --mode library --tsconfig tsconfig.doc.json",
+    "test": "mocha -r ts-node/register test/**.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoeLava/ohayou.git"
+  },
+  "keywords": [
+    "osu",
+    "api",
+    "wrapper",
+    "oauth2"
+  ],
+  "author": "MoeLava <me@lava.moe> (https://lava.moe)",
+  "files": [
+    "lib"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MoeLava/ohayou/issues"
+  },
+  "homepage": "https://github.com/MoeLava/ohayou#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/gulp": "^4.0.6",
+    "@types/gulp-sourcemaps": "0.0.32",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.9.1",
+    "chai": "^4.2.0",
+    "gulp": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-typedoc": "^2.2.4",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "mocha": "^7.1.0",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.1.0",
+    "typedoc": "^0.17.0-3",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {}
+}

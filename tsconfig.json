@@ -1,0 +1,13 @@
+{
+  "include": ["./src/**/*.ts"],
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "sourceRoot": "./src"
+  }
+}
