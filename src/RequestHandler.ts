@@ -1,6 +1,7 @@
-import { BaseRequest } from "./Structures/Net/Request/BaseRequest";
-import * as http from "http";
-import * as https from "https";
+import { RequestObject } from "./Structures/Net/RequestObject";
+import { IncomingMessage, RequestOptions, ClientRequest } from "http";
+import { request } from "https";
+import { RequestType } from "./Enums";
 
 /**
  * Sends and Handles requests
@@ -10,10 +11,10 @@ export class RequestHandler {
 
     /**
      * Send an HTTP(s) request
-     * @param req - Data to send for request
+     * @param data - Data to send for request
      * @returns Response for requested data
      */
-    public static async request<T>(req: BaseRequest): Promise<T> {
+    public static async request<T>(data: RequestObject): Promise<T> {
         let pResolve: (value?: T | PromiseLike<T>) => void;
         let pReject: (reason?: any) => void;
 
@@ -22,46 +23,53 @@ export class RequestHandler {
             pReject = d;
         });
 
-        https.request(this.serializeRequest(req))
-        .once("response", (res: http.IncomingMessage) => {
-            res.setEncoding("utf8");
+        const req = request(this.serializeRequest(data))
+            .once("response", (res: IncomingMessage) => {
+                res.setEncoding("utf8");
 
-            let raw: string = "";
-            res.on("data", d => raw += d);
-            res.on("end", () => {
-                try {
-                    pResolve(JSON.parse(raw) as T);
-                } catch(e) {
-                    pReject(e);
-                }
+                let raw: string = "";
+                res.on("data", d => raw += d);
+                res.on("end", () => {
+                    try {
+                        pResolve(JSON.parse(raw) as T);
+                    } catch(e) {
+                        pReject(e);
+                    }
+                });
+            })
+            .on("error", (err: Error) => {
+                pReject(err); //TODO: custom logger?
             });
-        })
-        .on("error", (err: Error) => {
-            pReject(err); //TODO: custom logger?
-        })
-        .end();
+
+        if (data.type === RequestType.POST)
+            req.write(JSON.stringify(data.body));
+
+        req.end();
 
         return promise;
     }
 
     /**
      * Serialize a Request object
-     * @arg request - Request object to serialize
+     * @param data - Request object to serialize
      * @returns Object for use in request
      */
-    private static serializeRequest(request: BaseRequest): https.RequestOptions {
-        if (request.auth)
-            request.headers["Authorization"] = request.auth;
+    private static serializeRequest(data: RequestObject): RequestOptions {
+        if (data.auth)
+            data.headers["Authorization"] = data.auth;
 
-        request.headers["Content-Type"] = "application/json";
-        request.headers["User-Agent"] = "LavasTest/1.0 (Discord: Lava#3374)";
+        if (data.type === RequestType.POST)
+            data.headers["Content-Length"] = JSON.stringify(data.body).length.toString();
+
+        data.headers["Content-Type"] = "application/json";
+        data.headers["User-Agent"] = "LavasTest/1.0 (Discord: Lava#3374)";
 
         return {
-            headers: request.headers,
+            headers: data.headers,
             host: this.baseURL,
             port: 443,
-            method: request.type,
-            path: request.endpoint
+            method: data.type,
+            path: data.endpoint
         };
     }
 }

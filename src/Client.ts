@@ -1,35 +1,99 @@
-import * as events from "events";
-import { Token } from "./Structures/Net/Response/Token";
-import { User } from "./Structures/Net/Response/User";
+import { EventEmitter } from "events";
+import { Token as TokenObject } from "./Structures/Net/Response/Token";
+import { User as UserObject } from "./Structures/Net/Response/User";
 import { RequestHandler } from "./RequestHandler";
 import { RequestType, Scope } from "./Enums";
 import { Endpoints } from "./Endpoints";
+import { Token } from "./Structures/Token";
 
 /**
  * The main API Client
- * @prop token - Current OAuth token
- * @prop refreshToken - OAuth refresh token
- * @extends events.EventEmitter
  */
-export class Client extends events.EventEmitter {
-    token: Token;
-    refreshToken: string;
+export class Client extends EventEmitter {
+    private client_id: number;
+    private client_secret: string;
 
     /**
      * Create an API Client
-     * @param token - A token object
+     * @param id - OAuth client ID
+     * @param secret - OAuth client secret
      */
-    constructor(token: Token) {
+    constructor(id: number, secret: string) {
         super();
-        this.token = token;
+        this.client_id = id;
+        this.client_secret = secret;
     }
 
     /**
-     * Test!
-     * @returns basic hello world smh my head
+     * Name a token
+     * - Overridable for custom naming behaviour
+     * @param token - Token to name
      */
-    public test(): string {
-        return "Hello World!";
+    private async nameToken(token: Token): Promise<Token> {
+        const owner: UserObject = await this.getSelf(token);
+        token.name = owner.username;
+        return token;
+    }
+
+    /**
+     * Create a token
+     * @param token - Access/Refresh token
+     * @param type - Token type, either `refresh` or `auth`
+     */
+    public async createToken(token: string, type: "refresh" | "auth"): Promise<Token> {
+        let tokenObj: TokenObject;
+
+        if (type === "refresh")
+            tokenObj = await this.getTokenFromRefresh(token);
+        else if (type === "auth")
+            tokenObj = await this.getTokenFromAuth(token);
+        else
+            throw new TypeError("Invalid token type");
+
+        const pendingToken = new Token(tokenObj, this);
+        this.nameToken(pendingToken);
+        return pendingToken;
+    }
+
+    /**
+     * Get an access token from an authorization code
+     * - Reference: {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
+     * @param code - Authorization code
+     */
+    public async getTokenFromAuth(code: string): Promise<TokenObject> {
+        const response = await RequestHandler.request<TokenObject>({
+            body: {
+                "grant_type": "authorization_code",
+                "client_id": this.client_id,
+                "client_secret": this.client_secret,
+                "code": code
+            },
+            endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
+            headers: {},
+            scopes: [],
+            type: RequestType.POST
+        });
+        return response;
+    }
+
+    /**
+     * Get an access token from a refresh token
+     * @param token - Refresh token
+     */
+    public async getTokenFromRefresh(token: string): Promise<TokenObject> {
+        const response = await RequestHandler.request<TokenObject>({
+            body: {
+                "grant_type": "refresh_token",
+                "client_id": this.client_id,
+                "client_secret": this.client_secret,
+                "refresh_token": token
+            },
+            endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
+            headers: {},
+            scopes: [],
+            type: RequestType.POST
+        });
+        return response;
     }
 
     /**
@@ -38,11 +102,11 @@ export class Client extends events.EventEmitter {
      * Scopes required:
      * - identify
      *
-     * @category Undocumented
+     * @param token - Token to authenticate with
      */
-    public async getSelf(): Promise<User> {
-        const response = await RequestHandler.request<User>({
-            auth: `${this.token.token_type} ${this.token.access_token}`,
+    public async getSelf(token: Token): Promise<UserObject> {
+        const response = await RequestHandler.request<UserObject>({
+            auth: `${token.toString()}`,
             body: {},
             endpoint: Endpoints.API_PREFIX + Endpoints.ME,
             headers: {},
@@ -60,11 +124,11 @@ export class Client extends events.EventEmitter {
      * Scopes required:
      * - friends.read
      *
-     * @category Undocumented
+     * @param token - Token to authenticate with
      */
-    public async getFriends(): Promise<User[]> {
-        const response = await RequestHandler.request<User[]>({
-            auth: `${this.token.token_type} ${this.token.access_token}`,
+    public async getFriends(token: Token): Promise<UserObject[]> {
+        const response = await RequestHandler.request<UserObject[]>({
+            auth: `${token.toString()}`,
             body: {},
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
             headers: {},
@@ -82,11 +146,12 @@ export class Client extends events.EventEmitter {
      * Scopes required:
      * - users.read
      *
-     * @param id - User id to request
+     * @param token - Token to authenticate with
+     * @param id - User ID to request
      */
-    public async getUser(id: string | number): Promise<User> {
-        const response = await RequestHandler.request<User>({
-            auth: `${this.token.token_type} ${this.token.access_token}`,
+    public async getUser(id: number, token: Token): Promise<UserObject> {
+        const response = await RequestHandler.request<UserObject>({
+            auth: `${token.toString()}`,
             body: {},
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()),
             headers: {},
@@ -97,8 +162,4 @@ export class Client extends events.EventEmitter {
         });
         return response;
     }
-
-    //#region Chat
-
-    //#endregion Chat
 }

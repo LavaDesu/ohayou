@@ -153,6 +153,17 @@ export namespace Endpoints {
 
     //#endregion Ranking
 
+    //#region Token
+
+    /**
+     * Request a (new) token
+     * - Request type: POST
+     * - Reference: {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
+     */
+    export const TOKEN: string = "/token";
+
+    //#endregion Token
+
     //#endregion Documented
 
     //#region Undocumented
