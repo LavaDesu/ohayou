@@ -25,8 +25,15 @@ export class RequestHandler { //TODO: Other request types
             pReject = d;
         });
 
-        const req = request(this.serializeRequest(data))
+        const serializedData: RequestOptions = this.serializeRequest(data);
+        const req = request(serializedData)
             .once("response", (res: IncomingMessage) => {
+
+                if (res.statusCode >= 400) {
+                    pReject(`Request to ${serializedData.path} returned ${res.statusCode}: ${res.statusMessage}`);
+                    return;
+                }
+
                 res.setEncoding("utf8");
 
                 let raw: string = "";
