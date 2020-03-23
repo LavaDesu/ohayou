@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { Token as TokenObject } from "./Structures/Net/Response/Token";
 import { User as UserObject } from "./Structures/Net/Response/User";
 import { RequestHandler } from "./RequestHandler";
-import { RequestType, Scope } from "./Enums";
+import { RequestType, Scope, GameMode } from "./Enums";
 import { Endpoints } from "./Endpoints";
 import { Token } from "./Structures/Token";
 
@@ -101,11 +101,12 @@ export class Client extends EventEmitter {
      * - identify
      *
      * @param token - Token to authenticate with
+     * @param mode - Specific gamemode to request for
      */
-    public async getSelf(token: Token): Promise<UserObject> {
+    public async getSelf(token: Token, mode?: GameMode): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
             auth: `${token.toString()}`,
-            endpoint: Endpoints.API_PREFIX + Endpoints.ME,
+            endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode || ""),
             scopes: [
                 Scope["identify"]
             ],
@@ -142,11 +143,12 @@ export class Client extends EventEmitter {
      *
      * @param token - Token to authenticate with
      * @param id - User ID to request
+     * @param mode - Specific gamemode to request for
      */
-    public async getUser(token: Token, id: number): Promise<UserObject> {
+    public async getUser(token: Token, id: number, mode?: GameMode): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
             auth: `${token.toString()}`,
-            endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()),
+            endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
             scopes: [
                 Scope["users.read"]
             ],

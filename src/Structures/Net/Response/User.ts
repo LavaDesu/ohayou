@@ -102,7 +102,7 @@ interface Page {
 }
 
 interface RankHistory {
-    mode: string;
+    mode: GameMode;
     data: number[];
 }
 

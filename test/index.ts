@@ -2,6 +2,7 @@ import { Client } from "../src";
 import "mocha";
 import { expect } from "chai";
 import { Token } from "../src/Structures/Token";
+import { GameMode } from "../src/Enums";
 
 const ohayou = new Client(parseInt(process.env.CLIENT_ID), process.env.CLIENT_SECRET);
 let token: Token;
@@ -14,22 +15,44 @@ describe("Osu", () => {
             console.log(token.refreshToken);
         });
 
-        it("should username = -Lava", async () => {
-            const res = await ohayou.getSelf(token);
-            // console.log(res);
-            expect(res.username).to.equal("-Lava");
+        describe("#getSelf", () => {
+            it("default mode", async () => {
+                const res = await ohayou.getSelf(token);
+                // console.log(res);
+                expect(res.username).to.equal("-Lava");
+                if (res.rankHistory)
+                    expect(res.rankHistory.mode).to.equal(res.playmode);
+            });
+            it("mania mode", async () => {
+                const res = await ohayou.getSelf(token, GameMode.Mania);
+                // console.log(res);
+                expect(res.username).to.equal("-Lava");
+                if (res.rankHistory)
+                    expect(res.rankHistory.mode).to.equal(GameMode.Mania);
+            });
         });
 
-        it("should typeof array", async () => {
+        describe("#getUser", () => {
+            it("default mode", async () => {
+                const res = await ohayou.getUser(token, 2);
+                // console.log(res);
+                expect(res.username).to.equal("peppy");
+                if (res.rankHistory)
+                    expect(res.rankHistory.mode).to.equal(res.playmode);
+            });
+            it("mania mode", async () => {
+                const res = await ohayou.getUser(token, 2, GameMode.Mania);
+                // console.log(res);
+                expect(res.username).to.equal("peppy");
+                if (res.rankHistory)
+                    expect(res.rankHistory.mode).to.equal(GameMode.Mania);
+            });
+        });
+
+        it("#getFriends", async () => {
             const res = await ohayou.getFriends(token);
             // console.log(res);
             expect(res).to.be.an("array");
-        });
-
-        it("should username = peppy", async () => {
-            const res = await ohayou.getUser(2, token);
-            // console.log(res);
-            expect(res.username).to.equal("peppy");
         });
     });
 });

@@ -181,11 +181,9 @@ export namespace Endpoints {
     /** @category Undocumented */
     export const CHANGELOG_SINGLE: string = "/changelog/{changelog}";
     /** @category Undocumented */
-    export const ROOM: string = "/rooms";
+    export const ROOM: string = "/rooms/{mode}";
     /** @category Undocumented */
     export const ROOM_SINGLE: string = "/rooms/{room}";
-    /** @category Undocumented */
-    export const ROOM_MODE: string = "/rooms/{mode}";
     /** @category Undocumented */
     export const ROOM_USER: string = "/rooms/{room}/users/{user}";
     /** @category Undocumented */
@@ -207,9 +205,7 @@ export namespace Endpoints {
     /** @category Undocumented */
     export const BEATMAP_SINGLE: string = "/beatmaps/{beatmap}";
     /** @category Undocumented */
-    export const BEATMAPSET_SEARCH: string = "/beatmapsets/search";
-    /** @category Undocumented */
-    export const BEATMAPSET_SEARCH_FILTERED: string = "/beatmapsets/search/{filters}";
+    export const BEATMAPSET_SEARCH: string = "/beatmapsets/search/{filters}";
     /** @category Undocumented */
     export const BEATMAPSET_LOOKUP: string = "/beatmapsets/lookup";
     /** @category Undocumented */
@@ -227,9 +223,7 @@ export namespace Endpoints {
      *   - {@link Client.getSelf}
      * @category Undocumented
      */
-    export const ME: string = "/me";
-    /** @category Undocumented */
-    export const ME_MODE: string = "/me/{mode}";
+    export const ME: string = "/me/{mode}";
     /** @category Undocumented */
     export const ME_DL_QUOTA: string = "/me/download-quota-check";
     /**
@@ -237,9 +231,7 @@ export namespace Endpoints {
      *   - {@link Client.getUser}
      * @category Undocumented
      */
-    export const USER_SINGLE: string = "/users/{user}";
-    /** @category Undocumented */
-    export const USER_MODE: string = "/users/{user}/{mode}";
+    export const USER_SINGLE: string = "/users/{user}/{mode}";
     /** @category Undocumented */
     export const USER_KUDOSU: string = "/users/{user}/kudosu";
     /** @category Undocumented */
