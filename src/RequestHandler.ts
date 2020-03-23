@@ -1,12 +1,12 @@
 import { RequestObject } from "./Structures/Net/RequestObject";
-import { IncomingMessage, RequestOptions, ClientRequest } from "http";
+import { IncomingMessage, RequestOptions } from "http";
 import { request } from "https";
 import { RequestType } from "./Enums";
 
 /**
  * Sends and Handles requests
  */
-export class RequestHandler {
+export class RequestHandler { //TODO: Other request types
     private static readonly baseURL: string = "osu.ppy.sh";
 
     /**
@@ -62,7 +62,7 @@ export class RequestHandler {
             data.headers["Content-Length"] = JSON.stringify(data.body).length.toString();
 
         data.headers["Content-Type"] = "application/json";
-        data.headers["User-Agent"] = "LavasTest/1.0 (Discord: Lava#3374)";
+        data.headers["User-Agent"] = `Ohayou/0.1.0`;
 
         return {
             headers: data.headers,

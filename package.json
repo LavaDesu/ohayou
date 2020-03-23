@@ -3,10 +3,16 @@
   "version": "0.1.0",
   "description": "A node.js wrapper for the upcoming osu!api v2",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "build:check": "tsc --noEmit",
     "docs": "typedoc src/index.ts --out docs --mode library --tsconfig tsconfig.doc.json",
-    "test": "mocha test/**.ts --timeout 10000 -r ts-node/register"
+    "test": "mocha test/**.ts --timeout 10000 -r ts-node/register",
+    "start": "tsc && node lib/index.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   },
   "repository": {
     "type": "git",
