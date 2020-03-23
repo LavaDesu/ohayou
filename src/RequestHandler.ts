@@ -2,6 +2,7 @@ import { RequestObject } from "./Structures/Net/RequestObject";
 import { IncomingMessage, RequestOptions } from "http";
 import { request } from "https";
 import { RequestType } from "./Enums";
+import { parse, format } from "url";
 
 /**
  * Sends and Handles requests
@@ -55,21 +56,31 @@ export class RequestHandler { //TODO: Other request types
      * @returns Object for use in request
      */
     private static serializeRequest(data: RequestObject): RequestOptions {
+        const headers: { [name: string]: string } = {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": "Ohayou/0.1.0"
+        };
+
         if (data.auth)
-            data.headers["Authorization"] = data.auth;
+            headers["Authorization"] = data.auth;
 
         if (data.type === RequestType.POST)
-            data.headers["Content-Length"] = JSON.stringify(data.body).length.toString();
+            headers["Content-Length"] = JSON.stringify(data.body).length.toString();
 
-        data.headers["Content-Type"] = "application/json";
-        data.headers["User-Agent"] = `Ohayou/0.1.0`;
+        const url = parse(format({
+            protocol: "https",
+            hostname: this.baseURL,
+            pathname: data.endpoint,
+            query: {...data.query}
+        }));
 
         return {
-            headers: data.headers,
-            host: this.baseURL,
+            headers: {...headers, ...data.headers},
+            hostname: url.hostname,
             port: 443,
             method: data.type,
-            path: data.endpoint
+            path: url.path
         };
     }
 }

@@ -69,7 +69,6 @@ export class Client extends EventEmitter {
                 "code": code
             },
             endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
-            headers: {},
             scopes: [],
             type: RequestType.POST
         });
@@ -89,7 +88,6 @@ export class Client extends EventEmitter {
                 "refresh_token": token
             },
             endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
-            headers: {},
             scopes: [],
             type: RequestType.POST
         });
@@ -107,9 +105,7 @@ export class Client extends EventEmitter {
     public async getSelf(token: Token): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
             auth: `${token.toString()}`,
-            body: {},
             endpoint: Endpoints.API_PREFIX + Endpoints.ME,
-            headers: {},
             scopes: [
                 Scope["identify"]
             ],
@@ -129,9 +125,7 @@ export class Client extends EventEmitter {
     public async getFriends(token: Token): Promise<UserObject[]> {
         const response = await RequestHandler.request<UserObject[]>({
             auth: `${token.toString()}`,
-            body: {},
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
-            headers: {},
             scopes: [
                 Scope["friends.read"]
             ],
@@ -152,9 +146,7 @@ export class Client extends EventEmitter {
     public async getUser(id: number, token: Token): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
             auth: `${token.toString()}`,
-            body: {},
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()),
-            headers: {},
             scopes: [
                 Scope["users.read"]
             ],
