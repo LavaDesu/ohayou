@@ -143,7 +143,7 @@ export class Client extends EventEmitter {
      * @param token - Token to authenticate with
      * @param id - User ID to request
      */
-    public async getUser(id: number, token: Token): Promise<UserObject> {
+    public async getUser(token: Token, id: number): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
             auth: `${token.toString()}`,
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()),
