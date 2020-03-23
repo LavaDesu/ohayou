@@ -14,14 +14,13 @@ export enum BeatmapApproval {
  *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Beatmaps/BeatmapSetOnlineStatus.cs}
  */
 export enum BeatmapSetOnlineStatus {
-    None = -3,
-    Graveyard = -2,
-    WIP = -1,
-    Pending = 0,
-    Ranked = 1,
-    Approved = 2,
-    Qualified = 3,
-    Loved = 4
+    Approved = "approved",
+    Graveyard = "graveyard",
+    Loved = "loved",
+    Pending = "pending",
+    Qualified = "qualified",
+    Ranked = "ranked",
+    WIP = "wip"
 }
 
 /**
