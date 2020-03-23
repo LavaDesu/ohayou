@@ -1,25 +1,25 @@
-import { RecentActivityType, ScoreRank, BeatmapApproval } from "../../../Enums";
+import { BeatmapApproval, RecentActivityType, ScoreRank } from "../../../Enums";
 
 /**
  * **RecentActivity**
  * - **Untested**
- * - Reference:
+ * - References:
  *   - Response sample from `/api/v2/users/{user}/recent_activity`
  *   - {@link https://github.com/ppy/osu/osu.Game/Online/API/Requests/Responses/APIRecentActivity.cs}
  */
 export interface RecentActivity {
     id: number;
-    createdAt: number;
-    type: RecentActivityType;
-    scoreRank: ScoreRank;
-    rank: number;
+    achievement: RecentActivityAchievement;
     approval: BeatmapApproval;
-    count: number;
-    mode: string;
     beatmap: RecentActivityBeatmap;
     beatmapset: RecentActivityBeatmap;
+    count: number;
+    createdAt: number;
+    mode: string;
+    rank: number;
+    scoreRank: ScoreRank;
+    type: RecentActivityType;
     user: RecentActivityUser;
-    achievement: RecentActivityAchievement;
 }
 
 interface RecentActivityBeatmap {
@@ -28,12 +28,12 @@ interface RecentActivityBeatmap {
 }
 
 interface RecentActivityUser {
+    previousUsername: string;
     username: string;
     url: string;
-    previousUsername: string;
 }
 
 interface RecentActivityAchievement {
+    name: string;
     slug: string;
-    Nname: string;
 }

@@ -1,4 +1,4 @@
-import { UserCompact } from "./UserCompact";
+import { UserCompact } from "./";
 
 /**
  * **ChatMessage**
@@ -6,11 +6,11 @@ import { UserCompact } from "./UserCompact";
  *   - {@link https://osu.ppy.sh/docs/index.html#chatmessage}
  */
 export interface ChatMessage {
-    message_id: number;
-    sender_id: number;
     channel_id: number;
-    timestamp: string;
     content: string;
     is_action: boolean;
+    message_id: number;
     sender: UserCompact;
+    sender_id: number;
+    timestamp: string;
 }

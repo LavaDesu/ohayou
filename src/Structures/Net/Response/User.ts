@@ -1,4 +1,5 @@
-import { Playstyle, GameMode } from "../../../Enums";
+import { UserStatistics } from "./";
+import { GameMode, Playstyle } from "../../../Enums";
 
 /**
  * **User**
@@ -6,69 +7,69 @@ import { Playstyle, GameMode } from "../../../Enums";
  * - **Untested**
  * - **Undocumented**
  * - There are many nullables here that isn't typed, and it is also a very huge response
- * - Reference:
+ * - References:
  *   - Response sample from `api/v2/me`
  *   - {@link https://github.com/ppy/osu/osu.Game/Users/User.cs}
  */
 export interface User {
-    id?: number;
-    username?: string;
-    join_date?: string;
-    country?: Country;
-    avatar_url?: string;
-    is_supporter?: boolean;
-    has_supported?: boolean;
-    is_restricted?: boolean;
-    is_gmt?: boolean;
-    is_nat?: boolean;
-    is_bng?: boolean;
-    is_full_bn?: boolean;
-    is_limited_bn?: boolean;
-    is_bot?: boolean;
-    is_active?: boolean;
-    can_moderate?: boolean;
-    interests?: string;
-    occupation?: string;
-    title?: string;
-    location?: string;
-    last_visit?: string;
-    is_online?: boolean;
-    twitter?: string;
-    lastfm?: string;
-    skype?: string;
-    website?: string;
-    discord?: string;
-    playstyle?: Playstyle[];
-    playmode?: GameMode;
-    pm_friends_only?: boolean;
-    post_count?: number;
-    profile_colour?: string;
-    profile_order?: string[];
-    cover_url?: string;
-    cover?: Cover;
-    kudosu?: Kudosu;
-    max_blocks?: number;
-    max_friends?: number;
+    id: number;
     /** Unknown, no reference in lazer */
     account_history?: {}[];
     /** Unknown, no reference in lazer */
     active_tournament_banner?: {}[];
+    avatar_url?: string;
     badges?: Badge[];
+    can_moderate?: boolean;
+    country?: Country;
+    cover?: Cover;
+    cover_url?: string;
+    discord?: string;
     favourite_beatmapset_count?: number;
     follower_count?: number;
     graveyard_beatmapset_count?: number;
+    has_supported?: boolean;
+    interests?: string;
+    is_active?: boolean;
+    is_bng?: boolean;
+    is_bot?: boolean;
+    is_full_bn?: boolean;
+    is_gmt?: boolean;
+    is_limited_bn?: boolean;
+    is_nat?: boolean;
+    is_online?: boolean;
+    is_restricted?: boolean;
+    is_supporter?: boolean;
+    join_date?: string;
+    kudosu?: Kudosu;
+    last_visit?: string;
+    lastfm?: string;
+    location?: string;
     loved_beatmapset_count?: number;
+    max_blocks?: number;
+    max_friends?: number;
     monthly_playcounts?: Count[];
+    occupation?: string;
     page?: Page;
+    playmode?: GameMode;
+    playstyle?: Playstyle[];
+    pm_friends_only?: boolean;
+    post_count?: number;
     previous_usernames?: string[];
+    profile_colour?: string;
+    profile_order?: string[];
+    rankHistory?: RankHistory;
     ranked_and_approved_beatmapset_count?: number;
     replays_watched_counts?: Count[];
     scores_first_count?: number;
-    statistics?: Statistics;
+    skype?: string;
+    statistics?: UserStatistics;
     support_level?: number;
+    title?: string;
+    twitter?: string;
     unranked_beatmapset_count?: number;
     user_achievements?: UserAchievement[];
-    rankHistory?: RankHistory;
+    username?: string;
+    website?: string;
 }
 
 interface Badge {
@@ -83,19 +84,19 @@ interface Country {
 }
 
 interface Cover {
+    id: number | null;
     custom_url: string;
     url: string;
-    id: number | null;
 }
 
 interface Kudosu {
-    total: number;
     available: number;
+    total: number;
 }
 
 interface Count {
-    start_date: string;
     count: number;
+    start_date: string;
 }
 
 interface Page {
@@ -104,25 +105,8 @@ interface Page {
 }
 
 interface RankHistory {
-    mode: GameMode;
     data: number[];
-}
-
-interface Statistics {
-    level: Level;
-    pp: number;
-    pp_rank: number;
-    ranked_score: number;
-    hit_accuracy: number;
-    play_count: number;
-    play_time: number;
-    total_score: number;
-    total_hits: number;
-    maximum_combo: number;
-    replays_watched_by_others: number;
-    is_ranked: boolean;
-    grade_counts: GradeCounts;
-    rank: Rank;
+    mode: GameMode;
 }
 
 export interface GradeCounts {
@@ -139,8 +123,8 @@ interface Level {
 }
 
 interface Rank {
-    global: number;
     country: number;
+    global: number;
 }
 
 interface UserAchievement {

@@ -1,4 +1,4 @@
-import { Scope, RequestType } from "../../Enums";
+import { RequestType, Scope } from "../../Enums";
 
 /**
  * A base request

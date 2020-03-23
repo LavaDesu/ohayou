@@ -1,6 +1,6 @@
-import { Token as TokenObject } from "./Net/Response/Token";
 import { Client } from "../Client";
 import { TokenType } from "../Enums";
+import { Token as TokenObject } from "./Net/Response";
 
 /**
  * Represents a token class to perform authenticated requests with

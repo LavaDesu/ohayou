@@ -1,6 +1,4 @@
-import { BeatmapSet } from "./BeatmapSet";
-import { UserStatistics } from "./UserStatistics";
-import { Spotlight } from "./Spotlight";
+import { BeatmapSet, Spotlight, UserStatistics } from "./";
 
 /**
  * **RankingResponse**

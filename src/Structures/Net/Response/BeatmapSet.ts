@@ -1,5 +1,5 @@
+import { Beatmap } from "./";
 import { BeatmapSetOnlineStatus } from "../../../Enums";
-import { Beatmap } from "./Beatmap";
 
 /**
  * **BeatmapSet**
@@ -8,28 +8,29 @@ import { Beatmap } from "./Beatmap";
  *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Online/API/Requests/Responses/APIBeatmapSet.cs}
  */
 export interface BeatmapSet {
-    covers: Covers;
     id: number;
-    status: BeatmapSetOnlineStatus;
-    preview_url: string;
-    has_favourited: string;
-    play_count: string;
-    favourite_count: string;
+    availability: Availability;
+    beatmaps?: Beatmap[];
     bpm: number;
-    video: boolean;
+    covers: Covers;
+    favourite_count: string;
+    genre: Genre;
+    has_favourited: string;
+    language: Language;
+    last_updated: string;
+    play_count: string;
+    preview_url: string;
+    ranked_date: string | null;
+    ratings: number[];
+    status: BeatmapSetOnlineStatus;
     storyboard: boolean;
     submitted_date: string;
-    ranked_date: string | null;
-    last_updated: string;
-    ratings: number[];
+    video: boolean;
     user_id: number;
-    availability: Availability;
-    genre: Genre;
-    beatmaps?: Beatmap[];
 }
 
 /**
- * Reference: {@link https://github.com/ppy/osu/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L102}
+ * Reference: {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L102}
  */
 interface Covers {
     "cover@2x": string;
@@ -38,7 +39,7 @@ interface Covers {
 }
 
 /**
- * Reference: {@link https://github.com/ppy/osu/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L120}
+ * Reference: {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L120}
  */
 interface Availability {
     download_disabled: boolean;
@@ -48,7 +49,7 @@ interface Availability {
 /**
  * **Unclear**
  *
- * Reference: {@link https://github.com/ppy/osu/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L90}
+ * Reference: {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L90}
  */
 interface Genre {
     id: string;
@@ -58,7 +59,7 @@ interface Genre {
 /**
  * **Unclear**
  *
- * Reference: {@link https://github.com/ppy/osu/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L96}
+ * Reference: {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L96}
  */
 interface Language {
     id: string;

@@ -1,14 +1,26 @@
 import { EventEmitter } from "events";
-import { BeatmapSet as BeatmapSetObject} from "./Structures/Net/Response/BeatmapSet";
-import { LegacyScore } from "./Structures/Net/Response/LegacyScore";
-import { RecentActivity } from "./Structures/Net/Response/RecentActivity";
-import { Token as TokenObject } from "./Structures/Net/Response/Token";
-import { User as UserObject } from "./Structures/Net/Response/User";
-import { RequestHandler } from "./RequestHandler";
-import { RequestType, Scope, GameMode, BeatmapSetType, ScoreType } from "./Enums";
+
 import { Endpoints } from "./Endpoints";
-import { Token } from "./Structures/Token";
-import { Kudosu as KudosuObject } from "./Structures/Net/Response/Kudosu";
+import { RequestHandler } from "./RequestHandler";
+import { Token } from "./Structures";
+
+import {
+    BeatmapSetType,
+    GameMode,
+    GrantType,
+    RequestType,
+    Scope,
+    ScoreType
+} from "./Enums";
+
+import {
+    BeatmapSet as BeatmapSetObject,
+    Kudosu as KudosuObject,
+    LegacyScore,
+    RecentActivity,
+    Token as TokenObject,
+    User as UserObject
+} from "./Structures/Net/Response";
 
 /**
  * The main API Client
@@ -31,17 +43,6 @@ export class Client extends EventEmitter {
     //#region Token
 
     /**
-     * Name a token
-     * - Overridable for custom naming behaviour
-     * @param token - Token to name
-     */
-    private async nameToken(token: Token): Promise<Token> {
-        const owner: UserObject = await this.getSelf(token);
-        token.name = owner.username;
-        return token;
-    }
-
-    /**
      * Create a token
      * @param token - Access/Refresh token
      * @param type - Token type, either `refresh` or `auth`
@@ -57,19 +58,31 @@ export class Client extends EventEmitter {
             throw new TypeError("Invalid token type");
 
         const pendingToken = new Token(tokenObj, this);
-        this.nameToken(pendingToken);
+        await this.nameToken(pendingToken);
         return pendingToken;
     }
 
     /**
+     * Name a token
+     * - Overridable for custom naming behaviour
+     * @param token - Token to name
+     */
+    private async nameToken(token: Token): Promise<Token> {
+        const owner: UserObject = await this.getSelf(token);
+        token.name = owner.username;
+        return token;
+    }
+
+    /**
      * Get an access token from an authorization code
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
      * @param code - Authorization code
      */
     public async getTokenFromAuth(code: string): Promise<TokenObject> {
         const response = await RequestHandler.request<TokenObject>({
             body: {
-                "grant_type": "authorization_code",
+                "grant_type": GrantType.AuthCode,
                 "client_id": this.client_id,
                 "client_secret": this.client_secret,
                 "code": code
@@ -88,7 +101,7 @@ export class Client extends EventEmitter {
     public async getTokenFromRefresh(token: string): Promise<TokenObject> {
         const response = await RequestHandler.request<TokenObject>({
             body: {
-                "grant_type": "refresh_token",
+                "grant_type": GrantType.RefreshToken,
                 "client_id": this.client_id,
                 "client_secret": this.client_secret,
                 "refresh_token": token
@@ -107,15 +120,15 @@ export class Client extends EventEmitter {
     /**
      * Get a {@link User} object of the current authenticated user
      *
-     * Scopes required:
-     * - identify
+     * - Scopes required:
+     *   - identify
      *
      * @param token - Token to authenticate with
      * @param mode - Specific gamemode to request for
      */
     public async getSelf(token: Token, mode?: GameMode): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
-            auth: `${token.toString()}`,
+            auth: token.toString(),
             endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode || ""),
             scopes: [
                 Scope["identify"]
@@ -128,14 +141,14 @@ export class Client extends EventEmitter {
     /**
      * Get friends of the current authenticated user
      *
-     * Scopes required:
-     * - friends.read
+     * - Scopes required:
+     *   - friends.read
      *
      * @param token - Token to authenticate with
      */
     public async getFriends(token: Token): Promise<UserObject[]> {
         const response = await RequestHandler.request<UserObject[]>({
-            auth: `${token.toString()}`,
+            auth: token.toString(),
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
             scopes: [
                 Scope["friends.read"]
@@ -152,8 +165,8 @@ export class Client extends EventEmitter {
     /**
      * Get a limited {@link User} object of another user
      *
-     * Scopes required:
-     * - users.read
+     * - Scopes required:
+     *   - users.read
      *
      * @param token - Token to authenticate with
      * @param id - User ID to request
@@ -161,29 +174,8 @@ export class Client extends EventEmitter {
      */
     public async getUser(token: Token, id: number, mode?: GameMode): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
-            auth: `${token.toString()}`,
+            auth: token.toString(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
-            scopes: [
-                Scope["users.read"]
-            ],
-            type: RequestType.GET
-        });
-        return response;
-    }
-
-    /**
-     * Get a user's kudosu history
-     *
-     * Scopes required:
-     * - users.read
-     *
-     * @param token - Token to authenticate with
-     * @param id - User ID to request
-     */
-    public async getUserKudosuHistory(token: Token, id: number): Promise<KudosuObject[]> {
-        const response = await RequestHandler.request<KudosuObject[]>({
-            auth: `${token.toString()}`,
-            endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
             scopes: [
                 Scope["users.read"]
             ],
@@ -195,8 +187,8 @@ export class Client extends EventEmitter {
     /**
      * Get a user's beatmapsets
      *
-     * Scopes required:
-     * - users.read
+     * - Scopes required:
+     *   - users.read
      *
      * @param token - Token to authenticate with
      * @param id - User ID to request
@@ -204,8 +196,29 @@ export class Client extends EventEmitter {
      */
     public async getUserBeatmapsets(token: Token, id: number, type: BeatmapSetType): Promise<BeatmapSetObject[]> {
         const response = await RequestHandler.request<BeatmapSetObject[]>({
-            auth: `${token.toString()}`,
+            auth: token.toString(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_BEATMAPSETS.replace("{user}", id.toString()).replace("{type}", type),
+            scopes: [
+                Scope["users.read"]
+            ],
+            type: RequestType.GET
+        });
+        return response;
+    }
+
+    /**
+     * Get a user's kudosu history
+     *
+     * - Scopes required:
+     *   - users.read
+     *
+     * @param token - Token to authenticate with
+     * @param id - User ID to request
+     */
+    public async getUserKudosuHistory(token: Token, id: number): Promise<KudosuObject[]> {
+        const response = await RequestHandler.request<KudosuObject[]>({
+            auth: token.toString(),
+            endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
             scopes: [
                 Scope["users.read"]
             ],
@@ -217,15 +230,15 @@ export class Client extends EventEmitter {
     /**
      * Get a user's recent activity
      *
-     * Scopes required:
-     * - users.read
+     * - Scopes required:
+     *   - users.read
      *
      * @param token - Token to authenticate with
      * @param id - User ID to request
      */
     public async getUserRecent(token: Token, id: number): Promise<RecentActivity[]> {
         const response = await RequestHandler.request<RecentActivity[]>({
-            auth: `${token.toString()}`,
+            auth: token.toString(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_RECENT_ACTIVITY.replace("{user}", id.toString()),
             scopes: [
                 Scope["users.read"]
@@ -238,8 +251,8 @@ export class Client extends EventEmitter {
     /**
      * Get a user's scores
      *
-     * Scopes required:
-     * - users.read
+     * - Scopes required:
+     *   - users.read
      *
      * @param token - Token to authenticate with
      * @param id - User ID to request
@@ -247,7 +260,7 @@ export class Client extends EventEmitter {
      */
     public async getUserScores(token: Token, id: number, type: ScoreType): Promise<LegacyScore[]> {
         const response = await RequestHandler.request<LegacyScore[]>({
-            auth: `${token.toString()}`,
+            auth: token.toString(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
             scopes: [
                 Scope["users.read"]

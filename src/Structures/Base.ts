@@ -1,3 +1,3 @@
 export interface Base {
-    init(data: { }, token: string): void;
+    init(data: {}, token: string): void;
 }

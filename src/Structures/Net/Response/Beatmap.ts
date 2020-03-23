@@ -1,5 +1,5 @@
+import { BeatmapSet } from "./";
 import { BeatmapSetOnlineStatus, GameMode } from "../../../Enums";
-import { BeatmapSet } from "./BeatmapSet";
 
 /**
  * **Beatmap**
@@ -9,23 +9,23 @@ import { BeatmapSet } from "./BeatmapSet";
  */
 export interface Beatmap {
     id: number;
-    beatmapset_id: number;
-    status: BeatmapSetOnlineStatus;
-    beatmapset?: BeatmapSet;
-    playcount: number;
-    passcount: number;
-    mode_int: GameMode;
-    difficulty_rating: number;
-    drain: number;
-    cs: number;
-    ar: number;
     accuracy: number;
-    total_length: number;
+    ar: number;
+    beatmapset?: BeatmapSet;
+    beatmapset_id: number;
     count_circles: number;
     count_sliders: number;
-    version: number;
+    cs: number;
+    difficulty_rating: number;
+    drain: number;
     failtimes: Metric;
     max_combo: number;
+    mode_int: GameMode;
+    passcount: number;
+    playcount: number;
+    status: BeatmapSetOnlineStatus;
+    total_length: number;
+    version: number;
 }
 
 /**
@@ -33,8 +33,8 @@ export interface Beatmap {
  * Reference: {@link https://github.com/ppy/osu/blob/master/osu.Game/Beatmaps/BeatmapMetrics.cs}
  */
 interface Metric {
-    /** Points of failure on a relative time scale (usually 0..100). */
-    fail: number[];
     /** Points of retry on a relative time scale (usually 0..100). */
     exit: number[];
+    /** Points of failure on a relative time scale (usually 0..100). */
+    fail: number[];
 }

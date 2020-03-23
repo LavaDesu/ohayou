@@ -1,4 +1,4 @@
-import { Spotlight } from "./Spotlight";
+import { Spotlight } from "./";
 
 /**
  * **SpotlightResponse**

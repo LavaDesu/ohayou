@@ -1,8 +1,9 @@
-import { RequestObject } from "./Structures/Net/RequestObject";
 import { IncomingMessage, RequestOptions } from "http";
 import { request } from "https";
+import { parse, format, UrlWithStringQuery } from "url";
+
 import { RequestType } from "./Enums";
-import { parse, format } from "url";
+import { RequestObject } from "./Structures/Net/RequestObject";
 
 /**
  * Sends and Handles requests
@@ -68,7 +69,7 @@ export class RequestHandler { //TODO: Other request types
         if (data.type === RequestType.POST)
             headers["Content-Length"] = JSON.stringify(data.body).length.toString();
 
-        const url = parse(format({
+        const url: UrlWithStringQuery = parse(format({
             protocol: "https",
             hostname: this.baseURL,
             pathname: data.endpoint,

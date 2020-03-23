@@ -14,7 +14,8 @@ export namespace Endpoints {
     /**
      * This endpoint allows you to create a new PM channel.
      * - Request type: POST
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#create-new-pm}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#create-new-pm}
      *
      * @category Documented
      */
@@ -23,7 +24,8 @@ export namespace Endpoints {
     /**
      * This endpoint returns new messages since the given message_id along with updated channel 'presence' data.
      * - Request type: GET
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#get-updates}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#get-updates}
      *
      * @category Documented
      */
@@ -54,7 +56,8 @@ export namespace Endpoints {
     /**
      * This endpoint marks the channel as having being read up to the given `message_id`.
      * - Request type: PUT
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#mark-channel-as-read}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#mark-channel-as-read}
      *
      * @category Documented
      */
@@ -63,7 +66,8 @@ export namespace Endpoints {
     /**
      * This endpoint returns a list of all joinable public channels.
      * - Request type: GET
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#get-channel-list}.
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#get-channel-list}.
      *
      * @category Documented
      */
@@ -114,7 +118,8 @@ export namespace Endpoints {
     /**
      * This endpoint returns a list of the user's unread notifications. Sorted descending by `id` with limit of 50.
      * - Request type: GET
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#get-notifications}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#get-notifications}
      *
      * @category Documented
      */
@@ -123,7 +128,8 @@ export namespace Endpoints {
     /**
      * This endpoint allows you to mark notifications as read.
      * - Request type: POST
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#get-notifications}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#get-notifications}
      *
      * @category Documented
      */
@@ -136,7 +142,8 @@ export namespace Endpoints {
     /**
      * Gets the current ranking for the specified type and game mode.
      * - Request type: GET
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#get-ranking}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#get-ranking}
      *
      * @category Documented
      */
@@ -145,7 +152,8 @@ export namespace Endpoints {
     /**
      * Gets the list of spotlights.
      * - Request type: GET
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#get-spotlights}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#get-spotlights}
      *
      * @category Documented
      */
@@ -158,7 +166,8 @@ export namespace Endpoints {
     /**
      * Request a (new) token
      * - Request type: POST
-     * - Reference: {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
+     * - References:
+     *   - {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
      */
     export const TOKEN: string = "/token";
 
@@ -169,21 +178,59 @@ export namespace Endpoints {
     //#region Undocumented
 
     /** @category Undocumented */
-    export const BEATMAPSET_FAVOURITES: string = "/beatmapsets/{beatmapset}/favourites";
+    export const BEATMAP_SINGLE: string = "/beatmaps/{beatmap}";
+    /** @category Undocumented */
+    export const BEATMAP_LOOKUP: string = "/beatmaps/lookup";
+    /** @category Undocumented */
+    export const BEATMAP_SCORES: string = "/beatmaps/{id}/scores";
+
+    /** @category Undocumented */
+    export const BEATMAPSET_SINGLE: string = "/beatmapsets/{beatmapset}";
     /** @category Undocumented */
     export const BEATMAPSET_DISCUSSIONS_REVIEW: string = "/beatmapsets/discussion/review";
     /** @category Undocumented */
-    export const CHAT_PRESENCE: string = "/chat/presence";
+    export const BEATMAPSET_DOWNLOAD: string = "/beatmapsets/{beatmapset}/download";
+    /** @category Undocumented */
+    export const BEATMAPSET_FAVOURITES: string = "/beatmapsets/{beatmapset}/favourites";
+    /** @category Undocumented */
+    export const BEATMAPSET_LOOKUP: string = "/beatmapsets/lookup";
+    /** @category Undocumented */
+    export const BEATMAPSET_SEARCH: string = "/beatmapsets/search/{filters}";
+
     /** @category Undocumented */
     export const CHANGELOG: string = "/changelog";
     /** @category Undocumented */
     export const CHANGELOG_BUILD: string = "/changelog/{stream}/{build}";
     /** @category Undocumented */
     export const CHANGELOG_SINGLE: string = "/changelog/{changelog}";
+
     /** @category Undocumented */
-    export const ROOM: string = "/rooms/{mode}";
+    export const CHAT_PRESENCE: string = "/chat/presence";
+
+    /**
+     * - Used by:
+     *   - {@link Client.getFriends}
+     *
+     * @category Undocumented
+     */
+    export const FRIEND: string = "/friends";
+    /**
+     * - Used by:
+     *   - {@link Client.getSelf}
+     *
+     * @category Undocumented
+     */
+    export const ME: string = "/me/{mode}";
+    /** @category Undocumented */
+    export const ME_DL_QUOTA: string = "/me/download-quota-check";
+
+    /** @category Undocumented */
+    export const REPORT: string = "/reports";
+
     /** @category Undocumented */
     export const ROOM_SINGLE: string = "/rooms/{room}";
+    /** @category Undocumented */
+    export const ROOM: string = "/rooms/{mode}";
     /** @category Undocumented */
     export const ROOM_USER: string = "/rooms/{room}/users/{user}";
     /** @category Undocumented */
@@ -192,54 +239,46 @@ export namespace Endpoints {
     export const ROOM_SCORE: string = "/rooms/{room}/playlist/{playlist}/scores/{score}";
     /** @category Undocumented */
     export const ROOM_SCORES: string = "/rooms/{room}/playlist/{playlist}/scores";
-    /** @category Undocumented */
-    export const REPORT: string = "/reports";
-    /** @category Undocumented */
-    export const SEASONAL_BACKGROUNDS: string = "/seasonal-backgrounds";
+
     /** @category Undocumented */
     export const SCORE_DOWNLOAD: string = "/scores/{mode}/{score}/download";
     /** @category Undocumented */
-    export const BEATMAP_SCORES: string = "/beatmaps/{id}/scores";
-    /** @category Undocumented */
-    export const BEATMAP_LOOKUP: string = "/beatmaps/lookup";
-    /** @category Undocumented */
-    export const BEATMAP_SINGLE: string = "/beatmaps/{beatmap}";
-    /** @category Undocumented */
-    export const BEATMAPSET_SEARCH: string = "/beatmapsets/search/{filters}";
-    /** @category Undocumented */
-    export const BEATMAPSET_LOOKUP: string = "/beatmapsets/lookup";
-    /** @category Undocumented */
-    export const BEATMAPSET_DOWNLOAD: string = "/beatmapsets/{beatmapset}/download";
-    /** @category Undocumented */
-    export const BEATMAPSET_SINGLE: string = "/beatmapsets/{beatmapset}";
-    /**
-     * - Used by:
-     *   - {@link Client.getFriends}
-     * @category Undocumented
-     */
-    export const FRIEND: string = "/friends";
-    /**
-     * - Used by:
-     *   - {@link Client.getSelf}
-     * @category Undocumented
-     */
-    export const ME: string = "/me/{mode}";
-    /** @category Undocumented */
-    export const ME_DL_QUOTA: string = "/me/download-quota-check";
+    export const SEASONAL_BACKGROUNDS: string = "/seasonal-backgrounds";
     /**
      * - Used by:
      *   - {@link Client.getUser}
+     *
      * @category Undocumented
      */
+
     export const USER_SINGLE: string = "/users/{user}/{mode}";
-    /** @category Undocumented */
-    export const USER_KUDOSU: string = "/users/{user}/kudosu";
-    /** @category Undocumented */
-    export const USER_SCORES: string = "/users/{user}/scores/{type}";
-    /** @category Undocumented */
+    /**
+     * - Used by:
+     *   - {@link Client.getUserBeatmapsets}
+     * @category Undocumented
+     */
     export const USER_BEATMAPSETS: string = "/users/{user}/beatmapsets/{type}";
-    /** @category Undocumented */
+    /**
+     * - Used by:
+     *   - {@link Client.getUserKudosuHistory}
+     *
+     * @category Undocumented
+     */
+    export const USER_KUDOSU: string = "/users/{user}/kudosu";
+    /**
+     * - Used by:
+     *   - {@link Client.getUserRecent}
+     *
+     * @category Undocumented
+     */
     export const USER_RECENT_ACTIVITY: string = "/users/{user}/recent_activity";
+    /**
+     * - Used by:
+     *   - {@link Client.getUserScores}
+     *
+     * @category Undocumented
+     */
+    export const USER_SCORES: string = "/users/{user}/scores/{type}";
 
     //#endregion Undocumented
 

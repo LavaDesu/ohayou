@@ -7,13 +7,15 @@
  */
 export interface Kudosu {
     id: number;
-    created_at: string;
-    amount: number;
-    post: ModdingPost;
-    giver: KudosuGiver | null;
     action: string;
-    model: string; //unknown
-    details: {}; //unknown
+    amount: number;
+    created_at: string;
+    /** Unknown */
+    details: {};
+    giver: KudosuGiver | null;
+    /** Possible enum */
+    model: string;
+    post: ModdingPost;
 }
 
 interface ModdingPost {

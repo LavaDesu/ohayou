@@ -1,5 +1,4 @@
-import { GradeCounts } from "./User";
-import { UserCompact } from "./UserCompact";
+import { GradeCounts, UserCompact } from "./";
 
 /**
  * **UserStatistics**

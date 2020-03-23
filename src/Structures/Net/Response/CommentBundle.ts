@@ -1,6 +1,4 @@
-import { CommentableMeta } from "./CommentableMeta";
-import { Comment } from "./Comment";
-import { UserCompact } from "./UserCompact";
+import { Comment, CommentableMeta, UserCompact } from "./";
 
 /**
  * **CommentableBundle**

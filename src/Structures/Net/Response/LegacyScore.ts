@@ -1,27 +1,25 @@
-import { User } from "./User";
-import { Beatmap } from "./Beatmap";
-import { BeatmapSet } from "./BeatmapSet";
+import { Beatmap, BeatmapSet, User } from "./";
 import { ScoreRank } from "../../../Enums";
 
 /**
  * **LegacyScore**
  * - **Undocumented**
- * - Reference:
+ * - References:
  *   - {@link https://github.com/ppy/osu/blob/master/osu/osu.Game/Online/API/Requests/Responses/APILegacyScoreInfo.cs}
  */
 export interface LegacyScore {
-    score: number;
-    max_combo: number;
-    user: User;
     id: number;
-    replay: boolean;
-    created_at: string;
-    beatmap: Beatmap;
     accuracy: number;
-    pp: number | null;
+    beatmap: Beatmap;
     beatmapset: BeatmapSet;
-    statistics: { [name: string]: number };
+    created_at: string;
+    max_combo: number;
     mode_int: number;
     mods: string[]; //TODO: mod enum
+    pp: number | null;
     rank: ScoreRank;
+    replay: boolean;
+    score: number;
+    statistics: { [name: string]: number };
+    user: User;
 }

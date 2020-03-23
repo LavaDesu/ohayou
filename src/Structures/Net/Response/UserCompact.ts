@@ -7,12 +7,12 @@
  */
 export interface UserCompact {
     id: number;
-    username: string;
-    profile_colour: string;
     avatar_url: string;
     country_code: string;
     is_active: boolean;
     is_bot: boolean;
     is_online: boolean;
     is_supporter: boolean;
+    profile_colour: string;
+    username: string;
 }

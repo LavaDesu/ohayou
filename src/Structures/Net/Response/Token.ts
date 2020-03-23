@@ -1,5 +1,10 @@
 import { TokenType } from "../../../Enums";
 
+/**
+ * **Token**
+ * - References:
+ *   - {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
+ */
 export interface Token {
     /** Type of token */
     token_type: TokenType;
