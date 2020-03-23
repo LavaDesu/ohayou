@@ -99,3 +99,83 @@ export enum BeatmapSetOnlineStatus {
     Qualified = 3,
     Loved = 4
 }
+
+/**
+ * Reference: {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/GetUserBeatmapsRequest.cs#L26}
+ */
+export enum BeatmapSetType {
+    Favourite = "favourite",
+    RankedAndApproved = "ranked_and_approved",
+    Loved = "loved",
+    Unranked = "unranked",
+    Graveyard = "graveyard"
+}
+
+/**
+ * Reference: {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/Responses/APIKudosuHistory.cs#L65}
+ */
+
+export enum KudosuSource {
+    Unknown = "unknown",
+    AllowKudosu = "allowkudosu",
+    Delete = "delete",
+    DenyKudosu = "denykudosu",
+    Forum = "forum",
+    Recalculate = "recalculate",
+    Restore = "restore",
+    Vote = "vote"
+}
+
+/**
+ * Reference: {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/GetUserScoresRequest.cs#L38}
+ */
+
+export enum ScoreType {
+    Best = "best",
+    Firsts = "firsts",
+    Recent = "recent"
+}
+
+/**
+ * Reference: {@link https://github.com/ppy/osu/blob/master/osu.Game/Scoring/ScoreRank.cs}
+ */
+export enum ScoreRank {
+    D = "D",
+    C = "C",
+    B = "B",
+    A = "A",
+    S = "S",
+    SH = "SH",
+    X = "X",
+    XH = "XH"
+}
+
+/**
+ * Reference: {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Online/API/Requests/GetUserRecentActivitiesRequest.cs#L22}
+ */
+export enum RecentActivityType {
+    Achievement = "achievement",
+    BeatmapPlaycount = "beatmapPlaycount",
+    BeatmapsetApprove = "beatmapsetApprove",
+    BeatmapsetDelete = "beatmapsetDelete",
+    BeatmapsetRevive = "beatmapsetRevive",
+    BeatmapsetUpdate = "beatmapsetUpdate",
+    BeatmapsetUpload = "beatmapsetUpload",
+    Medal = "medal",
+    Rank = "rank",
+    RankLost = "rankLost",
+    UserSupportAgain = "userSupportAgain",
+    UserSupportFirst = "userSupportFirst",
+    UserSupportGift = "userSupportGift",
+    UsernameChange = "usernameChange"
+}
+
+/**
+ * Reference: {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Online/API/Requests/GetUserRecentActivitiesRequest.cs#L40}
+ */
+export enum BeatmapApproval {
+    Ranked = "ranked",
+    Approved = "approved",
+    Qualified = "qualified",
+    Loved = "loved"
+}

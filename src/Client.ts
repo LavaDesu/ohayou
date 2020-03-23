@@ -1,10 +1,14 @@
 import { EventEmitter } from "events";
+import { BeatmapSet as BeatmapSetObject} from "./Structures/Net/Response/BeatmapSet";
+import { LegacyScore } from "./Structures/Net/Response/LegacyScore";
+import { RecentActivity } from "./Structures/Net/Response/RecentActivity";
 import { Token as TokenObject } from "./Structures/Net/Response/Token";
 import { User as UserObject } from "./Structures/Net/Response/User";
 import { RequestHandler } from "./RequestHandler";
-import { RequestType, Scope, GameMode } from "./Enums";
+import { RequestType, Scope, GameMode, BeatmapSetType, ScoreType } from "./Enums";
 import { Endpoints } from "./Endpoints";
 import { Token } from "./Structures/Token";
+import { Kudosu as KudosuObject } from "./Structures/Net/Response/Kudosu";
 
 /**
  * The main API Client
@@ -159,6 +163,92 @@ export class Client extends EventEmitter {
         const response = await RequestHandler.request<UserObject>({
             auth: `${token.toString()}`,
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
+            scopes: [
+                Scope["users.read"]
+            ],
+            type: RequestType.GET
+        });
+        return response;
+    }
+
+    /**
+     * Get a user's kudosu history
+     *
+     * Scopes required:
+     * - users.read
+     *
+     * @param token - Token to authenticate with
+     * @param id - User ID to request
+     */
+    public async getUserKudosuHistory(token: Token, id: number): Promise<KudosuObject[]> {
+        const response = await RequestHandler.request<KudosuObject[]>({
+            auth: `${token.toString()}`,
+            endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
+            scopes: [
+                Scope["users.read"]
+            ],
+            type: RequestType.GET
+        });
+        return response;
+    }
+
+    /**
+     * Get a user's beatmapsets
+     *
+     * Scopes required:
+     * - users.read
+     *
+     * @param token - Token to authenticate with
+     * @param id - User ID to request
+     * @param type - Beatmapset type
+     */
+    public async getUserBeatmapsets(token: Token, id: number, type: BeatmapSetType): Promise<BeatmapSetObject[]> {
+        const response = await RequestHandler.request<BeatmapSetObject[]>({
+            auth: `${token.toString()}`,
+            endpoint: Endpoints.API_PREFIX + Endpoints.USER_BEATMAPSETS.replace("{user}", id.toString()).replace("{type}", type),
+            scopes: [
+                Scope["users.read"]
+            ],
+            type: RequestType.GET
+        });
+        return response;
+    }
+
+    /**
+     * Get a user's recent activity
+     *
+     * Scopes required:
+     * - users.read
+     *
+     * @param token - Token to authenticate with
+     * @param id - User ID to request
+     */
+    public async getUserRecent(token: Token, id: number): Promise<RecentActivity[]> {
+        const response = await RequestHandler.request<RecentActivity[]>({
+            auth: `${token.toString()}`,
+            endpoint: Endpoints.API_PREFIX + Endpoints.USER_RECENT_ACTIVITY.replace("{user}", id.toString()),
+            scopes: [
+                Scope["users.read"]
+            ],
+            type: RequestType.GET
+        });
+        return response;
+    }
+
+    /**
+     * Get a user's scores
+     *
+     * Scopes required:
+     * - users.read
+     *
+     * @param token - Token to authenticate with
+     * @param id - User ID to request
+     * @param type - Score type
+     */
+    public async getUserScores(token: Token, id: number, type: ScoreType): Promise<LegacyScore[]> {
+        const response = await RequestHandler.request<LegacyScore[]>({
+            auth: `${token.toString()}`,
+            endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
             scopes: [
                 Scope["users.read"]
             ],

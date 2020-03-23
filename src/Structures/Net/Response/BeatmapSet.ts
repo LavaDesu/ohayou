@@ -2,8 +2,8 @@ import { BeatmapSetOnlineStatus } from "../../../Enums";
 import { Beatmap } from "./Beatmap";
 
 /**
+ * **BeatmapSet**
  * - **Undocumented**
- * - **Untested**
  * - References:
  *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Online/API/Requests/Responses/APIBeatmapSet.cs}
  */
@@ -25,8 +25,7 @@ export interface BeatmapSet {
     user_id: number;
     availability: Availability;
     genre: Genre;
-    /** Circular?? */
-    beatmaps: Beatmap[];
+    beatmaps?: Beatmap[];
 }
 
 /**

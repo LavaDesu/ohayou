@@ -6,7 +6,9 @@ import { Playstyle, GameMode } from "../../../Enums";
  * - **Untested**
  * - **Undocumented**
  * - There are many nullables here that isn't typed, and it is also a very huge response
- * - Reference: Auto-generated using response sample from `api/v2/me`
+ * - Reference:
+ *   - Response sample from `api/v2/me`
+ *   - {@link https://github.com/ppy/osu/osu.Game/Users/User.cs}
  */
 export interface User {
     id?: number;
