@@ -1,4 +1,6 @@
 export * from "./Client";
 export * from "./Endpoints";
-export * as Enums from "./Enums";
 export * from "./RequestHandler";
+export * from "./Structures/Token";
+
+export * as Enums from "./Enums";
