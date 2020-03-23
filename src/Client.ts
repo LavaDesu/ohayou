@@ -24,6 +24,8 @@ export class Client extends EventEmitter {
         this.client_secret = secret;
     }
 
+    //#region Token
+
     /**
      * Name a token
      * - Overridable for custom naming behaviour
@@ -94,6 +96,10 @@ export class Client extends EventEmitter {
         return response;
     }
 
+    //#endregion Token
+
+    //#region Misc
+
     /**
      * Get a {@link User} object of the current authenticated user
      *
@@ -135,6 +141,10 @@ export class Client extends EventEmitter {
         return response;
     }
 
+    //#endregion Misc
+
+    //#region User
+
     /**
      * Get a limited {@link User} object of another user
      *
@@ -156,4 +166,6 @@ export class Client extends EventEmitter {
         });
         return response;
     }
+
+    //#endregion User
 }
