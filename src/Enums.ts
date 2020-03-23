@@ -177,6 +177,7 @@ export enum ScoreRank {
 export enum ScoreType {
     Best = "best",
     Firsts = "firsts",
+    /** Avoid using this score type as it seems to just return an empty array */
     Recent = "recent"
 }
 
