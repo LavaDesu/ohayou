@@ -1,3 +1,5 @@
+import { Instance } from "./";
+
 export interface Base {
-    init(data: {}, token: string): void;
+    init(data: {}, instance: Instance): void;
 }
