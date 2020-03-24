@@ -1,4 +1,4 @@
-import { UserStatistics } from "./";
+import { UserCompact, UserStatistics } from "./";
 import { GameMode, Playstyle } from "../../../Enums";
 
 /**
@@ -11,13 +11,12 @@ import { GameMode, Playstyle } from "../../../Enums";
  *   - Response sample from `api/v2/me`
  *   - {@link https://github.com/ppy/osu/osu.Game/Users/User.cs}
  */
-export interface User {
+export interface User extends UserCompact {
     id: number;
     /** Unknown, no reference in lazer */
     account_history?: {}[];
     /** Unknown, no reference in lazer */
     active_tournament_banner?: {}[];
-    avatar_url?: string;
     badges?: Badge[];
     can_moderate?: boolean;
     country?: Country;
@@ -29,16 +28,12 @@ export interface User {
     graveyard_beatmapset_count?: number;
     has_supported?: boolean;
     interests?: string;
-    is_active?: boolean;
     is_bng?: boolean;
-    is_bot?: boolean;
     is_full_bn?: boolean;
     is_gmt?: boolean;
     is_limited_bn?: boolean;
     is_nat?: boolean;
-    is_online?: boolean;
     is_restricted?: boolean;
-    is_supporter?: boolean;
     join_date?: string;
     kudosu?: Kudosu;
     last_visit?: string;
@@ -55,7 +50,6 @@ export interface User {
     pm_friends_only?: boolean;
     post_count?: number;
     previous_usernames?: string[];
-    profile_colour?: string;
     profile_order?: string[];
     rankHistory?: RankHistory;
     ranked_and_approved_beatmapset_count?: number;
@@ -68,7 +62,6 @@ export interface User {
     twitter?: string;
     unranked_beatmapset_count?: number;
     user_achievements?: UserAchievement[];
-    username?: string;
     website?: string;
 }
 
