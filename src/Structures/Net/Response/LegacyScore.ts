@@ -1,4 +1,4 @@
-import { Beatmap, BeatmapSet, User } from "./";
+import { Beatmap, BeatmapSet, UserCompact } from "./";
 import { ScoreRank } from "../../../Enums";
 
 /**
@@ -21,5 +21,5 @@ export interface LegacyScore {
     replay: boolean;
     score: number;
     statistics: { [name: string]: number };
-    user: User;
+    user: UserCompact;
 }

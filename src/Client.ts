@@ -19,7 +19,8 @@ import {
     LegacyScore,
     RecentActivity,
     Token as TokenObject,
-    User as UserObject
+    User as UserObject,
+    UserCompact as UserCompactObject
 } from "./Structures/Net/Response";
 
 /**
@@ -136,8 +137,8 @@ export class Client extends EventEmitter {
      *
      * @param token - Token to authenticate with
      */
-    public async getFriends(token: Instance): Promise<UserObject[]> {
-        const response = await RequestHandler.request<UserObject[]>({
+    public async getFriends(token: Instance): Promise<UserCompactObject[]> {
+        const response = await RequestHandler.request<UserCompactObject[]>({
             auth: token.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
             scopes: [
