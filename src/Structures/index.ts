@@ -1,2 +1,2 @@
-export * from "./Base";
-export * from "./Instance";
+export { Base } from "./Base";
+export { Instance } from "./Instance";
