@@ -1,25 +1,24 @@
 import { Client } from "../Client";
 import { TokenType } from "../Enums";
-import { Token as TokenObject } from "./Net/Response";
+import { Token as TokenObject, User } from "./Net/Response";
 
 /**
- * Represents a token class to perform authenticated requests with
+ * Represents a OAuth user instance to perform authenticated requests with
  */
-export class Token {
+export class Instance {
     private client: Client;
     private type: TokenType;
     private refreshTimer: NodeJS.Timeout;
     private accessToken: string;
 
     public refreshToken: string;
-    public name: string;
+    public user: User;
 
-    constructor(data: TokenObject, client: Client) {
+    constructor(client: Client) {
         this.client = client;
-        this.refresh(data);
     }
 
-    public refresh(data: TokenObject) {
+    public async refresh(data: TokenObject): Promise<Instance> {
         this.type = data.token_type;
         this.accessToken = data.access_token;
         this.refreshToken = data.refresh_token;
@@ -30,9 +29,12 @@ export class Token {
             const newToken = await this.client.getTokenFromRefresh(this.refreshToken);
             this.refresh(newToken);
         }, (data.expires_in - 100) * 1000);
+
+        this.user = await this.client.getSelf(this);
+        return this;
     }
 
-    public toString() {
+    public getToken() {
         return `${this.type} ${this.accessToken}`;
     }
 }

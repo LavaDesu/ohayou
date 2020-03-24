@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 
 import { Endpoints } from "./Endpoints";
 import { RequestHandler } from "./RequestHandler";
-import { Token } from "./Structures";
+import { Instance } from "./Structures";
 
 import {
     BeatmapSetType,
@@ -40,14 +40,14 @@ export class Client extends EventEmitter {
         this.client_secret = secret;
     }
 
-    //#region Token
+    //#region Instance
 
     /**
-     * Create a token
+     * Create a OAuth user instance
      * @param token - Access/Refresh token
      * @param type - Token type, either `refresh` or `auth`
      */
-    public async createToken(token: string, type: "refresh" | "auth"): Promise<Token> {
+    public async createInstance(token: string, type: "refresh" | "auth"): Promise<Instance> {
         let tokenObj: TokenObject;
 
         if (type === "refresh")
@@ -57,26 +57,16 @@ export class Client extends EventEmitter {
         else
             throw new TypeError("Invalid token type");
 
-        const pendingToken = new Token(tokenObj, this);
-        await this.nameToken(pendingToken);
-        return pendingToken;
-    }
-
-    /**
-     * Name a token
-     * - Overridable for custom naming behaviour
-     * @param token - Token to name
-     */
-    private async nameToken(token: Token): Promise<Token> {
-        const owner: UserObject = await this.getSelf(token);
-        token.name = owner.username;
-        return token;
+        const instance = new Instance(this);
+        await instance.refresh(tokenObj);
+        return instance;
     }
 
     /**
      * Get an access token from an authorization code
      * - References:
      *   - {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
+     *
      * @param code - Authorization code
      */
     public async getTokenFromAuth(code: string): Promise<TokenObject> {
@@ -113,7 +103,7 @@ export class Client extends EventEmitter {
         return response;
     }
 
-    //#endregion Token
+    //#endregion Instance
 
     //#region Misc
 
@@ -126,9 +116,9 @@ export class Client extends EventEmitter {
      * @param token - Token to authenticate with
      * @param mode - Specific gamemode to request for
      */
-    public async getSelf(token: Token, mode?: GameMode): Promise<UserObject> {
+    public async getSelf(token: Instance, mode?: GameMode): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
-            auth: token.toString(),
+            auth: token.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode || ""),
             scopes: [
                 Scope["identify"]
@@ -146,9 +136,9 @@ export class Client extends EventEmitter {
      *
      * @param token - Token to authenticate with
      */
-    public async getFriends(token: Token): Promise<UserObject[]> {
+    public async getFriends(token: Instance): Promise<UserObject[]> {
         const response = await RequestHandler.request<UserObject[]>({
-            auth: token.toString(),
+            auth: token.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
             scopes: [
                 Scope["friends.read"]
@@ -172,9 +162,9 @@ export class Client extends EventEmitter {
      * @param id - User ID to request
      * @param mode - Specific gamemode to request for
      */
-    public async getUser(token: Token, id: number, mode?: GameMode): Promise<UserObject> {
+    public async getUser(token: Instance, id: number, mode?: GameMode): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
-            auth: token.toString(),
+            auth: token.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
             scopes: [
                 Scope["users.read"]
@@ -194,9 +184,9 @@ export class Client extends EventEmitter {
      * @param id - User ID to request
      * @param type - Beatmapset type
      */
-    public async getUserBeatmapsets(token: Token, id: number, type: BeatmapSetType): Promise<BeatmapSetObject[]> {
+    public async getUserBeatmapsets(token: Instance, id: number, type: BeatmapSetType): Promise<BeatmapSetObject[]> {
         const response = await RequestHandler.request<BeatmapSetObject[]>({
-            auth: token.toString(),
+            auth: token.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_BEATMAPSETS.replace("{user}", id.toString()).replace("{type}", type),
             scopes: [
                 Scope["users.read"]
@@ -215,9 +205,9 @@ export class Client extends EventEmitter {
      * @param token - Token to authenticate with
      * @param id - User ID to request
      */
-    public async getUserKudosuHistory(token: Token, id: number): Promise<KudosuObject[]> {
+    public async getUserKudosuHistory(token: Instance, id: number): Promise<KudosuObject[]> {
         const response = await RequestHandler.request<KudosuObject[]>({
-            auth: token.toString(),
+            auth: token.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
             scopes: [
                 Scope["users.read"]
@@ -236,9 +226,9 @@ export class Client extends EventEmitter {
      * @param token - Token to authenticate with
      * @param id - User ID to request
      */
-    public async getUserRecent(token: Token, id: number): Promise<RecentActivity[]> {
+    public async getUserRecent(token: Instance, id: number): Promise<RecentActivity[]> {
         const response = await RequestHandler.request<RecentActivity[]>({
-            auth: token.toString(),
+            auth: token.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_RECENT_ACTIVITY.replace("{user}", id.toString()),
             scopes: [
                 Scope["users.read"]
@@ -258,9 +248,9 @@ export class Client extends EventEmitter {
      * @param id - User ID to request
      * @param type - Score type
      */
-    public async getUserScores(token: Token, id: number, type: ScoreType): Promise<LegacyScore[]> {
+    public async getUserScores(token: Instance, id: number, type: ScoreType): Promise<LegacyScore[]> {
         const response = await RequestHandler.request<LegacyScore[]>({
-            auth: token.toString(),
+            auth: token.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
             scopes: [
                 Scope["users.read"]
