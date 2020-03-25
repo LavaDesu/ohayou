@@ -6,7 +6,7 @@ import { GameMode, Playstyle } from "../../../Enums";
  *
  * - **Untested**
  * - **Undocumented**
- * - There are many nullables here that isn't typed, and it is also a very huge response
+ * - There are likely nullables that aren't typed here, and it is also a very huge response
  * - References:
  *   - Response sample from `api/v2/me`
  *   - {@link https://github.com/ppy/osu/osu.Game/Users/User.cs}
@@ -19,13 +19,12 @@ export interface User extends UserCompact {
     active_tournament_banner?: {}[];
     badges?: Badge[];
     can_moderate?: boolean;
-    country?: Country;
-    cover?: Cover;
     cover_url?: string;
     discord?: string;
     favourite_beatmapset_count?: number;
     follower_count?: number;
     graveyard_beatmapset_count?: number;
+    group_badge?: GroupBadge;
     has_supported?: boolean;
     interests?: string;
     is_bng?: boolean;
@@ -36,7 +35,6 @@ export interface User extends UserCompact {
     is_restricted?: boolean;
     join_date?: string;
     kudosu?: Kudosu;
-    last_visit?: string;
     lastfm?: string;
     location?: string;
     loved_beatmapset_count?: number;
@@ -47,7 +45,6 @@ export interface User extends UserCompact {
     page?: Page;
     playmode?: GameMode;
     playstyle?: Playstyle[];
-    pm_friends_only?: boolean;
     post_count?: number;
     previous_usernames?: string[];
     profile_order?: string[];
@@ -57,7 +54,6 @@ export interface User extends UserCompact {
     scores_first_count?: number;
     skype?: string;
     statistics?: UserStatistics;
-    support_level?: number;
     title?: string;
     twitter?: string;
     unranked_beatmapset_count?: number;
@@ -71,25 +67,23 @@ interface Badge {
     image_url: string;
 }
 
-interface Country {
-    code: string;
-    name: string;
+interface Count {
+    count: number;
+    start_date: string;
 }
 
-interface Cover {
-    id: number | null;
-    custom_url: string;
-    url: string;
+interface GroupBadge {
+    id: number;
+    identifier: string;
+    name: string;
+    short_name: string;
+    description: string;
+    colour: string;
 }
 
 interface Kudosu {
     available: number;
     total: number;
-}
-
-interface Count {
-    count: number;
-    start_date: string;
 }
 
 interface Page {
@@ -102,25 +96,15 @@ interface RankHistory {
     mode: GameMode;
 }
 
+interface UserAchievement {
+    achieved_at: string;
+    achievement_id: number;
+}
+
 export interface GradeCounts {
     ss: number;
     ssh: number;
     s: number;
     sh: number;
     a: number;
-}
-
-interface Level {
-    current: number;
-    progress: number;
-}
-
-interface Rank {
-    country: number;
-    global: number;
-}
-
-interface UserAchievement {
-    achieved_at: string;
-    achievement_id: number;
 }

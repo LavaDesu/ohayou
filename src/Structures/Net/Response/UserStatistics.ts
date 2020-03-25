@@ -17,6 +17,7 @@ export interface UserStatistics {
     play_time: number;
     pp: number;
     pp_rank: number;
+    rank: Rank;
     ranked_score: number;
     replays_watched_by_others: number;
     total_hits: number;
@@ -28,4 +29,9 @@ interface Level {
     /** Docs misspelled this */
     current: number;
     progress: number;
+}
+
+interface Rank {
+    country: number;
+    global: number;
 }
