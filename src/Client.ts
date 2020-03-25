@@ -114,12 +114,12 @@ export class Client extends EventEmitter {
      * - Scopes required:
      *   - identify
      *
-     * @param token - Token to authenticate with
+     * @param instance - Instance to authenticate with
      * @param mode - Specific gamemode to request for
      */
-    public async getSelf(token: Instance, mode?: GameMode): Promise<UserObject> {
+    public async getSelf(instance: Instance, mode?: GameMode): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
-            auth: token.getToken(),
+            auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode || ""),
             scopes: [
                 Scope["identify"]
@@ -135,11 +135,11 @@ export class Client extends EventEmitter {
      * - Scopes required:
      *   - friends.read
      *
-     * @param token - Token to authenticate with
+     * @param instance - Instance to authenticate with
      */
-    public async getFriends(token: Instance): Promise<UserCompactObject[]> {
+    public async getFriends(instance: Instance): Promise<UserCompactObject[]> {
         const response = await RequestHandler.request<UserCompactObject[]>({
-            auth: token.getToken(),
+            auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
             scopes: [
                 Scope["friends.read"]
@@ -159,13 +159,13 @@ export class Client extends EventEmitter {
      * - Scopes required:
      *   - users.read
      *
-     * @param token - Token to authenticate with
+     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param mode - Specific gamemode to request for
      */
-    public async getUser(token: Instance, id: number, mode?: GameMode): Promise<UserObject> {
+    public async getUser(instance: Instance, id: number, mode?: GameMode): Promise<UserObject> {
         const response = await RequestHandler.request<UserObject>({
-            auth: token.getToken(),
+            auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
             scopes: [
                 Scope["users.read"]
@@ -181,13 +181,13 @@ export class Client extends EventEmitter {
      * - Scopes required:
      *   - users.read
      *
-     * @param token - Token to authenticate with
+     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param type - Beatmapset type
      */
-    public async getUserBeatmapsets(token: Instance, id: number, type: BeatmapSetType): Promise<BeatmapSetObject[]> {
+    public async getUserBeatmapsets(instance: Instance, id: number, type: BeatmapSetType): Promise<BeatmapSetObject[]> {
         const response = await RequestHandler.request<BeatmapSetObject[]>({
-            auth: token.getToken(),
+            auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_BEATMAPSETS.replace("{user}", id.toString()).replace("{type}", type),
             scopes: [
                 Scope["users.read"]
@@ -203,12 +203,12 @@ export class Client extends EventEmitter {
      * - Scopes required:
      *   - users.read
      *
-     * @param token - Token to authenticate with
+     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      */
-    public async getUserKudosuHistory(token: Instance, id: number): Promise<KudosuObject[]> {
+    public async getUserKudosuHistory(instance: Instance, id: number): Promise<KudosuObject[]> {
         const response = await RequestHandler.request<KudosuObject[]>({
-            auth: token.getToken(),
+            auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
             scopes: [
                 Scope["users.read"]
@@ -224,12 +224,12 @@ export class Client extends EventEmitter {
      * - Scopes required:
      *   - users.read
      *
-     * @param token - Token to authenticate with
+     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      */
-    public async getUserRecent(token: Instance, id: number): Promise<RecentActivity[]> {
+    public async getUserRecent(instance: Instance, id: number): Promise<RecentActivity[]> {
         const response = await RequestHandler.request<RecentActivity[]>({
-            auth: token.getToken(),
+            auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_RECENT_ACTIVITY.replace("{user}", id.toString()),
             scopes: [
                 Scope["users.read"]
@@ -245,13 +245,13 @@ export class Client extends EventEmitter {
      * - Scopes required:
      *   - users.read
      *
-     * @param token - Token to authenticate with
+     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param type - Score type
      */
-    public async getUserScores(token: Instance, id: number, type: ScoreType): Promise<LegacyScore[]> {
+    public async getUserScores(instance: Instance, id: number, type: ScoreType): Promise<LegacyScore[]> {
         const response = await RequestHandler.request<LegacyScore[]>({
-            auth: token.getToken(),
+            auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
             scopes: [
                 Scope["users.read"]
