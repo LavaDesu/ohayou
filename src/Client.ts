@@ -8,8 +8,7 @@ import {
     GrantType,
     RequestType,
     Scope,
-    ScoreType
-} from "./Enums";
+    ScoreType } from "./Enums";
 
 import {
     BeatmapSet as BeatmapSetObject,
@@ -18,8 +17,7 @@ import {
     RecentActivity,
     Token as TokenObject,
     User as UserObject,
-    UserCompact as UserCompactObject
-} from "./Structures/Net/Response";
+    UserCompact as UserCompactObject } from "./Structures/Net/Response";
 
 /**
  * The main API Client
