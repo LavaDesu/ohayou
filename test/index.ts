@@ -4,7 +4,7 @@ import { expect } from "chai";
 import * as Ohayou from "../src";
 
 import Enums = Ohayou.Enums;
-import Instance = Ohayou.Structures.Instance;
+import Instance = Ohayou.Instance;
 
 const ohayou = new Ohayou.Client(parseInt(process.env.CLIENT_ID), process.env.CLIENT_SECRET);
 let instance: Instance;

@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 
 import { Endpoints } from "./Endpoints";
 import { RequestHandler } from "./RequestHandler";
-import { Instance } from "./Structures";
+import { Instance } from "./Structures/Instance";
 
 import {
     BeatmapSetType,
