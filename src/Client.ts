@@ -1,6 +1,7 @@
 import { Endpoints } from "./Endpoints";
 import { RequestHandler } from "./RequestHandler";
 import { Instance } from "./Structures/Instance";
+import { User } from "./Structures/User";
 
 import {
     BeatmapSetType,
@@ -112,7 +113,7 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param mode - Specific gamemode to request for
      */
-    public async getSelf(instance: Instance, mode?: GameMode): Promise<UserObject> {
+    public async getSelf(instance: Instance, mode?: GameMode): Promise<User> {
         const response = await RequestHandler.request<UserObject>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode || ""),
@@ -121,7 +122,7 @@ export class Client {
             ],
             type: RequestType.GET
         });
-        return response;
+        return new User(response, instance);
     }
 
     /**
@@ -132,7 +133,7 @@ export class Client {
      *
      * @param instance - Instance to authenticate with
      */
-    public async getFriends(instance: Instance): Promise<UserCompactObject[]> {
+    public async getFriends(instance: Instance): Promise<User[]> {
         const response = await RequestHandler.request<UserCompactObject[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
@@ -141,15 +142,18 @@ export class Client {
             ],
             type: RequestType.GET
         });
-        return response;
+        return response.map(friend => new User(friend, instance));
     }
 
     //#endregion Misc
 
     //#region User
 
+    public async getUser(instance: Instance, id: number): Promise<User>;
+    public async getUser(instance: Instance, id: number, mode: GameMode): Promise<User>;
+    public async getUser(instance: Instance, id: number, mode: GameMode | undefined, raw: true): Promise<UserObject>;
     /**
-     * Get a limited {@link User} object of another user
+     * Get a user's information
      *
      * - Scopes required:
      *   - users.read
@@ -157,8 +161,9 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param mode - Specific gamemode to request for
+     * @param raw - Whether or not to return the raw request response
      */
-    public async getUser(instance: Instance, id: number, mode?: GameMode): Promise<UserObject> {
+    public async getUser(instance: Instance, id: number, mode?: GameMode | undefined, raw?: boolean): Promise<User | UserObject> { //TODO: fix whatever this is with a UserCompact class
         const response = await RequestHandler.request<UserObject>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
@@ -167,7 +172,7 @@ export class Client {
             ],
             type: RequestType.GET
         });
-        return response;
+        return raw ? response : new User(response, instance);
     }
 
     /**

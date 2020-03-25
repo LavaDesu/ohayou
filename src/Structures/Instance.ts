@@ -1,16 +1,17 @@
 import { Client } from "../Client";
 import { TokenType } from "../Enums";
-import { Token as TokenObject, User } from "./Net/Response";
+import { Token as TokenObject } from "./Net/Response";
+import { User } from "./User";
 
 /**
  * Represents a OAuth user instance to perform authenticated requests with
  */
 export class Instance {
-    private client: Client;
     private type?: TokenType;
     private refreshTimer?: NodeJS.Timeout;
     private accessToken?: string;
 
+    public client: Client;
     public refreshToken?: string;
     public user?: User;
 
