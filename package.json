@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "build:check": "tsc --noEmit",
-    "docs": "typedoc src/index.ts --out docs --mode library --tsconfig tsconfig.doc.json",
+    "docs": "typedoc src/index.ts --excludePrivate --out docs --mode library --tsconfig tsconfig.doc.json",
     "test": "mocha test/**.ts --timeout 20000 -r ts-node/register",
     "start": "tsc && node lib/index.js"
   },
