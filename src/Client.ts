@@ -1,5 +1,3 @@
-import { EventEmitter } from "events";
-
 import { Endpoints } from "./Endpoints";
 import { RequestHandler } from "./RequestHandler";
 import { Instance } from "./Structures/Instance";
@@ -26,7 +24,7 @@ import {
 /**
  * The main API Client
  */
-export class Client extends EventEmitter {
+export class Client {
     private client_id: number;
     private client_secret: string;
 
@@ -36,7 +34,6 @@ export class Client extends EventEmitter {
      * @param secret - OAuth client secret
      */
     constructor(id: number, secret: string) {
-        super();
         this.client_id = id;
         this.client_secret = secret;
     }
