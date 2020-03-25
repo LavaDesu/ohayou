@@ -7,12 +7,12 @@ import { Token as TokenObject, User } from "./Net/Response";
  */
 export class Instance {
     private client: Client;
-    private type: TokenType;
-    private refreshTimer: NodeJS.Timeout;
-    private accessToken: string;
+    private type?: TokenType;
+    private refreshTimer?: NodeJS.Timeout;
+    private accessToken?: string;
 
-    public refreshToken: string;
-    public user: User;
+    public refreshToken?: string;
+    public user?: User;
 
     constructor(client: Client) {
         this.client = client;
@@ -26,7 +26,7 @@ export class Instance {
         if (this.refreshTimer)
             clearTimeout(this.refreshTimer);
         this.refreshTimer = setTimeout(async () => {
-            const newToken = await this.client.getTokenFromRefresh(this.refreshToken);
+            const newToken = await this.client.getTokenFromRefresh(this.refreshToken as string);
             this.refresh(newToken);
         }, (data.expires_in - 100) * 1000);
 

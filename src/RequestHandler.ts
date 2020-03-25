@@ -29,7 +29,7 @@ export class RequestHandler { //TODO: Other request types
         const req = request(serializedData)
             .once("response", (res: IncomingMessage) => {
 
-                if (res.statusCode >= 400) {
+                if (res.statusCode && res.statusCode >= 400) {
                     pReject(`Request to ${serializedData.path} returned ${res.statusCode}: ${res.statusMessage}`);
                     return;
                 }

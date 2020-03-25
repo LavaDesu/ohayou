@@ -9,6 +9,7 @@
     "outDir": "lib",
     "rootDir": "src",
     "sourceMap": true,
-    "sourceRoot": "src"
+    "sourceRoot": "src",
+    "strict": true
   }
 }
