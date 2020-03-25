@@ -19,7 +19,7 @@ export interface UserCompact {
     is_supporter: boolean;
     last_visit: string | null;
     pm_friends_only: boolean;
-    profile_colour: string;
+    profile_colour: string | null;
     support_level: number;
     username: string;
 }
@@ -31,6 +31,6 @@ interface Country {
 
 interface Cover {
     id: number | null;
-    custom_url: string;
+    custom_url: string | null;
     url: string;
 }

@@ -32,6 +32,6 @@ interface Level {
 }
 
 interface Rank {
-    country: number;
-    global: number;
+    country: number | null;
+    global: number | null;
 }
