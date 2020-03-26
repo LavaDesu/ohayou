@@ -1,4 +1,4 @@
-import { BeatmapApproval, RecentActivityType, ScoreRank } from "../../../Enums";
+import { BeatmapApproval, RecentActivityType, ScoreRank } from "../../Enums";
 
 /**
  * **RecentActivity**

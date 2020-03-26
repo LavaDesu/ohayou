@@ -1,6 +1,6 @@
 import { Client } from "../Client";
 import { TokenType } from "../Enums";
-import { Token as TokenObject } from "./Net/Response";
+import { Token as TokenObject } from "./API";
 import { User } from "./User";
 
 /**

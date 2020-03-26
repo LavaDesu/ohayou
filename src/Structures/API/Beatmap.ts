@@ -1,5 +1,5 @@
 import { BeatmapSet } from "./";
-import { BeatmapSetOnlineStatus, GameMode } from "../../../Enums";
+import { BeatmapSetOnlineStatus, GameMode } from "../../Enums";
 
 /**
  * **Beatmap**

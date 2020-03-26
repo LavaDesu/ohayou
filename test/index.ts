@@ -1,16 +1,13 @@
 import "mocha";
 import { expect } from "chai";
 
-import * as Ohayou from "../src";
-import { BeatmapSet, Kudosu, RecentActivity, LegacyScore } from "../src/Structures/Net/Response"; //TODO: get rid of this with classes
-
-import Enums = Ohayou.Enums;
-import Instance = Ohayou.Instance;
+import { Client, Enums, Instance } from "../src";
+import { BeatmapSet, Kudosu, RecentActivity, LegacyScore } from "../src/Structures/API"; //TODO: get rid of this with classes
 
 if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET || !process.env.REFRESH_TOKEN)
     throw new Error("Missing credentials");
 
-const ohayou = new Ohayou.Client(parseInt(process.env.CLIENT_ID), process.env.CLIENT_SECRET);
+const ohayou = new Client(parseInt(process.env.CLIENT_ID), process.env.CLIENT_SECRET);
 let instance: Instance;
 
 describe("Ohayou!!", () => {

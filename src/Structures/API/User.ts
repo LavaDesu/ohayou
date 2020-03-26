@@ -1,5 +1,5 @@
 import { UserCompact, UserStatistics } from "./";
-import { GameMode, Playstyle } from "../../../Enums";
+import { GameMode, Playstyle } from "../../Enums";
 
 /**
  * **User**

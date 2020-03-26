@@ -1,6 +1,6 @@
 import { Base } from "./Base";
 import { Instance } from "./Instance";
-import { User as UserObject, UserCompact as UserCompactObject } from "./Net/Response";
+import { User as UserObject, UserCompact as UserCompactObject } from "./API";
 import { GameMode, Playstyle } from "../Enums";
 
 /** Represents a User class */

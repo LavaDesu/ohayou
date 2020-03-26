@@ -1,5 +1,5 @@
 import { Beatmap, BeatmapSet, UserCompact } from "./";
-import { ScoreRank } from "../../../Enums";
+import { ScoreRank } from "../../Enums";
 
 /**
  * **LegacyScore**

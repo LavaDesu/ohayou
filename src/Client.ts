@@ -18,7 +18,7 @@ import {
     RecentActivity,
     Token as TokenObject,
     User as UserObject,
-    UserCompact as UserCompactObject } from "./Structures/Net/Response";
+    UserCompact as UserCompactObject } from "./Structures/API";
 
 /**
  * The main API Client

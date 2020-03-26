@@ -1,5 +1,5 @@
 import { Beatmap } from "./";
-import { BeatmapSetOnlineStatus } from "../../../Enums";
+import { BeatmapSetOnlineStatus } from "../../Enums";
 
 /**
  * **BeatmapSet**

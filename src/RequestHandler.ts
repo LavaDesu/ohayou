@@ -3,7 +3,7 @@ import { request } from "https";
 import { parse, format, UrlWithStringQuery } from "url";
 
 import { RequestType } from "./Enums";
-import { RequestObject } from "./Structures/Net/RequestObject";
+import { RequestObject } from "./Structures/API";
 
 /**
  * Sends and Handles requests
