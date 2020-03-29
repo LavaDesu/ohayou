@@ -1,7 +1,17 @@
 import { Base } from "./Base";
 import { Instance } from "./Instance";
-import { User as UserObject, UserCompact as UserCompactObject } from "./API";
-import { GameMode, Playstyle } from "../Enums";
+import {
+    User as UserObject,
+    UserCompact as UserCompactObject,
+    RecentActivity as RecentActivityObject,
+    KudosuHistory as KudosuHistoryObject } from "./API";
+import {
+    BeatmapApproval,
+    GameMode,
+    KudosuAction,
+    Playstyle,
+    RecentActivityType,
+    ScoreRank } from "../Enums";
 
 /** Represents a User class */
 export class User extends Base {
@@ -210,8 +220,48 @@ export class User extends Base {
         else
             this.groupBadge = undefined;
     }
+
+    /** Serialize a minimal user object into a {@link MinimalUser} */
+    public static serializeMinimalUser(data: { url: string, username: string }) {
+        return {
+            id: parseInt(data.url.split("/").pop() as string),
+            username: data.username
+        };
+    }
+
+    /** Serialize a KudosuObject into a {@link UserKudosuHistory} */
+    public static serializeKudosuHistory(data: KudosuHistoryObject): UserKudosuHistory {
+        const serialized: UserKudosuHistory = {
+            id: data.id,
+            timestamp: new Date(data.created_at),
+            action: data.action,
+            amount: data.amount
+        };
+        if (data.giver)
+            serialized.giver = this.serializeMinimalUser(data.giver);
+        return serialized;
+    }
+
+    /** Serialize a RecentActivityObject into a {@link UserRecentActivity} */
+    public static serializeRecentActivity(data: RecentActivityObject): UserRecentActivity {
+        const { createdAt, user, ...filtered } = data;
+        return {
+            ...filtered,
+            timestamp: new Date(createdAt),
+            user: this.serializeMinimalUser(user)
+        };
+    }
 }
 
+/** A very minimal user object */
+export interface MinimalUser { //TODO: remove this with a caching handler
+    /** The user's ID */
+    id: number;
+    /** The user's username */
+    username: string;
+}
+
+/** A user's badges */
 export interface UserBadge {
     /** The badge's description */
     description: string;
@@ -221,6 +271,7 @@ export interface UserBadge {
     timestamp: Date;
 }
 
+/** A user's grades */
 export interface UserGrades {
     /** The user's total SS+ ranks */
     ssh: number;
@@ -234,6 +285,7 @@ export interface UserGrades {
     a: number;
 }
 
+/** The user's group badge */
 export interface UserGroupBadge {
     /** The badge's color in hexadecimal format */
     colour: string;
@@ -247,6 +299,7 @@ export interface UserGroupBadge {
     shortName: string;
 }
 
+/** A user's personal information */
 export interface UserInfo {
     /** The user's interests */
     interests: string | null;
@@ -267,6 +320,7 @@ export interface UserInfo {
     website: string | null;
 }
 
+/** A user's infraction */
 export interface UserInfraction {
     /** The infraction's description */
     description: string;
@@ -278,6 +332,7 @@ export interface UserInfraction {
     length: number;
 }
 
+/** A user's kudosu information */
 export interface UserKudosu {
     /** The user's available kudosu */
     available: number;
@@ -285,6 +340,21 @@ export interface UserKudosu {
     total: number;
 }
 
+/** A user's kudosu history entry */
+export interface UserKudosuHistory {
+    /** The entry ID */
+    id: number;
+    /** When the kudosu entry occurred */
+    timestamp: Date;
+    /** The entry action */
+    action: KudosuAction;
+    /** The entry kudosu amount */
+    amount: number;
+    /** The user that gave the kudosu, if applicable */
+    giver?: MinimalUser;
+}
+
+/** A user's earned medals */
 export interface UserMedal { //TODO: enum all medals (**maybe**)
     /** The medal ID */
     id: number;
@@ -292,6 +362,7 @@ export interface UserMedal { //TODO: enum all medals (**maybe**)
     timestamp: Date;
 }
 
+/** A user's rank history */
 export interface UserRankHistory {
     /** The rank history's gamemode */
     mode: GameMode;
@@ -299,6 +370,65 @@ export interface UserRankHistory {
     data: number[];
 }
 
+export interface UserRecentActivity {
+    /** The activity ID */
+    id: number;
+    /** When the activity occurred */
+    timestamp: Date;
+    /** The activity type */
+    type: RecentActivityType;
+    /** Very compact user information included with activity */
+    user: MinimalUser;
+
+    /** Approval type included with activity */
+    approval?: BeatmapApproval;
+    /** Minimal beatmap information incuded with activity */
+    beatmap?: UserRecentActivityBeatmap;
+    /** Minimal beatmapset information incuded with activity */
+    beatmapset?: UserRecentActivityBeatmap;
+    /** Count included with activity */
+    count?: number;
+    /** Medal included with activity */
+    medal?: UserRecentActivityMedal;
+    /** Mode which the activity occurred in */
+    mode?: GameMode;
+    /** Rank included with activity */
+    rank?: number;
+    /** Score rank included with activity */
+    scoreRank?: ScoreRank;
+}
+
+/** Minimal beatmap/beatmapset information incuded with an activity */
+export interface UserRecentActivityBeatmap {
+    /** The beatmap/beatmapset title/name */
+    title: string;
+    /** The beatmap/beatmapset URL **path** */
+    url: string;
+}
+
+/** Medal included with an activity */
+export interface UserRecentActivityMedal {
+    /** The medal ID */
+    id: number;
+    /** The medal's description */
+    description: string;
+    /** The medal's group */
+    grouping: string;
+    /** The medal's icon URL */
+    icon_url: string;
+    /** Instructions to earn the medal, if given */
+    instructions: string | null;
+    /** The medal's mode, if mode-specific */
+    mode: string | null;
+    /** The medal's name */
+    name: string;
+    /** The medal's order */
+    ordering: number;
+    /** The medal's slug */
+    slug: string;
+}
+
+/** A user's gameplay statistics */
 export interface UserStatistics {
     /** The user's accuracy in percentage */
     accuracy: number;

@@ -5,7 +5,7 @@ export { ChatMessage } from "./ChatMessage";
 export { Comment } from "./Comment";
 export { CommentBundle } from "./CommentBundle";
 export { CommentableMeta } from "./CommentableMeta";
-export { Kudosu } from "./Kudosu";
+export { KudosuHistory } from "./KudosuHistory";
 export { LegacyScore } from "./LegacyScore";
 export { Notification } from "./Notification";
 export { RankingResponse } from "./RankingResponse";

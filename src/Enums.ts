@@ -57,6 +57,17 @@ export enum GrantType {
 
 /**
  * - References:
+ *   - {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/Responses/APIKudosuHistory.cs#L77}
+ */
+export enum KudosuAction
+{
+    Give = "give",
+    Reset = "reset",
+    Revoke = "revoke"
+}
+
+/**
+ * - References:
  *   - {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/Responses/APIKudosuHistory.cs#L65}
  */
 export enum KudosuSource {
@@ -68,6 +79,59 @@ export enum KudosuSource {
     Restore = "restore",
     Unknown = "unknown",
     Vote = "vote"
+}
+
+/**
+ * Available gameplay mods
+ *
+ * - References:
+ *   - {@link https://github.com/ppy/osu-web/blob/689e0364df429584a81d05d24855361503a73d2f/app/Libraries/Multiplayer/Mod.php}
+ */
+export enum Mod {
+    Daycore = "DC",
+    DifficultyAdjust = "DA",
+    DoubleTime = "DT",
+    Easy = "EZ",
+    Flashlight = "FL",
+    HardRock = "HR",
+    HalfTime = "HT",
+    Hidden = "HD",
+    Nightcore = "NC",
+    NoFail = "NF",
+    Perfect = "PF",
+    Relax = "RX",
+    SuddenDeath = "SD",
+    WindUp = "WU",
+    WindDown = "WD",
+
+    AutoPilot = "AP",
+    Blind = "BL",
+    Deflate = "DF",
+    Grow = "GR",
+    SpinIn = "SI",
+    SpunOut = "SO",
+    Target = "TP",
+    Traceable = "TC",
+    Transform = "TR",
+    Wiggle = "WG",
+
+    Key1 = "1K",
+    Key2 = "2K",
+    Key3 = "3K",
+    Key4 = "4K",
+    Key5 = "5K",
+    Key6 = "6K",
+    Key7 = "7K",
+    Key8 = "8K",
+    Key9 = "9K",
+    DualStage = "DS",
+    FadeIn = "FI",
+    Mirror = "MR",
+    Random = "RD",
+
+    Autoplay = "AT",
+    Cinema = "CN",
+    NoMod = "NM"
 }
 
 /**
@@ -164,8 +228,11 @@ export enum ScoreRank {
     B = "B",
     A = "A",
     S = "S",
+    /** S with hidden, also known as S+ */
     SH = "SH",
+    /** 100% accuracy, also known as SS */
     X = "X",
+    /** X with hidden, also known as SS+ */
     XH = "XH"
 }
 

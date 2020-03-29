@@ -1,7 +1,8 @@
 import { Endpoints } from "./Endpoints";
 import { RequestHandler } from "./RequestHandler";
 import { Instance } from "./Structures/Instance";
-import { User } from "./Structures/User";
+import { Score } from "./Structures/Score";
+import { User, UserKudosuHistory, UserRecentActivity } from "./Structures/User";
 
 import {
     BeatmapSetType,
@@ -13,7 +14,7 @@ import {
 
 import {
     BeatmapSet as BeatmapSetObject,
-    Kudosu as KudosuObject,
+    KudosuHistory as KudosuObject,
     LegacyScore,
     RecentActivity,
     Token as TokenObject,
@@ -163,7 +164,7 @@ export class Client {
      * @param mode - Specific gamemode to request for
      * @param raw - Whether or not to return the raw request response
      */
-    public async getUser(instance: Instance, id: number, mode?: GameMode | undefined, raw?: boolean): Promise<User | UserObject> { //TODO: fix whatever this is with a UserCompact class
+    public async getUser(instance: Instance, id: number, mode?: GameMode | undefined, raw?: boolean): Promise<User | UserObject> { //TODO: fix whatever this is because vscode intellisense doesnt like it
         const response = await RequestHandler.request<UserObject>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
@@ -206,7 +207,7 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param id - User ID to request
      */
-    public async getUserKudosuHistory(instance: Instance, id: number): Promise<KudosuObject[]> {
+    public async getUserKudosuHistory(instance: Instance, id: number): Promise<UserKudosuHistory[]> {
         const response = await RequestHandler.request<KudosuObject[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
@@ -215,7 +216,7 @@ export class Client {
             ],
             type: RequestType.GET
         });
-        return response;
+        return response.map(kudosu => User.serializeKudosuHistory(kudosu));
     }
 
     /**
@@ -227,7 +228,7 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param id - User ID to request
      */
-    public async getUserRecent(instance: Instance, id: number): Promise<RecentActivity[]> {
+    public async getUserRecent(instance: Instance, id: number): Promise<UserRecentActivity[]> {
         const response = await RequestHandler.request<RecentActivity[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_RECENT_ACTIVITY.replace("{user}", id.toString()),
@@ -236,7 +237,7 @@ export class Client {
             ],
             type: RequestType.GET
         });
-        return response;
+        return response.map(activity => User.serializeRecentActivity(activity));
     }
 
     /**
@@ -249,7 +250,7 @@ export class Client {
      * @param id - User ID to request
      * @param type - Score type
      */
-    public async getUserScores(instance: Instance, id: number, type: ScoreType): Promise<LegacyScore[]> {
+    public async getUserScores(instance: Instance, id: number, type: ScoreType): Promise<Score[]> {
         const response = await RequestHandler.request<LegacyScore[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
@@ -258,7 +259,7 @@ export class Client {
             ],
             type: RequestType.GET
         });
-        return response;
+        return response.map(score => new Score(score, instance));
     }
 
     //#endregion User

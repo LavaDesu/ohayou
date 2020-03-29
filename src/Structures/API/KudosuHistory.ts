@@ -1,3 +1,5 @@
+import { KudosuAction } from "../../Enums";
+
 /**
  * **Kudosu**
  * - **Undocumented**
@@ -5,9 +7,9 @@
  *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Online/API/Requests/Responses/APIKudosuHistory.cs}
  *   - Response sample from `api/v2/users/{user}/kudosu
  */
-export interface Kudosu {
+export interface KudosuHistory {
     id: number;
-    action: string;
+    action: KudosuAction;
     amount: number;
     created_at: string;
     /** Unknown */
@@ -18,12 +20,12 @@ export interface Kudosu {
     post: ModdingPost;
 }
 
-interface ModdingPost {
-    url: string;
-    title: string;
-}
-
 interface KudosuGiver {
     url: string;
     username: string;
+}
+
+interface ModdingPost {
+    url: string;
+    title: string;
 }
