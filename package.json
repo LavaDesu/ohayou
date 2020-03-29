@@ -8,6 +8,7 @@
     "build": "tsc",
     "build:check": "tsc --noEmit",
     "docs": "typedoc src/index.ts --excludePrivate --out docs --mode library --theme minimal --tsconfig tsconfig.doc.json",
+    "lint": "tslint --project ./",
     "test": "mocha test/**.ts --timeout 20000 -r ts-node/register",
     "start": "tsc && node lib/index.js"
   },
@@ -36,12 +37,12 @@
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^13.9.1",
+    "@types/node": "^13.9.4",
     "chai": "^4.2.0",
-    "mocha": "^7.1.0",
-    "ts-node": "^8.6.2",
+    "mocha": "^7.1.1",
+    "ts-node": "^8.8.1",
     "tslint": "^6.1.0",
-    "typedoc": "^0.17.0-3",
+    "typedoc": "^0.17.3",
     "typescript": "^3.8.3"
   },
   "dependencies": {}
