@@ -30,6 +30,8 @@ export class Score extends Base {
     public replay: boolean;
     /** The score's numeric score */
     public score: number;
+    /** The score's statistics */
+    public statistics: ScoreStatistics;
     /** The user that scored this score */ //my engrish vocabulary
     public user: UserCompact; //TODO: use user class after implementing a caching handler
     /** The score's weight percentage (only available with {@link Enums.ScoreType.Best}) */
@@ -55,9 +57,33 @@ export class Score extends Base {
         this.score = data.score;
         this.user = data.user;
 
+        this.statistics = {
+            c50: data.statistics.count_50,
+            c100: data.statistics.count_100,
+            c300: data.statistics.count_300,
+            geki: data.statistics.count_geki,
+            katu: data.statistics.count_katu,
+            miss: data.statistics.count_miss
+        };
+
         if (data.weight) {
             this.weight = data.weight.percentage;
             this.weightedPP = data.weight.pp;
         }
     }
+}
+
+export interface ScoreStatistics {
+    /** Count of 50s */
+    c50: number;
+    /** Count of 100s */
+    c100: number;
+    /** Count of 300s */
+    c300: number;
+    /** Count of gekis */
+    geki: number;
+    /** Count of katus */
+    katu: number;
+    /** Count of misses */
+    miss: number;
 }

@@ -23,10 +23,19 @@ export interface LegacyScore {
     rank: ScoreRank;
     replay: boolean;
     score: number;
-    statistics: { [name: string]: number };
+    statistics: Statistics;
     user: UserCompact;
     /** Only returned from /api/v2/users/{user}/scores/best */
     weight?: Weight;
+}
+
+interface Statistics {
+    count_50: number;
+    count_100: number;
+    count_300: number;
+    count_geki: number;
+    count_katu: number;
+    count_miss: number;
 }
 
 interface Weight {
