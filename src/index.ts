@@ -4,6 +4,7 @@ export { RequestHandler } from "./RequestHandler";
 
 export { Base } from "./Structures/Base";
 export { Instance } from "./Structures/Instance";
+export { Score, ScoreStatistics } from "./Structures/Score";
 export {
     User,
     UserBadge,
