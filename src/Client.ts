@@ -249,11 +249,13 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param type - Score type
+     * @param mode - Mode to get scores for
      */
-    public async getUserScores(instance: Instance, id: number, type: ScoreType): Promise<Score[]> {
+    public async getUserScores(instance: Instance, id: number, type: ScoreType, mode?: GameMode): Promise<Score[]> {
         const response = await RequestHandler.request<LegacyScore[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
+            query: mode ? { mode } : {},
             scopes: [
                 Scope["users.read"]
             ],
