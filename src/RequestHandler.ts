@@ -2,8 +2,7 @@ import { IncomingMessage, RequestOptions } from "http";
 import { request } from "https";
 import { parse, format, UrlWithStringQuery } from "url";
 
-import { RequestType } from "./Enums";
-import { RequestObject } from "./Structures/API";
+import { RequestType, Scope } from "./Enums";
 
 /**
  * Sends and Handles requests
@@ -91,4 +90,24 @@ export class RequestHandler { //TODO: Other request types
             path: url.path
         };
     }
+}
+
+/**
+ * A base request
+ */
+export interface RequestObject {
+    /** Token to authenticate for request, if required */
+    auth?: string;
+    /** Main request body */
+    body?: {};
+    /** Endpoint to request to */
+    endpoint: string;
+    /** Extra request headers */
+    headers?: { [name: string]: string };
+    /** Query parameters */
+    query?: { [name: string]: string };
+    /** Required scopes */
+    scopes: Scope[];
+    /** HTTP request type */
+    type: RequestType;
 }

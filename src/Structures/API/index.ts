@@ -10,7 +10,6 @@ export { LegacyScore } from "./LegacyScore";
 export { Notification } from "./Notification";
 export { RankingResponse } from "./RankingResponse";
 export { RecentActivity } from "./RecentActivity";
-export { RequestObject } from "./RequestObject";
 export { Spotlight } from "./Spotlight";
 export { SpotlightResponse } from "./SpotlightResponse";
 export { Token } from "./Token";
