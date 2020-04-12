@@ -7,12 +7,12 @@ import { User } from "./User";
  * Represents a OAuth user instance to perform authenticated requests with
  */
 export class Instance {
-    private type?: TokenType;
     private refreshTimer?: NodeJS.Timeout;
     private accessToken?: string;
 
     public client: Client;
     public refreshToken?: string;
+    public type?: TokenType;
     public user?: User;
 
     constructor(client: Client) {

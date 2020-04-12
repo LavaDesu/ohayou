@@ -25,7 +25,7 @@ import {
  * The main API Client
  */
 export class Client {
-    private client_id: number;
+    public client_id: number;
     private client_secret: string;
 
     /**

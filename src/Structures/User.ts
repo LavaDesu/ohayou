@@ -16,7 +16,7 @@ import {
 /** Represents a User class */
 export class User extends Base {
     /** Raw data object */
-    private raw: UserObject | UserCompactObject;
+    public raw: UserObject | UserCompactObject;
     /** Whether or not this user class is fully populated (to populate, call {@link fetch}) */
     public isPopulated: boolean;
 

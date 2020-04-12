@@ -4,7 +4,7 @@ import { LegacyScore, Beatmap, BeatmapSet, UserCompact } from "./API";
 import { GameMode, Mod, ScoreRank } from "../Enums";
 
 export class Score extends Base {
-    private raw: LegacyScore;
+    public raw: LegacyScore;
 
     /** The score ID */
     public id: number;
