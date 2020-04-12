@@ -25,8 +25,8 @@ import {
  * The main API Client
  */
 export class Client {
-    public client_id: number;
-    private client_secret: string;
+    public clientID: number;
+    private clientSecret: string;
 
     /**
      * Create an API Client
@@ -34,8 +34,8 @@ export class Client {
      * @param secret - OAuth client secret
      */
     constructor(id: number, secret: string) {
-        this.client_id = id;
-        this.client_secret = secret;
+        this.clientID = id;
+        this.clientSecret = secret;
     }
 
     //#region Instance
@@ -71,8 +71,8 @@ export class Client {
         const response = await RequestHandler.request<TokenObject>({
             body: {
                 "grant_type": GrantType.AuthCode,
-                "client_id": this.client_id,
-                "client_secret": this.client_secret,
+                "client_id": this.clientID,
+                "client_secret": this.clientSecret,
                 "code": code
             },
             endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
@@ -90,8 +90,8 @@ export class Client {
         const response = await RequestHandler.request<TokenObject>({
             body: {
                 "grant_type": GrantType.RefreshToken,
-                "client_id": this.client_id,
-                "client_secret": this.client_secret,
+                "client_id": this.clientID,
+                "client_secret": this.clientSecret,
                 "refresh_token": token
             },
             endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
