@@ -11,7 +11,7 @@ TODO: Recreate eslint rules
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "project": "tsconfig.eslint.json",
+        "project": "tsconfig.json",
         "sourceType": "module"
     },
     "plugins": [
