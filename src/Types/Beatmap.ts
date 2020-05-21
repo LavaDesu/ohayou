@@ -1,17 +1,11 @@
-import { BeatmapSet } from "./";
-import { BeatmapSetOnlineStatus, GameMode } from "../../Enums";
+import { Beatmapset } from "@Types";
+import { BeatmapsetOnlineStatus, Gamemode } from "@Enums";
 
-/**
- * **Beatmap**
- * - **Undocumented**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Online/API/Requests/Responses/APIBeatmap.cs}
- */
 export interface Beatmap {
     id: number;
     accuracy: number;
     ar: number;
-    beatmapset?: BeatmapSet;
+    beatmapset?: Beatmapset;
     beatmapset_id: number;
     bpm: number;
     /** Unclear */
@@ -29,12 +23,12 @@ export interface Beatmap {
     is_scoreable: boolean;
     last_updated: string;
     max_combo?: number;
-    mode: GameMode;
+    mode: Gamemode;
     mode_int: number;
     passcount: number;
     playcount: number;
     ranked: number;
-    status: BeatmapSetOnlineStatus;
+    status: BeatmapsetOnlineStatus;
     total_length: number;
     url: string;
     version: number;
@@ -42,8 +36,6 @@ export interface Beatmap {
 
 /**
  * Beatmap metrics based on accumulated online data from community plays.
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Beatmaps/BeatmapMetrics.cs}
  */
 interface Metric {
     /** Points of retry on a relative time scale (usually 0..100). */

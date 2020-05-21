@@ -1,251 +1,188 @@
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Online/API/Requests/GetUserRecentActivitiesRequest.cs#L40}
- */
-export enum BeatmapApproval {
-    Approved = "approved",
-    Loved = "loved",
-    Qualified = "qualified",
-    Ranked = "ranked"
-}
+export const BeatmapApproval = {
+    Approved:  "approved",
+    Loved:     "loved",
+    Qualified: "qualified",
+    Ranked:    "ranked"
+} as const;
 
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Beatmaps/BeatmapSetOnlineStatus.cs}
- */
-export enum BeatmapSetOnlineStatus {
-    Approved = "approved",
-    Graveyard = "graveyard",
-    Loved = "loved",
-    Pending = "pending",
-    Qualified = "qualified",
-    Ranked = "ranked",
-    WIP = "wip"
-}
+export const BeatmapsetOnlineStatus = {
+    Approved: "approved",
+    Graveyard: "graveyard",
+    Loved: "loved",
+    Pending: "pending",
+    Qualified: "qualified",
+    Ranked: "ranked",
+    WIP: "wip"
+} as const;
 
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/GetUserBeatmapsRequest.cs#L26}
- */
-export enum BeatmapSetType {
-    Favourite = "favourite",
-    Graveyard = "graveyard",
-    Loved = "loved",
-    Pending = "unranked", // Alias
-    RankedAndApproved = "ranked_and_approved",
-    Unranked = "unranked"
-}
+export const BeatmapsetType = {
+    Favourite: "favourite",
+    Graveyard: "graveyard",
+    Loved: "loved",
+    Pending: "unranked", // Alias
+    RankedAndApproved: "ranked_and_approved",
+    Unranked: "unranked"
+} as const;
 
-/**
- * Available game modes
- * - References:
- *   - {@link https://osu.ppy.sh/docs/index.html#gamemode}
- */
-export enum GameMode {
-    Osu = "osu",
-    Taiko = "taiko",
-    Catch = "fruits",
-    Mania = "mania"
-}
+/** Gamemode types */
+export const Gamemode = {
+    Osu:   "osu",
+    Taiko: "taiko",
+    Catch: "fruits",
+    Mania: "mania"
+} as const;
 
 /** Grant types */
-export enum GrantType {
-    AuthCode = "authorization_code",
-    Password = "password",
-    RefreshToken = "refresh_token"
-}
+export const GrantType = {
+    AuthCode: "authorization_code",
+    Password: "password",
+    RefreshToken: "refresh_token"
+} as const;
 
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/Responses/APIKudosuHistory.cs#L77}
- */
-export enum KudosuAction {
-    Give = "give",
-    Reset = "reset",
-    Revoke = "revoke"
-}
+export const KudosuAction = {
+    Give: "give",
+    Reset: "reset",
+    Revoke: "revoke"
+} as const;
 
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/Responses/APIKudosuHistory.cs#L65}
- */
-export enum KudosuSource {
-    AllowKudosu = "allowkudosu",
-    Delete = "delete",
-    DenyKudosu = "denykudosu",
-    Forum = "forum",
-    Recalculate = "recalculate",
-    Restore = "restore",
-    Unknown = "unknown",
-    Vote = "vote"
-}
+export const KudosuSource = {
+    AllowKudosu: "allowkudosu",
+    Delete: "delete",
+    DenyKudosu: "denykudosu",
+    Forum: "forum",
+    Recalculate: "recalculate",
+    Restore: "restore",
+    Unknown: "unknown",
+    Vote: "vote"
+} as const;
 
-/**
- * Available gameplay mods
- *
- * - References:
- *   - {@link https://github.com/ppy/osu-web/blob/689e0364df429584a81d05d24855361503a73d2f/app/Libraries/Multiplayer/Mod.php}
- */
-export enum Mod {
-    Daycore = "DC",
-    DifficultyAdjust = "DA",
-    DoubleTime = "DT",
-    Easy = "EZ",
-    Flashlight = "FL",
-    HardRock = "HR",
-    HalfTime = "HT",
-    Hidden = "HD",
-    Nightcore = "NC",
-    NoFail = "NF",
-    Perfect = "PF",
-    Relax = "RX",
-    SuddenDeath = "SD",
-    WindUp = "WU",
-    WindDown = "WD",
+/** Available gameplay mods */
+export const Mod = {
+    Daycore: "DC",
+    DifficultyAdjust: "DA",
+    DoubleTime: "DT",
+    Easy: "EZ",
+    Flashlight: "FL",
+    HardRock: "HR",
+    HalfTime: "HT",
+    Hidden: "HD",
+    Nightcore: "NC",
+    NoFail: "NF",
+    Perfect: "PF",
+    Relax: "RX",
+    SuddenDeath: "SD",
+    WindUp: "WU",
+    WindDown: "WD",
 
-    AutoPilot = "AP",
-    Blind = "BL",
-    Deflate = "DF",
-    Grow = "GR",
-    SpinIn = "SI",
-    SpunOut = "SO",
-    Target = "TP",
-    Traceable = "TC",
-    Transform = "TR",
-    Wiggle = "WG",
+    AutoPilot: "AP",
+    Blind: "BL",
+    Deflate: "DF",
+    Grow: "GR",
+    SpinIn: "SI",
+    SpunOut: "SO",
+    Target: "TP",
+    Traceable: "TC",
+    Transform: "TR",
+    Wiggle: "WG",
 
-    Key1 = "1K",
-    Key2 = "2K",
-    Key3 = "3K",
-    Key4 = "4K",
-    Key5 = "5K",
-    Key6 = "6K",
-    Key7 = "7K",
-    Key8 = "8K",
-    Key9 = "9K",
-    DualStage = "DS",
-    FadeIn = "FI",
-    Mirror = "MR",
-    Random = "RD",
+    Key1: "1K",
+    Key2: "2K",
+    Key3: "3K",
+    Key4: "4K",
+    Key5: "5K",
+    Key6: "6K",
+    Key7: "7K",
+    Key8: "8K",
+    Key9: "9K",
+    DualStage: "DS",
+    FadeIn: "FI",
+    Mirror: "MR",
+    Random: "RD",
 
-    Autoplay = "AT",
-    Cinema = "CN",
-    NoMod = "NM"
-}
+    Autoplay: "AT",
+    Cinema: "CN",
+    NoMod: "NM"
+} as const;
 
-/**
- * User playstyles
- * - References:
- *   - {@link https://github.com/ppy/osu-web/blob/518cacf3d621ad66412c6fb4b24311389a69dfec/app/Models/User.php#L190}
- */
-export enum Playstyle {
-    Keyboard = "keyboard",
-    Tablet = "tablet",
-    Mouse = "mouse",
-    Touchscreen = "touch"
-}
+/** User playstyles */
+export const Playstyle = {
+    Keyboard:    "keyboard",
+    Tablet:      "tablet",
+    Mouse:       "mouse",
+    Touchscreen: "touch"
+} as const;
 
-/**
- * Available ranking types
- * - References:
- *   - {@link https://osu.ppy.sh/docs/index.html#rankingtype}
- */
-export enum RankingType {
-    Charts = "charts",
-    Country = "country",
-    Performance = "performance",
-    Score = "score"
-}
+/** Available ranking types */
+export const RankingType = {
+    Charts: "charts",
+    Country: "country",
+    Performance: "performance",
+    Score: "score"
+} as const;
 
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Online/API/Requests/GetUserRecentActivitiesRequest.cs#L22}
- */
-export enum RecentActivityType {
-    Achievement = "achievement",
-    BeatmapPlaycount = "beatmapPlaycount",
-    BeatmapsetApprove = "beatmapsetApprove",
-    BeatmapsetDelete = "beatmapsetDelete",
-    BeatmapsetRevive = "beatmapsetRevive",
-    BeatmapsetUpdate = "beatmapsetUpdate",
-    BeatmapsetUpload = "beatmapsetUpload",
-    Medal = "medal",
-    Rank = "rank",
-    RankLost = "rankLost",
-    UserSupportAgain = "userSupportAgain",
-    UserSupportFirst = "userSupportFirst",
-    UserSupportGift = "userSupportGift",
-    UsernameChange = "usernameChange"
-}
+export const RecentActivityType = {
+    Achievement: "achievement",
+    BeatmapPlaycount: "beatmapPlaycount",
+    BeatmapsetApprove: "beatmapsetApprove",
+    BeatmapsetDelete: "beatmapsetDelete",
+    BeatmapsetRevive: "beatmapsetRevive",
+    BeatmapsetUpdate: "beatmapsetUpdate",
+    BeatmapsetUpload: "beatmapsetUpload",
+    Medal: "medal",
+    Rank: "rank",
+    RankLost: "rankLost",
+    UserSupportAgain: "userSupportAgain",
+    UserSupportFirst: "userSupportFirst",
+    UserSupportGift: "userSupportGift",
+    UsernameChange: "usernameChange"
+} as const;
 
 /** REST request types */
-export enum RequestType {
-    GET = "GET",
-    POST = "POST",
-    PUT = "PUT",
-    PATCH = "PATCH",
-    DEL = "DELETE"
-}
+export const RequestType = {
+    GET: "GET",
+    POST: "POST",
+    PUT: "PUT",
+    PATCH: "PATCH",
+    DEL: "DELETE"
+} as const;
 
-/**
- * Available scopes
- * - References:
- *   - {@link https://osu.ppy.sh/docs/index.html#scopes}
- *   - {@link https://github.com/ppy/osu-web/blob/518cacf3d621ad66412c6fb4b24311389a69dfec/tests/RouteScopesTest.php#L15}
- */
-export enum Scope {
-    /**
-     * Allows reading of the public profile of the authorizing user (`/me`).
-     *
-     * - Used by
-     *   - {@link Client.getSelf}
-     */
-    "identify" = "identify",
-    /**
-     * Allows reading of the authorizing user's friend list.
-     *
-     * - Used by
-     *   - {@link Client.getFriends}
-     */
-    "friends.read" = "friends.read",
-    /**
-     * Allows reading of public user profiles on behalf of the authorizing user.
-     *
-     * - Used by
-     *   - {@link Client.getUser}
-     */
-    "users.read" = "users.read"
-}
-
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Scoring/ScoreRank.cs}
- */
-export enum ScoreRank {
-    D = "D",
-    C = "C",
-    B = "B",
-    A = "A",
-    S = "S",
+export const ScoreRank = {
+    D: "D",
+    C: "C",
+    B: "B",
+    A: "A",
+    S: "S",
     /** S with hidden, also known as S+ */
-    SH = "SH",
+    SH: "SH",
     /** 100% accuracy, also known as SS */
-    X = "X",
+    X: "X",
     /** X with hidden, also known as SS+ */
-    XH = "XH"
-}
+    XH: "XH"
+} as const;
 
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/GetUserScoresRequest.cs#L38}
- */
-export enum ScoreType {
-    Best = "best",
-    Firsts = "firsts",
-    Recent = "recent"
-}
+export const ScoreType = {
+    Best: "best",
+    Firsts: "firsts",
+    Recent: "recent"
+} as const;
 
 /** Token types */
-export enum TokenType {
-    Bearer = "Bearer"
-}
+export const TokenType = {
+    Bearer: "Bearer"
+} as const;
+
+export type BeatmapApproval        = (typeof BeatmapApproval)        [keyof typeof BeatmapApproval];
+export type BeatmapsetOnlineStatus = (typeof BeatmapsetOnlineStatus) [keyof typeof BeatmapsetOnlineStatus];
+export type BeatmapsetType         = (typeof BeatmapsetType)         [keyof typeof BeatmapsetType];
+export type Gamemode               = (typeof Gamemode)               [keyof typeof Gamemode];
+export type GrantType              = (typeof GrantType)              [keyof typeof GrantType];
+export type KudosuAction           = (typeof KudosuAction)           [keyof typeof KudosuAction];
+export type KudosuSource           = (typeof KudosuSource)           [keyof typeof KudosuSource];
+export type Mod                    = (typeof Mod)                    [keyof typeof Mod];
+export type Playstyle              = (typeof Playstyle)              [keyof typeof Playstyle];
+export type RankingType            = (typeof RankingType)            [keyof typeof RankingType];
+export type RecentActivityType     = (typeof RecentActivityType)     [keyof typeof RecentActivityType];
+export type RequestType            = (typeof RequestType)            [keyof typeof RequestType];
+export type ScoreRank              = (typeof ScoreRank)              [keyof typeof ScoreRank];
+export type ScoreType              = (typeof ScoreType)              [keyof typeof ScoreType];
+export type TokenType              = (typeof TokenType)              [keyof typeof TokenType];

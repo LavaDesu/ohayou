@@ -1,25 +1,30 @@
-import { Endpoints } from "./Endpoints";
-import { RequestHandler } from "./RequestHandler";
-import { Instance } from "./Structures/Instance";
-import { Score } from "./Structures/Score";
-import { User, UserKudosuHistory, UserRecentActivity } from "./Structures/User";
+import { Endpoints } from "@Endpoints";
+import { RequestHandler } from "@RequestHandler";
+import {
+    Instance,
+    Score,
+    User,
+    UserKudosuHistory,
+    UserRecentActivity
+} from "@Structures";
 
 import {
-    BeatmapSetType,
-    GameMode,
+    BeatmapsetType,
+    Gamemode,
     GrantType,
     RequestType,
-    Scope,
-    ScoreType } from "./Enums";
+    ScoreType
+} from "@Enums";
 
 import {
-    BeatmapSet as BeatmapSetObject,
+    Beatmapset as BeatmapsetObject,
     KudosuHistory as KudosuObject,
     LegacyScore,
     RecentActivity,
     Token as TokenObject,
     User as UserObject,
-    UserCompact as UserCompactObject } from "./Structures/API";
+    UserCompact as UserCompactObject
+} from "@Types";
 
 /**
  * The main API Client
@@ -76,7 +81,6 @@ export class Client {
                 "code": code
             },
             endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
-            scopes: [],
             type: RequestType.POST
         });
         return response;
@@ -95,7 +99,6 @@ export class Client {
                 "refresh_token": token
             },
             endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
-            scopes: [],
             type: RequestType.POST
         });
         return response;
@@ -114,13 +117,10 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param mode - Specific gamemode to request for
      */
-    public async getSelf(instance: Instance, mode?: GameMode): Promise<User> {
+    public async getSelf(instance: Instance, mode?: Gamemode): Promise<User> {
         const response = await RequestHandler.request<UserObject>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode || ""),
-            scopes: [
-                Scope["identify"]
-            ],
             type: RequestType.GET
         });
         return new User(response, instance);
@@ -138,9 +138,6 @@ export class Client {
         const response = await RequestHandler.request<UserCompactObject[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
-            scopes: [
-                Scope["friends.read"]
-            ],
             type: RequestType.GET
         });
         return response.map(friend => new User(friend, instance));
@@ -151,8 +148,8 @@ export class Client {
     //#region User
 
     public async getUser(instance: Instance, id: number): Promise<User>;
-    public async getUser(instance: Instance, id: number, mode: GameMode): Promise<User>;
-    public async getUser(instance: Instance, id: number, mode: GameMode | undefined, raw: true): Promise<UserObject>;
+    public async getUser(instance: Instance, id: number, mode: Gamemode): Promise<User>;
+    public async getUser(instance: Instance, id: number, mode: Gamemode | undefined, raw: true): Promise<UserObject>;
     /**
      * Get a user's information
      *
@@ -164,13 +161,10 @@ export class Client {
      * @param mode - Specific gamemode to request for
      * @param raw - Whether or not to return the raw request response
      */
-    public async getUser(instance: Instance, id: number, mode?: GameMode | undefined, raw?: boolean): Promise<User | UserObject> { //TODO: fix whatever this is because vscode intellisense doesnt like it
+    public async getUser(instance: Instance, id: number, mode?: Gamemode | undefined, raw?: boolean): Promise<User | UserObject> { //TODO: fix whatever this is because vscode intellisense doesnt like it
         const response = await RequestHandler.request<UserObject>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
-            scopes: [
-                Scope["users.read"]
-            ],
             type: RequestType.GET
         });
         return raw ? response : new User(response, instance);
@@ -186,13 +180,10 @@ export class Client {
      * @param id - User ID to request
      * @param type - Beatmapset type
      */
-    public async getUserBeatmapsets(instance: Instance, id: number, type: BeatmapSetType): Promise<BeatmapSetObject[]> {
-        const response = await RequestHandler.request<BeatmapSetObject[]>({
+    public async getUserBeatmapsets(instance: Instance, id: number, type: BeatmapsetType): Promise<BeatmapsetObject[]> {
+        const response = await RequestHandler.request<BeatmapsetObject[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_BEATMAPSETS.replace("{user}", id.toString()).replace("{type}", type),
-            scopes: [
-                Scope["users.read"]
-            ],
             type: RequestType.GET
         });
         return response;
@@ -211,9 +202,6 @@ export class Client {
         const response = await RequestHandler.request<KudosuObject[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
-            scopes: [
-                Scope["users.read"]
-            ],
             type: RequestType.GET
         });
         return response.map(kudosu => User.serializeKudosuHistory(kudosu));
@@ -232,9 +220,6 @@ export class Client {
         const response = await RequestHandler.request<RecentActivity[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_RECENT_ACTIVITY.replace("{user}", id.toString()),
-            scopes: [
-                Scope["users.read"]
-            ],
             type: RequestType.GET
         });
         return response.map(activity => User.serializeRecentActivity(activity));
@@ -251,14 +236,11 @@ export class Client {
      * @param type - Score type
      * @param mode - Mode to get scores for
      */
-    public async getUserScores(instance: Instance, id: number, type: ScoreType, mode?: GameMode): Promise<Score[]> {
+    public async getUserScores(instance: Instance, id: number, type: ScoreType, mode?: Gamemode): Promise<Score[]> {
         const response = await RequestHandler.request<LegacyScore[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
             query: mode ? { mode } : {},
-            scopes: [
-                Scope["users.read"]
-            ],
             type: RequestType.GET
         });
         return response.map(score => new Score(score, instance));

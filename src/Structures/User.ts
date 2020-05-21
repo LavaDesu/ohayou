@@ -1,17 +1,18 @@
-import { Base } from "./Base";
-import { Instance } from "./Instance";
+import { Base, Instance } from "@Structures";
 import {
-    User as UserObject,
-    UserCompact as UserCompactObject,
+    KudosuHistory as KudosuHistoryObject,
     RecentActivity as RecentActivityObject,
-    KudosuHistory as KudosuHistoryObject } from "./API";
+    User as UserObject,
+    UserCompact as UserCompactObject
+} from "@Types";
 import {
     BeatmapApproval,
-    GameMode,
+    Gamemode,
     KudosuAction,
     Playstyle,
     RecentActivityType,
-    ScoreRank } from "../Enums";
+    ScoreRank
+} from "@Enums";
 
 /** Represents a User class */
 export class User extends Base {
@@ -34,7 +35,9 @@ export class User extends Base {
     public bot: boolean;
     /** Whether or not the user is online */
     public online: boolean;
-    /** Whether or not the user is a supporter */
+    /** Whether or not the user once had supporter */
+    public hadSupporter?: boolean;
+    /** Whether or not the user is currently a supporter */
     public supporter: boolean;
     /** The user's supporter level (the amount of hearts on the user's page) */
     public supporterLevel: number;
@@ -55,23 +58,8 @@ export class User extends Base {
         url: string;
     };
 
-    /** Whether or not the user is part of the Beatmap Nomination Group */
-    public bng?: boolean;
-    /** If the user is part of the BNG, whether or not the user is a full BN */
-    public bnFull?: boolean;
-    /** Whether or not the user is part of the Global Moderation Team */
-    public gmt?: boolean;
-    /** Whether or not the user once had supporter */
-    public hadSupporter?: boolean;
-    /** Whether or not the user is part of the Nomination Assessment Team */
-    public nat?: boolean;
-    /** Whether or not the user is a moderator */
-    public moderator?: boolean;
-    /** Whether or not the user is restricted */
-    public restricted?: boolean;
-
     /** The user's default gamemode */
-    public defaultGamemode?: GameMode;
+    public defaultGamemode?: Gamemode;
     /** The user's follower count */
     public followers?: number;
     /** The user's playstyle */
@@ -107,7 +95,7 @@ export class User extends Base {
         super(instance);
 
         this.raw = data;
-        this.isPopulated = (data as UserObject).kudosu ? true : false;
+        this.isPopulated = (data as UserObject).kudosu ? true : false; //Checking if this is compact or not, should probably go for a better one
         this.id = data.id;
         this.username = data.username;
         this.avatarURL = data.avatar_url;
@@ -133,7 +121,6 @@ export class User extends Base {
     /**
      * Fully fetch and update this user
      */
-
     public async fetch() {
         const newUser = await this.instance.client.getUser(this.instance, this.id, this.defaultGamemode, true);
         this.raw = newUser;
@@ -143,13 +130,7 @@ export class User extends Base {
 
     private populate() {
         const data = this.raw as UserObject;
-        this.bng = data.is_bng;
-        this.bnFull = data.is_full_bn;
-        this.gmt = data.is_gmt;
         this.hadSupporter = data.has_supported;
-        this.nat = data.is_nat;
-        this.moderator = data.is_moderator;
-        this.restricted = data.is_restricted;
         this.defaultGamemode = data.playmode;
         this.followers = data.follower_count;
         this.playstyle = data.playstyle || [];
@@ -359,7 +340,7 @@ export interface UserMedal { //TODO: enum all medals (**maybe**)
 /** A user's rank history */
 export interface UserRankHistory {
     /** The rank history's gamemode */
-    mode: GameMode;
+    mode: Gamemode;
     /** The rank history's data, where each index increment means a day has passed */
     data: number[];
 }
@@ -385,7 +366,7 @@ export interface UserRecentActivity {
     /** Medal included with activity */
     medal?: UserRecentActivityMedal;
     /** Mode which the activity occurred in */
-    mode?: GameMode;
+    mode?: Gamemode;
     /** Rank included with activity */
     rank?: number;
     /** Score rank included with activity */

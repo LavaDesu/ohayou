@@ -2,7 +2,7 @@ import { IncomingMessage, RequestOptions } from "http";
 import { request } from "https";
 import { parse, format, UrlWithStringQuery } from "url";
 
-import { RequestType, Scope } from "./Enums";
+import { RequestType } from "./Enums";
 
 /**
  * Sends and Handles requests
@@ -106,8 +106,6 @@ export interface RequestObject {
     headers?: { [name: string]: string };
     /** Query parameters */
     query?: { [name: string]: string };
-    /** Required scopes */
-    scopes: Scope[];
     /** HTTP request type */
     type: RequestType;
 }

@@ -1,5 +1,6 @@
 {
   "include": ["./src/**/*.ts"],
+  "exclude": ["./node_modules/**"],
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
@@ -10,6 +11,17 @@
     "rootDir": "src",
     "sourceMap": true,
     "sourceRoot": "src",
-    "strict": true
+    "strict": true,
+    "baseUrl": "src",
+    "paths": {
+      "@Client": ["Client"],
+      "@Endpoints": ["Endpoints"],
+      "@Enums": ["Enums"],
+      "@RequestHandler": ["RequestHandler"],
+      "@Structures": ["Structures"],
+      "@Structures/*": ["Structures/*"],
+      "@Types": ["Types"],
+      "@Types/*": ["Types/*"]
+    }
   }
 }

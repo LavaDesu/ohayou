@@ -1,13 +1,6 @@
-import { GradeCounts, UserCompact } from "./";
+import { UserCompact } from "@Types";
 
-/**
- * **UserStatistics**
- *
- * - A summary of various gameplay statistics for a {@link User}. Specific to a {@link GameMode}.
- * - References:
- *   - {@link https://osu.ppy.sh/docs/index.html#userstatistics}
- */
-export interface UserStatistics {
+export type UserStatistics = {
     grade_counts: GradeCounts;
     hit_accuracy: number;
     is_ranked: boolean;
@@ -22,16 +15,23 @@ export interface UserStatistics {
     replays_watched_by_others: number;
     total_hits: number;
     total_score: number;
-    user: UserCompact;
-}
+    user?: UserCompact; // Not circular
+};
 
-interface Level {
-    /** Docs misspelled this */
+export type GradeCounts = {
+    ss: number;
+    ssh: number;
+    s: number;
+    sh: number;
+    a: number;
+};
+
+export type Level = {
     current: number;
     progress: number;
-}
+};
 
-interface Rank {
+export type Rank = {
     country: number | null;
     global: number | null;
-}
+};

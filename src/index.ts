@@ -1,20 +1,7 @@
-export { Client } from "./Client";
-export { Endpoints } from "./Endpoints";
-export { RequestHandler, RequestObject } from "./RequestHandler";
+export { Client } from "@Client";
+export { Endpoints } from "@Endpoints";
+export { RequestHandler, RequestObject } from "@RequestHandler";
 
-export { Base } from "./Structures/Base";
-export { Instance } from "./Structures/Instance";
-export { Score, ScoreStatistics } from "./Structures/Score";
-export {
-    User,
-    UserBadge,
-    UserGrades,
-    UserGroupBadge,
-    UserInfo,
-    UserInfraction,
-    UserKudosu,
-    UserMedal,
-    UserStatistics,
-    UserRankHistory } from "./Structures/User";
-
-export * as Enums from "./Enums";
+export * from "@Structures";
+export * as Enums from "@Enums";
+export * as Types from "@Types";

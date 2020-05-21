@@ -1,7 +1,7 @@
 import { Base } from "./Base";
 import { Instance } from "./Instance";
-import { LegacyScore, Beatmap, BeatmapSet, UserCompact } from "./API";
-import { GameMode, Mod, ScoreRank } from "../Enums";
+import { Beatmap, Beatmapset, LegacyScore, UserCompact } from "@Types";
+import { Gamemode, Mod, ScoreRank } from "@Enums";
 
 export class Score extends Base {
     public raw: LegacyScore;
@@ -15,11 +15,11 @@ export class Score extends Base {
     /** The beatmap the score was set on */
     public beatmap: Beatmap;
     /** The beatmapset the score was set on */
-    public beatmapset: BeatmapSet;
+    public beatmapset: Beatmapset;
     /** The highest combo in the score */
     public combo: number;
     /** The score's gamemode */
-    public mode: GameMode;
+    public mode: Gamemode;
     /** The score's mods */
     public mods: Mod[];
     /** The score's unweighted performance points */

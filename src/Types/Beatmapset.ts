@@ -1,14 +1,7 @@
-import { Beatmap } from "./";
-import { BeatmapSetOnlineStatus } from "../../Enums";
+import { Beatmap } from "@Types";
+import { BeatmapsetOnlineStatus } from "@Enums";
 
-/**
- * **BeatmapSet**
- * - **Undocumented**
- * - References:
- *   - Response sample from `/api/v2/users/{user}/beatmapsets/favourite`
- *   - {@link https://github.com/ppy/osu/blob/master/osu.Game/Online/API/Requests/Responses/APIBeatmapSet.cs}
- */
-export interface BeatmapSet {
+export interface Beatmapset {
     id: number;
     artist: string;
     availability: Availability;
@@ -33,7 +26,7 @@ export interface BeatmapSet {
     ranked_date: string | null;
     ratings?: number[];
     source: string;
-    status: BeatmapSetOnlineStatus;
+    status: BeatmapsetOnlineStatus;
     storyboard: boolean;
     submitted_date: string;
     tags: string;
@@ -42,10 +35,6 @@ export interface BeatmapSet {
     video: boolean;
 }
 
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L102}
- */
 interface Covers {
     "cover": string;
     "cover@2x": string;
@@ -57,32 +46,16 @@ interface Covers {
     "slimcover@2x": string;
 }
 
-/**
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L120}
- */
 interface Availability {
     download_disabled: boolean;
     more_information: string;
 }
 
-/**
- * **Unclear**
- *
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L90}
- */
 interface Genre {
     id: string;
     name: string;
 }
 
-/**
- * **Unclear**
- *
- * - References:
- *   - {@link https://github.com/ppy/osu/blob/133a3d3e0f15ebb4ef48c302dac04b6346316c24/osu.Game/Beatmaps/BeatmapSetOnlineInfo.cs#L96}
- */
 interface Language {
     id: string;
     name: string;

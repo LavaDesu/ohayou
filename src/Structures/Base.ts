@@ -1,4 +1,4 @@
-import { Instance } from "./Instance";
+import { Instance } from "@Structures";
 
 /** Base abstract class for structures */
 export abstract class Base {

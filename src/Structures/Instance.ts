@@ -1,7 +1,7 @@
-import { Client } from "../Client";
-import { TokenType } from "../Enums";
-import { Token as TokenObject } from "./API";
-import { User } from "./User";
+import { Client } from "@Client";
+import { TokenType } from "@Enums";
+import { Token } from "@Types";
+import { User } from "@Structures";
 
 /**
  * Represents a OAuth user instance to perform authenticated requests with
@@ -19,7 +19,7 @@ export class Instance {
         this.client = client;
     }
 
-    public async refresh(data: TokenObject): Promise<Instance> {
+    public async refresh(data: Token): Promise<Instance> {
         this.type = data.token_type;
         this.accessToken = data.access_token;
         this.refreshToken = data.refresh_token;
