@@ -1,0 +1,6 @@
+// This config is used by eslint to include all files
+// The reason being that I don't want red files on my editor while working
+{
+    "extends": "./tsconfig.json",
+    "include": ["src/**/*.ts"]
+}
