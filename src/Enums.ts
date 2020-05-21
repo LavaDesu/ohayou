@@ -59,8 +59,7 @@ export enum GrantType {
  * - References:
  *   - {@link https://github.com/ppy/osu/blob/c2413543cace984f4970111d1d99892daa46a478/osu.Game/Online/API/Requests/Responses/APIKudosuHistory.cs#L77}
  */
-export enum KudosuAction
-{
+export enum KudosuAction {
     Give = "give",
     Reset = "reset",
     Revoke = "revoke"

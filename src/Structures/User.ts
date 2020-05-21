@@ -187,27 +187,21 @@ export class User extends Base {
             watchedReplays: data.statistics.replays_watched_by_others
         };
 
-        this.badges = data.badges.map<UserBadge>(i => {
-            return {
-                description: i.description,
-                imageURL: this.avatarURL,
-                timestamp: new Date(i.awarded_at)
-            };
-        });
-        this.infractions = data.account_history.map<UserInfraction>(i => {
-            return {
-                description: i.description,
-                length: i.length,
-                timestamp: new Date(i.timestamp),
-                type: i.type
-            };
-        });
-        this.medals = data.user_achievements.map<UserMedal>(i => {
-            return {
-                id: i.achievement_id,
-                timestamp: new Date(i.achieved_at)
-            };
-        });
+        this.badges = data.badges.map<UserBadge>(i => ({
+            description: i.description,
+            imageURL: this.avatarURL,
+            timestamp: new Date(i.awarded_at)
+        }));
+        this.infractions = data.account_history.map<UserInfraction>(i => ({
+            description: i.description,
+            length: i.length,
+            timestamp: new Date(i.timestamp),
+            type: i.type
+        }));
+        this.medals = data.user_achievements.map<UserMedal>(i => ({
+            id: i.achievement_id,
+            timestamp: new Date(i.achieved_at)
+        }));
 
         if (data.group_badge)
             this.groupBadge = {
@@ -222,7 +216,7 @@ export class User extends Base {
     }
 
     /** Serialize a minimal user object into a {@link MinimalUser} */
-    public static serializeMinimalUser(data: { url: string, username: string }) {
+    public static serializeMinimalUser(data: { url: string; username: string }) {
         return {
             id: parseInt(data.url.split("/").pop() as string),
             username: data.username
