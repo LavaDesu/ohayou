@@ -95,7 +95,7 @@ export class RequestHandler { //TODO: Other request types
 /**
  * A base request
  */
-export interface RequestObject {
+export type RequestObject = {
     /** Token to authenticate for request, if required */
     auth?: string;
     /** Main request body */
@@ -108,4 +108,4 @@ export interface RequestObject {
     query?: { [name: string]: string };
     /** HTTP request type */
     type: RequestType;
-}
+};
