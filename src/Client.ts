@@ -147,9 +147,6 @@ export class Client {
 
     //#region User
 
-    public async getUser(instance: Instance, id: number): Promise<User>;
-    public async getUser(instance: Instance, id: number, mode: Gamemode): Promise<User>;
-    public async getUser(instance: Instance, id: number, mode: Gamemode | undefined, raw: true): Promise<UserObject>;
     /**
      * Get a user's information
      *
@@ -159,15 +156,14 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param mode - Specific gamemode to request for
-     * @param raw - Whether or not to return the raw request response
      */
-    public async getUser(instance: Instance, id: number, mode?: Gamemode | undefined, raw?: boolean): Promise<User | UserObject> { //TODO: fix whatever this is because vscode intellisense doesnt like it
+    public async getUser(instance: Instance, id: number, mode?: Gamemode | undefined): Promise<User> {
         const response = await RequestHandler.request<UserObject>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
             type: RequestType.GET
         });
-        return raw ? response : new User(response, instance);
+        return new User(response, instance);
     }
 
     /**

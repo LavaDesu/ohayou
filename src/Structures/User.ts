@@ -122,8 +122,8 @@ export class User extends Base {
      * Fully fetch and update this user
      */
     public async fetch() {
-        const newUser = await this.instance.client.getUser(this.instance, this.id, this.defaultGamemode, true);
-        this.raw = newUser;
+        const newUser = await this.instance.client.getUser(this.instance, this.id, this.defaultGamemode);
+        this.raw = newUser.raw;
         this.createdAt = new Date();
         this.populate();
     }
