@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MoeLava/ohayou.git"
+    "url": "git+https://github.com/LavaDesu/ohayou.git"
   },
   "keywords": [
     "osu",
@@ -24,15 +24,15 @@
     "wrapper",
     "oauth2"
   ],
-  "author": "MoeLava <me@lava.moe> (https://lava.moe)",
+  "author": "LavaDesu <me@lava.moe> (https://lava.moe)",
   "files": [
     "lib"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MoeLava/ohayou/issues"
+    "url": "https://github.com/LavaDesu/ohayou/issues"
   },
-  "homepage": "https://github.com/MoeLava/ohayou#readme",
+  "homepage": "https://github.com/LavaDesu/ohayou#readme",
   "devDependencies": {
     "@types/node": "^13.9.4",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
