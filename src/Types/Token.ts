@@ -1,4 +1,4 @@
-import { TokenType } from "@Enums";
+import { TokenType } from "../Enums";
 
 /** OAuth Token */
 export type Token = {

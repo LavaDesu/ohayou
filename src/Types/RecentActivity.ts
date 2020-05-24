@@ -3,7 +3,7 @@ import {
     Gamemode,
     RecentActivityType,
     ScoreRank
-} from "@Enums";
+} from "../Enums";
 
 export type RecentActivity = {
     id: number;

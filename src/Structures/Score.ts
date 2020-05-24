@@ -1,7 +1,6 @@
-import { Base } from "./Base";
-import { Instance } from "./Instance";
-import { Beatmap, Beatmapset, LegacyScore, UserCompact } from "@Types";
-import { Gamemode, Mod, ScoreRank } from "@Enums";
+import { Base, Instance } from "../Structures";
+import { Beatmap, Beatmapset, LegacyScore, UserCompact } from "../Types";
+import { Gamemode, Mod, ScoreRank } from "../Enums";
 
 export class Score extends Base {
     public raw: LegacyScore;

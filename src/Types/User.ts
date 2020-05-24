@@ -1,5 +1,5 @@
-import { Gamemode, Playstyle } from "@Enums";
-import { UserStatistics } from "@Types";
+import { Gamemode, Playstyle } from "../Enums";
+import { UserStatistics } from "../Types";
 
 export type UserCompact = {
     id: number;

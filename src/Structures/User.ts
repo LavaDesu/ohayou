@@ -1,10 +1,10 @@
-import { Base, Instance } from "@Structures";
+import { Base, Instance } from "../Structures";
 import {
     KudosuHistory as KudosuHistoryObject,
     RecentActivity as RecentActivityObject,
     User as UserObject,
     UserCompact as UserCompactObject
-} from "@Types";
+} from "../Types";
 import {
     BeatmapApproval,
     Gamemode,
@@ -12,7 +12,7 @@ import {
     Playstyle,
     RecentActivityType,
     ScoreRank
-} from "@Enums";
+} from "../Enums";
 
 /** Represents a User class */
 export class User extends Base {

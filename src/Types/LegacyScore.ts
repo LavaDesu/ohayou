@@ -1,5 +1,5 @@
-import { Beatmap, Beatmapset, UserCompact } from "@Types";
-import { Gamemode, Mod, ScoreRank } from "@Enums";
+import { Beatmap, Beatmapset, UserCompact } from "../Types";
+import { Gamemode, Mod, ScoreRank } from "../Enums";
 
 /**
  * Legacy Score

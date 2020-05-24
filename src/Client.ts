@@ -1,12 +1,12 @@
-import { Endpoints } from "@Endpoints";
-import { RequestHandler } from "@RequestHandler";
+import { Endpoints } from "./Endpoints";
+import { RequestHandler } from "./RequestHandler";
 import {
     Instance,
     Score,
     User,
     UserKudosuHistory,
     UserRecentActivity
-} from "@Structures";
+} from "./Structures";
 
 import {
     BeatmapsetType,
@@ -14,7 +14,7 @@ import {
     GrantType,
     RequestType,
     ScoreType
-} from "@Enums";
+} from "./Enums";
 
 import {
     Beatmapset as BeatmapsetObject,
@@ -24,7 +24,7 @@ import {
     Token,
     User as UserObject,
     UserCompact as UserCompactObject
-} from "@Types";
+} from "./Types";
 
 /**
  * The main API Client

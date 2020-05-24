@@ -11,17 +11,6 @@
     "rootDir": "src",
     "sourceMap": true,
     "sourceRoot": "src",
-    "strict": true,
-    "baseUrl": "src",
-    "paths": {
-      "@Client": ["Client"],
-      "@Endpoints": ["Endpoints"],
-      "@Enums": ["Enums"],
-      "@RequestHandler": ["RequestHandler"],
-      "@Structures": ["Structures"],
-      "@Structures/*": ["Structures/*"],
-      "@Types": ["Types"],
-      "@Types/*": ["Types/*"]
-    }
+    "strict": true
   }
 }

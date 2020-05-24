@@ -1,4 +1,4 @@
-import { UserCompact } from "@Types";
+import { UserCompact } from "../Types";
 
 export type UserStatistics = {
     grade_counts: GradeCounts;

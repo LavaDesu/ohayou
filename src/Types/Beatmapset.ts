@@ -1,5 +1,5 @@
-import { Beatmap } from "@Types";
-import { BeatmapsetOnlineStatus } from "@Enums";
+import { Beatmap } from "../Types";
+import { BeatmapsetOnlineStatus } from "../Enums";
 
 export interface Beatmapset {
     id: number;

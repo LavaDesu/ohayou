@@ -1,4 +1,4 @@
-import { KudosuAction } from "@Enums";
+import { KudosuAction } from "../Enums";
 
 export type KudosuHistory = {
     id: number;

@@ -1,9 +1,9 @@
-import { Client } from "@Client";
-import { GrantType, TokenType, RequestType } from "@Enums";
-import { Token } from "@Types";
-import { User } from "@Structures";
-import { RequestHandler } from "@RequestHandler";
-import { Endpoints } from "@Endpoints";
+import { Client } from "../Client";
+import { GrantType, TokenType, RequestType } from "../Enums";
+import { Token } from "../Types";
+import { User } from "../Structures";
+import { RequestHandler } from "../RequestHandler";
+import { Endpoints } from "../Endpoints";
 
 /**
  * Represents a OAuth user instance to perform authenticated requests with
