@@ -21,7 +21,7 @@ import {
     KudosuHistory as KudosuObject,
     LegacyScore,
     RecentActivity,
-    Token as TokenObject,
+    Token,
     User as UserObject,
     UserCompact as UserCompactObject
 } from "@Types";
@@ -51,57 +51,27 @@ export class Client {
      * @param type - Token type, either `refresh` or `auth`
      */
     public async createInstance(token: string, type: "refresh" | "auth"): Promise<Instance> {
-        let tokenObj: TokenObject;
+        const body = {
+            client_id: this.clientID,
+            client_secret: this.clientSecret
+        } as { [name: string]: string | number };
 
-        if (type === "refresh")
-            tokenObj = await this.getTokenFromRefresh(token);
-        else if (type === "auth")
-            tokenObj = await this.getTokenFromAuth(token);
-        else
+        if (type === "refresh") {
+            body.grant_type = GrantType.RefreshToken;
+            body.refresh_token = token;
+        } else if (type === "auth") {
+            body.grant_type = GrantType.AuthCode;
+            body.code = token;
+        } else
             throw new TypeError("Invalid token type");
 
-        const instance = new Instance(this);
-        await instance.refresh(tokenObj);
+        const tokenObject: Token = await RequestHandler.request<Token>({
+            body,
+            endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
+            type: RequestType.POST
+        });
+        const instance = new Instance(this, tokenObject);
         return instance;
-    }
-
-    /**
-     * Get an access token from an authorization code
-     * - References:
-     *   - {@link https://osu.ppy.sh/docs/index.html#authorize-users-for-your-application}
-     *
-     * @param code - Authorization code
-     */
-    public async getTokenFromAuth(code: string): Promise<TokenObject> {
-        const response = await RequestHandler.request<TokenObject>({
-            body: {
-                "grant_type": GrantType.AuthCode,
-                "client_id": this.clientID,
-                "client_secret": this.clientSecret,
-                "code": code
-            },
-            endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
-            type: RequestType.POST
-        });
-        return response;
-    }
-
-    /**
-     * Get an access token from a refresh token
-     * @param token - Refresh token
-     */
-    public async getTokenFromRefresh(token: string): Promise<TokenObject> {
-        const response = await RequestHandler.request<TokenObject>({
-            body: {
-                "grant_type": GrantType.RefreshToken,
-                "client_id": this.clientID,
-                "client_secret": this.clientSecret,
-                "refresh_token": token
-            },
-            endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
-            type: RequestType.POST
-        });
-        return response;
     }
 
     //#endregion Instance
