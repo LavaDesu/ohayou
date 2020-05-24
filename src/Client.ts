@@ -31,7 +31,7 @@ import {
  */
 export class Client {
     public clientID: number;
-    private clientSecret: string;
+    public clientSecret: string;
 
     /**
      * Create an API Client
