@@ -5,6 +5,12 @@ export const BeatmapApproval = {
     Ranked:    "ranked"
 } as const;
 
+export const BeatmapLeaderboardScope = {
+    Country: "country",
+    Global: "global",
+    Friend: "friend"
+} as const;
+
 export const BeatmapsetOnlineStatus = {
     Approved: "approved",
     Graveyard: "graveyard",
@@ -170,18 +176,19 @@ export const TokenType = {
     Bearer: "Bearer"
 } as const;
 
-export type BeatmapApproval        = (typeof BeatmapApproval)        [keyof typeof BeatmapApproval];
-export type BeatmapsetOnlineStatus = (typeof BeatmapsetOnlineStatus) [keyof typeof BeatmapsetOnlineStatus];
-export type BeatmapsetType         = (typeof BeatmapsetType)         [keyof typeof BeatmapsetType];
-export type Gamemode               = (typeof Gamemode)               [keyof typeof Gamemode];
-export type GrantType              = (typeof GrantType)              [keyof typeof GrantType];
-export type KudosuAction           = (typeof KudosuAction)           [keyof typeof KudosuAction];
-export type KudosuSource           = (typeof KudosuSource)           [keyof typeof KudosuSource];
-export type Mod                    = (typeof Mod)                    [keyof typeof Mod];
-export type Playstyle              = (typeof Playstyle)              [keyof typeof Playstyle];
-export type RankingType            = (typeof RankingType)            [keyof typeof RankingType];
-export type RecentActivityType     = (typeof RecentActivityType)     [keyof typeof RecentActivityType];
-export type RequestType            = (typeof RequestType)            [keyof typeof RequestType];
-export type ScoreRank              = (typeof ScoreRank)              [keyof typeof ScoreRank];
-export type ScoreType              = (typeof ScoreType)              [keyof typeof ScoreType];
-export type TokenType              = (typeof TokenType)              [keyof typeof TokenType];
+export type BeatmapApproval         = (typeof BeatmapApproval)         [keyof typeof BeatmapApproval];
+export type BeatmapLeaderboardScope = (typeof BeatmapLeaderboardScope) [keyof typeof BeatmapLeaderboardScope];
+export type BeatmapsetOnlineStatus  = (typeof BeatmapsetOnlineStatus)  [keyof typeof BeatmapsetOnlineStatus];
+export type BeatmapsetType          = (typeof BeatmapsetType)          [keyof typeof BeatmapsetType];
+export type Gamemode                = (typeof Gamemode)                [keyof typeof Gamemode];
+export type GrantType               = (typeof GrantType)               [keyof typeof GrantType];
+export type KudosuAction            = (typeof KudosuAction)            [keyof typeof KudosuAction];
+export type KudosuSource            = (typeof KudosuSource)            [keyof typeof KudosuSource];
+export type Mod                     = (typeof Mod)                     [keyof typeof Mod];
+export type Playstyle               = (typeof Playstyle)               [keyof typeof Playstyle];
+export type RankingType             = (typeof RankingType)             [keyof typeof RankingType];
+export type RecentActivityType      = (typeof RecentActivityType)      [keyof typeof RecentActivityType];
+export type RequestType             = (typeof RequestType)             [keyof typeof RequestType];
+export type ScoreRank               = (typeof ScoreRank)               [keyof typeof ScoreRank];
+export type ScoreType               = (typeof ScoreType)               [keyof typeof ScoreType];
+export type TokenType               = (typeof TokenType)               [keyof typeof TokenType];
