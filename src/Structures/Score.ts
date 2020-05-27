@@ -31,7 +31,7 @@ export class Score extends Base {
     public score: number;
     /** The score's statistics */
     public statistics: ScoreStatistics;
-    /** The user that scored this score */ //my engrish vocabulary
+    /** The user that submitted this score */
     public user: UserCompact; //TODO: use user class after implementing a caching handler
     /** The score's weight percentage (only available with {@link Enums.ScoreType.Best}) */
     public weight?: number;
