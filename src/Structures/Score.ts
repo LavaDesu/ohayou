@@ -72,7 +72,7 @@ export class Score extends Base {
     }
 }
 
-export interface ScoreStatistics {
+export type ScoreStatistics = {
     /** Count of 50s */
     c50: number;
     /** Count of 100s */
@@ -85,4 +85,4 @@ export interface ScoreStatistics {
     katu: number;
     /** Count of misses */
     miss: number;
-}
+};

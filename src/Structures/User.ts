@@ -229,25 +229,25 @@ export class User extends Base {
 }
 
 /** A very minimal user object */
-export interface MinimalUser { //TODO: remove this with a caching handler
+export type MinimalUser = { //TODO: remove this with a caching handler
     /** The user's ID */
     id: number;
     /** The user's username */
     username: string;
-}
+};
 
 /** A user's badges */
-export interface UserBadge {
+export type UserBadge = {
     /** The badge's description */
     description: string;
     /** The badge's image URL */
     imageURL: string;
     /** When the badge was awarded to the user */
     timestamp: Date;
-}
+};
 
 /** A user's grades */
-export interface UserGrades {
+export type UserGrades = {
     /** The user's total SS+ ranks */
     ssh: number;
     /** The user's total SS ranks */
@@ -258,10 +258,10 @@ export interface UserGrades {
     s: number;
     /** The user's total A ranks */
     a: number;
-}
+};
 
 /** The user's group badge */
-export interface UserGroupBadge {
+export type UserGroupBadge = {
     /** The badge's color in hexadecimal format */
     colour: string;
     /** The badge's description */
@@ -272,10 +272,10 @@ export interface UserGroupBadge {
     name: string;
     /** The badge's short name */
     shortName: string;
-}
+};
 
 /** A user's personal information */
-export interface UserInfo {
+export type UserInfo = {
     /** The user's interests */
     interests: string | null;
     /** The user's location */
@@ -293,10 +293,10 @@ export interface UserInfo {
     twitter: string | null;
     /** The user's website */
     website: string | null;
-}
+};
 
 /** A user's infraction */
-export interface UserInfraction {
+export type UserInfraction = {
     /** The infraction's description */
     description: string;
     /** The infraction type */
@@ -305,18 +305,18 @@ export interface UserInfraction {
     timestamp: Date;
     /** How long the infraction lasts in seconds */
     length: number;
-}
+};
 
 /** A user's kudosu information */
-export interface UserKudosu {
+export type UserKudosu = {
     /** The user's available kudosu */
     available: number;
     /** The user's total kudosu */
     total: number;
-}
+};
 
 /** A user's kudosu history entry */
-export interface UserKudosuHistory {
+export type UserKudosuHistory = {
     /** The entry ID */
     id: number;
     /** When the kudosu entry occurred */
@@ -327,25 +327,25 @@ export interface UserKudosuHistory {
     amount: number;
     /** The user that gave the kudosu, if applicable */
     giver?: MinimalUser;
-}
+};
 
 /** A user's earned medals */
-export interface UserMedal { //TODO: enum all medals (**maybe**)
+export type UserMedal = { //TODO: enum all medals (**maybe**)
     /** The medal ID */
     id: number;
     /** When the medal was awarded to the user */
     timestamp: Date;
-}
+};
 
 /** A user's rank history */
-export interface UserRankHistory {
+export type UserRankHistory = {
     /** The rank history's gamemode */
     mode: Gamemode;
     /** The rank history's data, where each index increment means a day has passed */
     data: number[];
-}
+};
 
-export interface UserRecentActivity {
+export type UserRecentActivity = {
     /** The activity ID */
     id: number;
     /** When the activity occurred */
@@ -371,18 +371,18 @@ export interface UserRecentActivity {
     rank?: number;
     /** Score rank included with activity */
     scoreRank?: ScoreRank;
-}
+};
 
 /** Minimal beatmap/beatmapset information incuded with an activity */
-export interface UserRecentActivityBeatmap {
+export type UserRecentActivityBeatmap = {
     /** The beatmap/beatmapset title/name */
     title: string;
     /** The beatmap/beatmapset URL **path** */
     url: string;
-}
+};
 
 /** Medal included with an activity */
-export interface UserRecentActivityMedal {
+export type UserRecentActivityMedal = {
     /** The medal ID */
     id: number;
     /** The medal's description */
@@ -401,10 +401,10 @@ export interface UserRecentActivityMedal {
     ordering: number;
     /** The medal's slug */
     slug: string;
-}
+};
 
 /** A user's gameplay statistics */
-export interface UserStatistics {
+export type UserStatistics = {
     /** The user's accuracy in percentage */
     accuracy: number;
     /** The user's grades */
@@ -435,4 +435,4 @@ export interface UserStatistics {
     scoreTotal: number;
     /** The user's total replay watch count */
     watchedReplays: number;
-}
+};
