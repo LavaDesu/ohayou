@@ -9,5 +9,5 @@ export type Token = {
     /** The access token */
     access_token: string;
     /** The (new) refresh token */
-    refresh_token: string;
+    refresh_token?: string;
 };

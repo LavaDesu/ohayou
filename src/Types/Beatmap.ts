@@ -9,7 +9,7 @@ export interface Beatmap {
     beatmapset_id: number;
     bpm: number;
     /** Unclear */
-    convert: {} | null;
+    convert: boolean;
     count_circles: number;
     count_sliders: number;
     count_spinners: number;
@@ -22,7 +22,7 @@ export interface Beatmap {
     hit_length: number;
     is_scoreable: boolean;
     last_updated: string;
-    max_combo?: number;
+    max_combo: number;
     mode: Gamemode;
     mode_int: number;
     passcount: number;
@@ -31,7 +31,7 @@ export interface Beatmap {
     status: BeatmapsetOnlineStatus;
     total_length: number;
     url: string;
-    version: number;
+    version: string;
 }
 
 /**
