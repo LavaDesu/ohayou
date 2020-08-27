@@ -4,6 +4,8 @@ import { parse, format, UrlWithStringQuery } from "url";
 
 import { RequestType } from "./Enums";
 
+const VERSION: string = require("../package.json").version;
+
 /**
  * Sends and Handles requests
  */
@@ -46,7 +48,7 @@ export class RequestHandler { //TODO: Other request types
                 });
             })
             .on("error", (err: Error) => {
-                pReject(err); //TODO: custom logger?
+                pReject(err);
             });
 
         if (data.type === RequestType.POST)
@@ -66,7 +68,7 @@ export class RequestHandler { //TODO: Other request types
         const headers: { [name: string]: string } = {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "User-Agent": "Ohayou/0.1.0"
+            "User-Agent": "Ohayou/" + VERSION
         };
 
         if (data.auth)
