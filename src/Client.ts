@@ -156,10 +156,6 @@ export class Client {
     /**
      * Get a user's information
      *
-     * - Scopes required:
-     *   - users.read
-     *
-     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param mode - Specific gamemode to request for
      */
@@ -177,10 +173,6 @@ export class Client {
     /**
      * Get a user's beatmapsets
      *
-     * - Scopes required:
-     *   - users.read
-     *
-     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param type - Beatmapset type
      */
@@ -198,10 +190,6 @@ export class Client {
     /**
      * Get a user's kudosu history
      *
-     * - Scopes required:
-     *   - users.read
-     *
-     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      */
     public async getUserKudosuHistory(id: number): Promise<UserKudosuHistory[]> {
@@ -218,10 +206,6 @@ export class Client {
     /**
      * Get a user's recent activity
      *
-     * - Scopes required:
-     *   - users.read
-     *
-     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      */
     public async getUserRecent(id: number): Promise<UserRecentActivity[]> {
@@ -238,10 +222,6 @@ export class Client {
     /**
      * Get a user's scores
      *
-     * - Scopes required:
-     *   - users.read
-     *
-     * @param instance - Instance to authenticate with
      * @param id - User ID to request
      * @param type - Score type
      * @param mode - Mode to get scores for
