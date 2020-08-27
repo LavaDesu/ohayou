@@ -97,7 +97,7 @@ export class User extends Base {
         super(client, instance);
 
         this.raw = data;
-        this.isPopulated = (data as UserObject).kudosu ? true : false; //Checking if this is compact or not, should probably go for a better one
+        this.isPopulated = (data as UserObject).kudosu ? true : false; //FIXME: Checking if this is compact or not, should probably go for a better one
         this.id = data.id;
         this.username = data.username;
         this.avatarURL = data.avatar_url;
@@ -198,16 +198,22 @@ export class User extends Base {
             this.groupBadge = undefined;
     }
 
-    /** Serialize a minimal user object into a {@link MinimalUser} */
-    public static serializeMinimalUser(data: { url: string; username: string }) {
+    /**
+     * Serialize a minimal user object into a {@link MinimalUser}
+     * @hidden
+    */
+    static serializeMinimalUser(data: { url: string; username: string }) {
         return {
             id: parseInt(data.url.split("/").pop() as string),
             username: data.username
         };
     }
 
-    /** Serialize a KudosuObject into a {@link UserKudosuHistory} */
-    public static serializeKudosuHistory(data: KudosuHistoryObject): UserKudosuHistory {
+    /**
+     * Serialize a KudosuObject into a {@link UserKudosuHistory}
+     * @hidden
+    */
+    static serializeKudosuHistory(data: KudosuHistoryObject): UserKudosuHistory {
         const serialized: UserKudosuHistory = {
             id: data.id,
             timestamp: new Date(data.created_at),
@@ -219,8 +225,11 @@ export class User extends Base {
         return serialized;
     }
 
-    /** Serialize a RecentActivityObject into a {@link UserRecentActivity} */
-    public static serializeRecentActivity(data: RecentActivityObject): UserRecentActivity {
+    /**
+     * Serialize a RecentActivityObject into a {@link UserRecentActivity}
+     * @hidden
+    */
+    static serializeRecentActivity(data: RecentActivityObject): UserRecentActivity {
         const { createdAt, user, ...filtered } = data;
         return {
             ...filtered,
