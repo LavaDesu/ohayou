@@ -9,9 +9,11 @@ import {
 } from "./Structures";
 
 import {
+    BeatmapLeaderboardScope,
     BeatmapsetType,
     Gamemode,
     GrantType,
+    Mod,
     RequestType,
     ScoreType
 } from "./Enums";
@@ -150,6 +152,50 @@ export class Client {
     }
 
     //#endregion Misc
+
+    //#region Beatmap
+
+    /**
+     * Get a beatmap's leaderboard
+     *
+     * @param id Beatmap ID to request
+     * @param options Request options
+     * @param options.type Beatmap leaderboard scope to filter with
+     * @param options.mode Gamemode to filter with
+     * @param options.mods Mods to filter with
+     * @param instance Instance to authenticate with, otherwise use clientInstance
+     */
+    public async getBeatmapScores(
+        id: number,
+        options: {
+            type?: BeatmapLeaderboardScope;
+            mode?: Gamemode;
+            mods?: Mod[];
+        },
+        instance?: Instance
+    ): Promise<Score[]> {
+        const query: { [name: string]: string } = { type: options.type || BeatmapLeaderboardScope.Global };
+        if (options.mode)
+            query.mode = options.mode;
+        if (options.mods)
+            query.mods = options.mods.join("+");
+
+        let auth: string;
+        if (instance)
+            auth = instance.getToken();
+        else
+            auth = (await this.getClientInstance()).getToken();
+
+        const response = await RequestHandler.request<{ scores: LegacyScore[] }>({
+            auth,
+            endpoint: Endpoints.API_PREFIX + Endpoints.BEATMAP_SCORES.replace("{id}", id.toString()),
+            type: RequestType.GET,
+            query
+        });
+        return response.scores.map(score => new Score(score, this, instance));
+    }
+
+    //#endregion Beatmap
 
     //#region User
 
