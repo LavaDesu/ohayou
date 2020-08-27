@@ -1,6 +1,7 @@
 import { Base, Instance } from "../Structures";
 import { Beatmap, Beatmapset, LegacyScore, UserCompact } from "../Types";
 import { Gamemode, Mod, ScoreRank } from "../Enums";
+import { Client } from "..";
 
 export class Score extends Base {
     public raw: LegacyScore;
@@ -38,8 +39,8 @@ export class Score extends Base {
     /** The score's weighted performance points (only available with {@link Enums.ScoreType.Best}) */
     public weightedPP?: number;
 
-    constructor(data: LegacyScore, instance: Instance) {
-        super(instance);
+    constructor(data: LegacyScore, client: Client, instance?: Instance) {
+        super(client, instance);
 
         this.raw = data;
         this.id = data.id;

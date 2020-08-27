@@ -13,6 +13,7 @@ import {
     RecentActivityType,
     ScoreRank
 } from "../Enums";
+import { Client } from "../Client";
 
 /** Represents a User class */
 export class User extends Base {
@@ -89,10 +90,11 @@ export class User extends Base {
     /**
      * Construct a user object
      * @param data Raw user data
+     * @param client Client that created this user object
      * @param instance Instance that created this user object
      */
-    constructor(data: UserObject | UserCompactObject, instance: Instance) {
-        super(instance);
+    constructor(data: UserObject | UserCompactObject, client: Client, instance?: Instance) {
+        super(client, instance);
 
         this.raw = data;
         this.isPopulated = (data as UserObject).kudosu ? true : false; //Checking if this is compact or not, should probably go for a better one
@@ -122,7 +124,7 @@ export class User extends Base {
      * Fully fetch and update this user
      */
     public async fetch() {
-        const newUser = await this.instance.client.getUser(this.instance, this.id, this.defaultGamemode);
+        const newUser = await this.client.getUser(this.id, this.defaultGamemode);
         this.raw = newUser.raw;
         this.createdAt = new Date();
         this.populate();

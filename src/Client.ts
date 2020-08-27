@@ -129,7 +129,7 @@ export class Client {
             endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode || ""),
             type: RequestType.GET
         });
-        return new User(response, instance);
+        return new User(response, this, instance);
     }
 
     /**
@@ -146,7 +146,7 @@ export class Client {
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
             type: RequestType.GET
         });
-        return response.map(friend => new User(friend, instance));
+        return response.map(friend => new User(friend, this, instance));
     }
 
     //#endregion Misc
@@ -171,7 +171,7 @@ export class Client {
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
             type: RequestType.GET
         });
-        return new User(response, instance);
+        return new User(response, this);
     }
 
     /**
@@ -255,7 +255,7 @@ export class Client {
             query: mode ? { mode } : {},
             type: RequestType.GET
         });
-        return response.map(score => new Score(score, instance));
+        return response.map(score => new Score(score, this));
     }
 
     //#endregion User
