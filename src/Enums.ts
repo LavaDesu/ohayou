@@ -41,6 +41,7 @@ export const Gamemode = {
 /** Grant types */
 export const GrantType = {
     AuthCode: "authorization_code",
+    ClientCredentials: "client_credentials",
     RefreshToken: "refresh_token"
 } as const;
 
