@@ -1,5 +1,5 @@
 import { Endpoints } from "./Endpoints";
-import { RequestHandler } from "./RequestHandler";
+import { RequestHandler, RequestObject } from "./RequestHandler";
 import {
     Instance,
     Score,
@@ -236,6 +236,15 @@ export class Client {
             type: RequestType.GET
         });
         return response.map(score => new Score(score, this));
+    }
+
+    private async _customRequest<T>(data: RequestObject): Promise<T> {
+        const clientInstance = await this.getClientInstance();
+        data.auth = clientInstance.getToken();
+
+        const response = await RequestHandler.request<T>(data);
+
+        return response;
     }
 
     //#endregion User
