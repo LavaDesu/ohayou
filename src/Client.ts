@@ -25,6 +25,8 @@ import {
     User as UserObject,
     UserCompact as UserCompactObject
 } from "./Types";
+import { ClientInstance } from "./Structures/ClientInstance";
+import { UserInstance } from "./Structures/UserInstance";
 
 /**
  * The main API Client
@@ -32,6 +34,9 @@ import {
 export class Client {
     public clientID: number;
     public clientSecret: string;
+    private clientInstance?: ClientInstance;
+
+    private ready: Promise<void> | boolean; //TODO: perhaps a better way to do this
 
     /**
      * Create an API Client
@@ -41,6 +46,8 @@ export class Client {
     constructor(id: number, secret: string) {
         this.clientID = id;
         this.clientSecret = secret;
+
+        this.ready = false;
     }
 
     //#region Instance
@@ -50,7 +57,7 @@ export class Client {
      * @param token - Access/Refresh token
      * @param type - Token type, either `refresh` or `auth`
      */
-    public async createInstance(token: string, type: "refresh" | "auth"): Promise<Instance> {
+    public async createUserInstance(token: string, type: "refresh" | "auth"): Promise<UserInstance> {
         const body = {
             client_id: this.clientID,
             client_secret: this.clientSecret
@@ -70,8 +77,37 @@ export class Client {
             endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
             type: RequestType.POST
         });
-        const instance = new Instance(this, tokenObject);
+        const instance = new UserInstance(this, tokenObject);
         return instance;
+    }
+
+    /**
+     * Get an instance from the Client Credentials grant
+     */
+    public async getClientInstance(): Promise<ClientInstance> {
+        if (!this.clientInstance)
+            if (this.ready instanceof Promise)
+                await this.ready;
+            else {
+                let resolve: () => void;
+                this.ready = new Promise(r => resolve = r);
+                const tokenObject: Token = await RequestHandler.request<Token>({
+                    body: {
+                        "grant_type": GrantType.ClientCredentials,
+                        "client_id": this.clientID,
+                        "client_secret": this.clientSecret,
+                        "scope": "public"
+                    },
+                    endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
+                    type: RequestType.POST
+                });
+                this.clientInstance = new ClientInstance(this, tokenObject);
+
+                this.ready = true;
+                resolve!();
+            }
+
+        return this.clientInstance!;
     }
 
     //#endregion Instance
@@ -127,9 +163,11 @@ export class Client {
      * @param id - User ID to request
      * @param mode - Specific gamemode to request for
      */
-    public async getUser(instance: Instance, id: number, mode?: Gamemode | undefined): Promise<User> {
+    public async getUser(id: number, mode?: Gamemode): Promise<User> {
+        const clientInstance = await this.getClientInstance();
+
         const response = await RequestHandler.request<UserObject>({
-            auth: instance.getToken(),
+            auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
             type: RequestType.GET
         });
@@ -146,9 +184,11 @@ export class Client {
      * @param id - User ID to request
      * @param type - Beatmapset type
      */
-    public async getUserBeatmapsets(instance: Instance, id: number, type: BeatmapsetType): Promise<BeatmapsetObject[]> {
+    public async getUserBeatmapsets(id: number, type: BeatmapsetType): Promise<BeatmapsetObject[]> {
+        const clientInstance = await this.getClientInstance();
+
         const response = await RequestHandler.request<BeatmapsetObject[]>({
-            auth: instance.getToken(),
+            auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_BEATMAPSETS.replace("{user}", id.toString()).replace("{type}", type),
             type: RequestType.GET
         });
@@ -164,9 +204,11 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param id - User ID to request
      */
-    public async getUserKudosuHistory(instance: Instance, id: number): Promise<UserKudosuHistory[]> {
+    public async getUserKudosuHistory(id: number): Promise<UserKudosuHistory[]> {
+        const clientInstance = await this.getClientInstance();
+
         const response = await RequestHandler.request<KudosuObject[]>({
-            auth: instance.getToken(),
+            auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
             type: RequestType.GET
         });
@@ -182,9 +224,11 @@ export class Client {
      * @param instance - Instance to authenticate with
      * @param id - User ID to request
      */
-    public async getUserRecent(instance: Instance, id: number): Promise<UserRecentActivity[]> {
+    public async getUserRecent(id: number): Promise<UserRecentActivity[]> {
+        const clientInstance = await this.getClientInstance();
+
         const response = await RequestHandler.request<RecentActivity[]>({
-            auth: instance.getToken(),
+            auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_RECENT_ACTIVITY.replace("{user}", id.toString()),
             type: RequestType.GET
         });
@@ -202,9 +246,11 @@ export class Client {
      * @param type - Score type
      * @param mode - Mode to get scores for
      */
-    public async getUserScores(instance: Instance, id: number, type: ScoreType, mode?: Gamemode): Promise<Score[]> {
+    public async getUserScores(id: number, type: ScoreType, mode?: Gamemode): Promise<Score[]> {
+        const clientInstance = await this.getClientInstance();
+
         const response = await RequestHandler.request<LegacyScore[]>({
-            auth: instance.getToken(),
+            auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
             query: mode ? { mode } : {},
             type: RequestType.GET
