@@ -34,9 +34,9 @@ export class Score extends Base {
     public statistics: ScoreStatistics;
     /** The user that submitted this score */
     public user: UserCompact; //TODO: use user class after implementing a caching handler
-    /** The score's weight percentage (only available with {@link Enums.ScoreType.Best}) */
+    /** The score's weight percentage (only available with {@link "Enums".ScoreType ScoreType.Best}) */
     public weight?: number;
-    /** The score's weighted performance points (only available with {@link Enums.ScoreType.Best}) */
+    /** The score's weighted performance points (only available with {@link "Enums".ScoreType ScoreType.Best}) */
     public weightedPP?: number;
 
     constructor(data: LegacyScore, client: Client, instance?: Instance) {
