@@ -1,47 +1,47 @@
 {
-  "name": "ohayou",
-  "version": "0.2.0",
-  "description": "A node.js wrapper for the upcoming osu!api v2",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "build:check": "tsc --noEmit",
-    "docs": "typedoc src/index.ts --excludePrivate --out docs --mode library --theme minimal --tsconfig tsconfig.doc.json",
-    "lint": "eslint -c .eslintrc.json --ext .ts src"
-  },
-  "engines": {
-    "node": ">=10.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LavaDesu/ohayou.git"
-  },
-  "keywords": [
-    "osu",
-    "api",
-    "wrapper",
-    "oauth2"
-  ],
-  "author": "LavaDesu <me@lava.moe> (https://lava.moe)",
-  "files": [
-    "lib"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/LavaDesu/ohayou/issues"
-  },
-  "homepage": "https://github.com/LavaDesu/ohayou#readme",
-  "devDependencies": {
-    "@types/node": "^13.9.4",
-    "@typescript-eslint/eslint-plugin": "^2.31.0",
-    "@typescript-eslint/parser": "^2.31.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-prefer-arrow": "^1.2.1",
-    "eslint-plugin-unicorn": "^19.0.1",
-    "typedoc": "^0.17.0-3",
-    "typescript": "^3.9.3"
-  },
-  "dependencies": {}
+    "name": "ohayou",
+    "version": "0.2.0",
+    "description": "A node.js wrapper for the upcoming osu!api v2",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "build:check": "tsc --noEmit",
+        "docs": "typedoc src/index.ts --excludePrivate --out docs --mode library --disableSources --tsconfig tsconfig.doc.json --readme ./README.md --toc Enums,Base,Client,Instance,RequestHandler,Score,User",
+        "lint": "eslint -c .eslintrc.json --ext .ts src"
+    },
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LavaDesu/ohayou.git"
+    },
+    "keywords": [
+        "osu",
+        "api",
+        "wrapper",
+        "oauth2"
+    ],
+    "author": "LavaDesu <me@lava.moe> (https://lava.moe)",
+    "files": [
+        "lib"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/LavaDesu/ohayou/issues"
+    },
+    "homepage": "https://github.com/LavaDesu/ohayou#readme",
+    "devDependencies": {
+        "@types/node": "^13.9.4",
+        "@typescript-eslint/eslint-plugin": "^2.31.0",
+        "@typescript-eslint/parser": "^2.31.0",
+        "eslint": "^6.8.0",
+        "eslint-plugin-import": "^2.20.2",
+        "eslint-plugin-prefer-arrow": "^1.2.1",
+        "eslint-plugin-unicorn": "^19.0.1",
+        "typedoc": "^0.17.0-3",
+        "typescript": "^3.9.3"
+    },
+    "dependencies": {}
 }
