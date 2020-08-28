@@ -7,10 +7,10 @@ export interface Beatmapset {
     availability: Availability;
     beatmaps?: Beatmap[];
     bpm: number;
-    covers: Covers;
+    covers: { [name: string]: string };
     creator: string;
     discussion_enabled: boolean;
-    discussion_locked: false;
+    discussion_locked: boolean;
     favourite_count: number;
     genre?: Genre;
     has_favourited: boolean;
@@ -33,17 +33,6 @@ export interface Beatmapset {
     title: string;
     user_id: number;
     video: boolean;
-}
-
-interface Covers {
-    "cover": string;
-    "cover@2x": string;
-    "card": string;
-    "card@2x": string;
-    "list": string;
-    "list@2x": string;
-    "slimcover": string;
-    "slimcover@2x": string;
 }
 
 interface Availability {
