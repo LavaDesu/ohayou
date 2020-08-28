@@ -54,7 +54,7 @@ This library uses [SemVer](https://semver.org), as should any library. The curre
 
 ### Why is this not on NPM?
 
-The library is currently incomplete, containing old code that has yet to be updated along with the constnatly-changing API. This library will be pulished to NPM when deemed to be "stable enough" for use.
+The library is currently incomplete, containing old code that has yet to be updated along with the constantly-changing API. This library will be pulished to NPM when deemed to be "stable enough" for use.
 
 ## License
 
