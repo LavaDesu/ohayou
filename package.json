@@ -1,6 +1,6 @@
 {
     "name": "ohayou",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "A node.js wrapper for the upcoming osu!api v2",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
