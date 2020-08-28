@@ -1,8 +1,12 @@
 import { Gamemode, Playstyle } from "../Enums";
 import { UserStatistics } from "../Types";
 
-export type UserCompact = {
+export type UserBasic = {
     id: number;
+    username: string;
+};
+
+export type UserCompact = UserBasic & {
     avatar_url: string;
     country: Country;
     country_code: string;
@@ -15,7 +19,6 @@ export type UserCompact = {
     pm_friends_only: boolean;
     profile_colour: string | null;
     support_level: number;
-    username: string;
 };
 
 export type UserExtended = {
