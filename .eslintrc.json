@@ -64,6 +64,7 @@ TODO: Recreate eslint rules
             "error",
             "always"
         ],
+        "indent": ["error", 4],
         "import/no-default-export": "error",
         "new-parens": "error",
         "no-bitwise": "error",
