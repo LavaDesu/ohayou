@@ -166,7 +166,7 @@ export class Client {
      * @param instance Instance to authenticate with, otherwise use clientInstance
      */
     public async getBeatmapScores(
-        id: number,
+        id: number | string,
         options: {
             type?: BeatmapLeaderboardScope;
             mode?: Gamemode;
@@ -205,7 +205,7 @@ export class Client {
      * @param id - User ID to request
      * @param mode - Specific gamemode to request for
      */
-    public async getUser(id: number, mode?: Gamemode): Promise<User> {
+    public async getUser(id: number | string, mode?: Gamemode): Promise<User> {
         const clientInstance = await this.getClientInstance();
 
         const response = await RequestHandler.request<UserObject>({
@@ -222,7 +222,7 @@ export class Client {
      * @param id - User ID to request
      * @param type - Beatmapset type
      */
-    public async getUserBeatmapsets(id: number, type: BeatmapsetType): Promise<BeatmapsetObject[]> {
+    public async getUserBeatmapsets(id: number | string, type: BeatmapsetType): Promise<BeatmapsetObject[]> {
         const clientInstance = await this.getClientInstance();
 
         const response = await RequestHandler.request<BeatmapsetObject[]>({
@@ -238,7 +238,7 @@ export class Client {
      *
      * @param id - User ID to request
      */
-    public async getUserKudosuHistory(id: number): Promise<UserKudosuHistory[]> {
+    public async getUserKudosuHistory(id: number | string): Promise<UserKudosuHistory[]> {
         const clientInstance = await this.getClientInstance();
 
         const response = await RequestHandler.request<KudosuObject[]>({
@@ -254,7 +254,7 @@ export class Client {
      *
      * @param id - User ID to request
      */
-    public async getUserRecent(id: number): Promise<UserRecentActivity[]> {
+    public async getUserRecent(id: number | string): Promise<UserRecentActivity[]> {
         const clientInstance = await this.getClientInstance();
 
         const response = await RequestHandler.request<RecentActivity[]>({
@@ -272,7 +272,7 @@ export class Client {
      * @param type - Score type
      * @param mode - Mode to get scores for
      */
-    public async getUserScores(id: number, type: ScoreType, mode?: Gamemode): Promise<Score[]> {
+    public async getUserScores(id: number | string, type: ScoreType, mode?: Gamemode): Promise<Score[]> {
         const clientInstance = await this.getClientInstance();
 
         const response = await RequestHandler.request<LegacyScore[]>({
