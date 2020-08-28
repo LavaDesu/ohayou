@@ -1,3 +1,5 @@
+/** @ignore *//** */
+
 export * from "./Types/Beatmap";
 export * from "./Types/Beatmapset";
 export * from "./Types/KudosuHistory";
