@@ -34,7 +34,7 @@ import { UserInstance } from "./Structures/UserInstance";
  * The main API Client
  */
 export class Client {
-    public clientID: number;
+    public clientID: string;
     public clientSecret: string;
     private clientInstance?: ClientInstance;
 
@@ -45,8 +45,8 @@ export class Client {
      * @param id - OAuth client ID
      * @param secret - OAuth client secret
      */
-    constructor(id: number, secret: string) {
-        this.clientID = id;
+    constructor(id: number | string, secret: string) {
+        this.clientID = id.toString();
         this.clientSecret = secret;
 
         this.ready = false;
@@ -63,7 +63,7 @@ export class Client {
         const body = {
             client_id: this.clientID,
             client_secret: this.clientSecret
-        } as { [name: string]: string | number };
+        } as { [name: string]: string };
 
         if (type === "refresh") {
             body.grant_type = GrantType.RefreshToken;
