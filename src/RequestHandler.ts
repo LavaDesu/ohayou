@@ -6,6 +6,8 @@ import { RequestType } from "./Enums";
 
 import { version as VERSION } from "../package.json";
 
+const baseURL: string = "osu.ppy.sh";
+
 /**
  * Sends and Handles requests
  */
@@ -66,9 +68,9 @@ export class RequestHandler { //TODO: Other request types
      */
     private serializeRequest(data: RequestObject): RequestOptions {
         const headers: { [name: string]: string } = {
-            "Content-Type": "application/json",
             "Accept": "application/json",
-            "User-Agent": "Ohayou/" + VERSION
+            "Content-Type": "application/json",
+            "User-Agent": data.userAgent ?? `Ohayou/${VERSION} (https://github.com/LavaDesu/ohayou)`
         };
 
         if (data.auth)
@@ -79,7 +81,7 @@ export class RequestHandler { //TODO: Other request types
 
         const url: UrlWithStringQuery = parse(format({
             protocol: "https",
-            hostname: this.baseURL,
+            hostname: data.host ?? baseURL,
             pathname: data.endpoint,
             query: {...data.query}
         }));
@@ -106,8 +108,12 @@ export type RequestObject = {
     endpoint: string;
     /** Extra request headers */
     headers?: { [name: string]: string };
+    /** Optional host override */
+    host?: string;
     /** Query parameters */
     query?: { [name: string]: string };
     /** HTTP request type */
     type: RequestType;
+    /** Optional user agent override */
+    userAgent?: string;
 };
