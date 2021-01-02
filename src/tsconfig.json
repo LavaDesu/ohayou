@@ -1,0 +1,19 @@
+{
+    "include": ["./**/*.ts"],
+    "exclude": ["../node_modules/**"],
+    "compilerOptions": {
+        "target": "es2018",
+        "module": "commonjs",
+        "declaration": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": true,
+        "outDir": "../lib",
+        "resolveJsonModule": true,
+        "rootDir": ".",
+        "sourceMap": true,
+        "strict": true
+    },
+    "references": [
+        { "path": "../" }
+    ]
+}
