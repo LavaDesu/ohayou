@@ -135,9 +135,9 @@ export class User extends Base {
         this.hadSupporter = data.has_supported;
         this.defaultGamemode = data.playmode;
         this.followers = data.follower_count;
-        this.playstyle = data.playstyle || [];
+        this.playstyle = data.playstyle ?? [];
         this.previousUsernames = data.previous_usernames;
-        this.title = data.title || "";
+        this.title = data.title ?? "";
 
         this.kudosu = data.kudosu;
         this.rankHistory = data.rankHistory;
@@ -163,7 +163,7 @@ export class User extends Base {
             playtime: data.statistics.play_time,
             pp: data.statistics.pp,
             ranked: data.statistics.is_ranked,
-            rankGlobal: data.statistics.rank.global || data.statistics.pp_rank,
+            rankGlobal: data.statistics.rank.global ?? data.statistics.pp_rank,
             rankCountry: data.statistics.rank.country,
             scoreRanked: data.statistics.ranked_score,
             scoreTotal: data.statistics.total_score,

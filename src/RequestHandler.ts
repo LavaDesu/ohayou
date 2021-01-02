@@ -4,7 +4,7 @@ import { parse, format, UrlWithStringQuery } from "url";
 
 import { RequestType } from "./Enums";
 
-const VERSION: string = require("../package.json").version;
+import { version as VERSION } from "../package.json";
 
 /**
  * Sends and Handles requests
@@ -18,7 +18,7 @@ export class RequestHandler { //TODO: Other request types
      * @returns Response for requested data
      */
     public static async request<T>(data: RequestObject): Promise<T> {
-        let pResolve: (value?: T | PromiseLike<T>) => void;
+        let pResolve: (value: T | PromiseLike<T>) => void;
         let pReject: (reason?: any) => void;
 
         const promise = new Promise<T>((r, d) => {
@@ -31,7 +31,7 @@ export class RequestHandler { //TODO: Other request types
             .once("response", (res: IncomingMessage) => {
 
                 if (res.statusCode && res.statusCode >= 400) {
-                    pReject(`Request to ${serializedData.path} returned ${res.statusCode}: ${res.statusMessage}`);
+                    pReject(`Request to ${serializedData.path ?? "null path???"} returned ${res.statusCode}: ${res.statusMessage ?? "No message"}`);
                     return;
                 }
 
@@ -72,7 +72,7 @@ export class RequestHandler { //TODO: Other request types
         };
 
         if (data.auth)
-            headers["Authorization"] = data.auth;
+            headers.Authorization = data.auth;
 
         if (data.type === RequestType.POST)
             headers["Content-Length"] = JSON.stringify(data.body).length.toString();
@@ -101,7 +101,7 @@ export type RequestObject = {
     /** Token to authenticate for request, if required */
     auth?: string;
     /** Main request body */
-    body?: {};
+    body?: Record<string, unknown>;
     /** Endpoint to request to */
     endpoint: string;
     /** Extra request headers */

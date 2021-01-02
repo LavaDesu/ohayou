@@ -128,7 +128,7 @@ export class Client {
     public async getSelf(instance: Instance, mode?: Gamemode): Promise<User> {
         const response = await RequestHandler.request<UserObject>({
             auth: instance.getToken(),
-            endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode || ""),
+            endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode ?? ""),
             type: RequestType.GET
         });
         return new User(response, this, instance);
@@ -174,7 +174,7 @@ export class Client {
         },
         instance?: Instance
     ): Promise<Score[]> {
-        const query: { [name: string]: string } = { type: options.type || BeatmapLeaderboardScope.Global };
+        const query: { [name: string]: string } = { type: options.type ?? BeatmapLeaderboardScope.Global };
         if (options.mode)
             query.mode = options.mode;
         if (options.mods)
@@ -210,7 +210,7 @@ export class Client {
 
         const response = await RequestHandler.request<UserObject>({
             auth: clientInstance.getToken(),
-            endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode || ""),
+            endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode ?? ""),
             type: RequestType.GET
         });
         return new User(response, this);
@@ -284,7 +284,7 @@ export class Client {
         return response.map(score => new Score(score, this));
     }
 
-    private async _customRequest<T>(data: RequestObject): Promise<T> {
+    private async customRequest<T>(data: RequestObject): Promise<T> {
         const clientInstance = await this.getClientInstance();
         data.auth = clientInstance.getToken();
 

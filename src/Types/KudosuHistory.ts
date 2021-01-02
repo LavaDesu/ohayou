@@ -6,7 +6,7 @@ export type KudosuHistory = {
     amount: number;
     created_at: string;
     /** Unknown */
-    details: {};
+    details: unknown;
     giver: KudosuGiver | null;
     /** Possible enum */
     model: string;

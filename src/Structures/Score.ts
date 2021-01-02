@@ -51,7 +51,7 @@ export class Score extends Base {
         this.combo = data.max_combo;
         this.mode = data.mode;
         this.mods = data.mods;
-        this.pp = data.pp || 0;
+        this.pp = data.pp ?? 0;
         this.rank = data.rank;
         this.replay = data.replay;
         this.score = data.score;

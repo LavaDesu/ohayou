@@ -23,7 +23,7 @@ export abstract class Instance {
     }
 
     /** Refresh this instance's token */
-    public abstract async refresh(): Promise<this>;
+    public abstract refresh(): Promise<this>;
 
     /**
      * Get a string representing this instance's authentication header
