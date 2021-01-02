@@ -36,8 +36,9 @@ import { UserInstance } from "./Structures/UserInstance";
 export class Client {
     public clientID: string;
     public clientSecret: string;
-    private clientInstance?: ClientInstance;
+    public requestHandler: RequestHandler;
 
+    private clientInstance?: ClientInstance;
     private ready: Promise<void> | boolean; //TODO: perhaps a better way to do this
 
     /**
@@ -48,7 +49,7 @@ export class Client {
     constructor(id: number | string, secret: string) {
         this.clientID = id.toString();
         this.clientSecret = secret;
-
+        this.requestHandler = new RequestHandler();
         this.ready = false;
     }
 
@@ -74,7 +75,7 @@ export class Client {
         } else
             throw new TypeError("Invalid token type");
 
-        const tokenObject: Token = await RequestHandler.request<Token>({
+        const tokenObject: Token = await this.requestHandler.request<Token>({
             body,
             endpoint: Endpoints.OAUTH_PREFIX + Endpoints.TOKEN,
             type: RequestType.POST
@@ -93,7 +94,7 @@ export class Client {
             else {
                 let resolve: () => void;
                 this.ready = new Promise(r => resolve = r);
-                const tokenObject: Token = await RequestHandler.request<Token>({
+                const tokenObject: Token = await this.requestHandler.request<Token>({
                     body: {
                         "grant_type": GrantType.ClientCredentials,
                         "client_id": this.clientID,
@@ -126,7 +127,7 @@ export class Client {
      * @param mode - Specific gamemode to request for
      */
     public async getSelf(instance: Instance, mode?: Gamemode): Promise<User> {
-        const response = await RequestHandler.request<UserObject>({
+        const response = await this.requestHandler.request<UserObject>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.ME.replace("{mode}", mode ?? ""),
             type: RequestType.GET
@@ -143,7 +144,7 @@ export class Client {
      * @param instance - Instance to authenticate with
      */
     public async getFriends(instance: Instance): Promise<User[]> {
-        const response = await RequestHandler.request<UserCompactObject[]>({
+        const response = await this.requestHandler.request<UserCompactObject[]>({
             auth: instance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.FRIEND,
             type: RequestType.GET
@@ -186,7 +187,7 @@ export class Client {
         else
             auth = (await this.getClientInstance()).getToken();
 
-        const response = await RequestHandler.request<{ scores: LegacyScore[] }>({
+        const response = await this.requestHandler.request<{ scores: LegacyScore[] }>({
             auth,
             endpoint: Endpoints.API_PREFIX + Endpoints.BEATMAP_SCORES.replace("{id}", id.toString()),
             type: RequestType.GET,
@@ -208,7 +209,7 @@ export class Client {
     public async getUser(id: number | string, mode?: Gamemode): Promise<User> {
         const clientInstance = await this.getClientInstance();
 
-        const response = await RequestHandler.request<UserObject>({
+        const response = await this.requestHandler.request<UserObject>({
             auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SINGLE.replace("{user}", id.toString()).replace("{mode}", mode ?? ""),
             type: RequestType.GET
@@ -225,7 +226,7 @@ export class Client {
     public async getUserBeatmapsets(id: number | string, type: BeatmapsetType): Promise<BeatmapsetObject[]> {
         const clientInstance = await this.getClientInstance();
 
-        const response = await RequestHandler.request<BeatmapsetObject[]>({
+        const response = await this.requestHandler.request<BeatmapsetObject[]>({
             auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_BEATMAPSETS.replace("{user}", id.toString()).replace("{type}", type),
             type: RequestType.GET
@@ -241,7 +242,7 @@ export class Client {
     public async getUserKudosuHistory(id: number | string): Promise<UserKudosuHistory[]> {
         const clientInstance = await this.getClientInstance();
 
-        const response = await RequestHandler.request<KudosuObject[]>({
+        const response = await this.requestHandler.request<KudosuObject[]>({
             auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_KUDOSU.replace("{user}", id.toString()),
             type: RequestType.GET
@@ -257,7 +258,7 @@ export class Client {
     public async getUserRecent(id: number | string): Promise<UserRecentActivity[]> {
         const clientInstance = await this.getClientInstance();
 
-        const response = await RequestHandler.request<RecentActivity[]>({
+        const response = await this.requestHandler.request<RecentActivity[]>({
             auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_RECENT_ACTIVITY.replace("{user}", id.toString()),
             type: RequestType.GET
@@ -275,7 +276,7 @@ export class Client {
     public async getUserScores(id: number | string, type: ScoreType, mode?: Gamemode): Promise<Score[]> {
         const clientInstance = await this.getClientInstance();
 
-        const response = await RequestHandler.request<LegacyScore[]>({
+        const response = await this.requestHandler.request<LegacyScore[]>({
             auth: clientInstance.getToken(),
             endpoint: Endpoints.API_PREFIX + Endpoints.USER_SCORES.replace("{user}", id.toString()).replace("{type}", type),
             query: mode ? { mode } : {},
@@ -288,7 +289,7 @@ export class Client {
         const clientInstance = await this.getClientInstance();
         data.auth = clientInstance.getToken();
 
-        const response = await RequestHandler.request<T>(data);
+        const response = await this.requestHandler.request<T>(data);
 
         return response;
     }

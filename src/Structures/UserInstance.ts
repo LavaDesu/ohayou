@@ -23,7 +23,7 @@ export class UserInstance extends Instance {
         if (this.refreshTimer)
             clearTimeout(this.refreshTimer);
 
-        const response = await RequestHandler.request<Token>({
+        const response = await this.client.requestHandler.request<Token>({
             body: {
                 "grant_type": GrantType.RefreshToken,
                 "client_id": this.client.clientID,

@@ -17,7 +17,7 @@ export class RequestHandler { //TODO: Other request types
      * @param data - Data to send for request
      * @returns Response for requested data
      */
-    public static async request<T>(data: RequestObject): Promise<T> {
+    public async request<T>(data: RequestObject): Promise<T> {
         let pResolve: (value: T | PromiseLike<T>) => void;
         let pReject: (reason?: any) => void;
 
@@ -64,7 +64,7 @@ export class RequestHandler { //TODO: Other request types
      * @param data - Request object to serialize
      * @returns Object for use in request
      */
-    private static serializeRequest(data: RequestObject): RequestOptions {
+    private serializeRequest(data: RequestObject): RequestOptions {
         const headers: { [name: string]: string } = {
             "Content-Type": "application/json",
             "Accept": "application/json",
