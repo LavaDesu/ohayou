@@ -107,11 +107,11 @@ export type RequestObject = {
     /** Endpoint to request to */
     endpoint: string;
     /** Extra request headers */
-    headers?: { [name: string]: string };
+    headers?: Record<string, string>;
     /** Optional host override */
     host?: string;
     /** Query parameters */
-    query?: { [name: string]: string };
+    query?: Record<string, string>;
     /** HTTP request type */
     type: RequestType;
     /** Optional user agent override */

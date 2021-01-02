@@ -19,6 +19,7 @@ import {
 } from "./Enums";
 
 import {
+    Beatmap as BeatmapObject,
     Beatmapset as BeatmapsetObject,
     KudosuHistory as KudosuObject,
     LegacyScore,
@@ -194,6 +195,35 @@ export class Client {
             query
         });
         return response.scores.map(score => new Score(score, this, instance));
+    }
+
+    /**
+     * Lookup a beatmap
+     *
+     * @param query Lookup query
+     * @param instance Instance to authenticate with, otherwise use clientInstance
+     */
+    public async lookupBeatmap(
+        query: {
+            checksum?: string;
+            id?: string;
+            filename?: string;
+        },
+        instance?: Instance
+    ): Promise<BeatmapObject> {
+        let auth: string;
+        if (instance)
+            auth = instance.getToken();
+        else
+            auth = (await this.getClientInstance()).getToken();
+
+        const response = await this.requestHandler.request<BeatmapObject>({
+            auth,
+            endpoint: Endpoints.API_PREFIX + Endpoints.BEATMAP_LOOKUP,
+            type: RequestType.GET,
+            query: query as Record<string, string>
+        });
+        return response;
     }
 
     //#endregion Beatmap
